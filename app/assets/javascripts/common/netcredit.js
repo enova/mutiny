@@ -1,27 +1,28 @@
 var NC = (function(nc, $) {
   var $body;
-    
+  
   $.fn.uiTransform = (function(){
     this.each(function(){
-      var $ui = $(this),
-          ui = $ui.data('ui'),
-          options = {};
+      var $instigator = $(this),
+          ui = $instigator.data('ui'),
+          defaults = {"slider" : {"range" : "min"}},
+          options = $.extend(true, {}, defaults[ui], $instigator.data('ui-options') || {}),
+          $ui = $('<div id="' + $instigator.attr('id').replace(/_/g,'-') + '-ui-' + ui + '"></div>').insertAfter($instigator);
           
       switch (ui) {
       case 'slider' :
-        options.value = $ui.val();
-        options.range = 'min';
-        if ($ui.is('select')) {
-          var $options = $ui.find('option');         
+        options.value = $instigator.val();
+        if ($instigator.is('select')) {
+          var $options = $instigator.find('option');         
           options.min = parseInt($options.first().val());
           options.max = parseInt($options.last().val());
           options.step = $options.length;
         } else {
-          options.min = parseInt($ui.attr('min') || $ui.data('min'));
-          options.max = parseInt($ui.attr('max') || $ui.data('max'));
-          options.step = parseInt($ui.attr('step') || $ui.data('step'));
+          options.min = parseInt($instigator.attr('min') || $instigator.data('min'));
+          options.max = parseInt($instigator.attr('max') || $instigator.data('max'));
+          options.step = parseInt($instigator.attr('step') || $instigator.data('step'));
           
-          $ui.blur(function(){
+          $instigator.blur(function(){
             var $this = $(this);
             var val = parseInt($this.val());
             if (val > options.max) { val = options.max; }
@@ -31,11 +32,13 @@ var NC = (function(nc, $) {
             $this.next('.ui-slider').slider('option','value',val);
           });
         }
+        options.slide = function(event,slider) { $instigator.val(slider.value); };
+        $ui.append('<span class="min-amount">' + options.min + '</span><span class="max-amount">' + options.max + '</span>');
         break;
       }
-      options.slide = function(event,slider) { $ui.val(slider.value); };
       
-      $('<div id="' + $ui.attr('id') + '-ui-' + ui + '"></div>').insertAfter($ui)[ui](options);
+      $ui[ui](options);
+      
     });
     return this;
   });
