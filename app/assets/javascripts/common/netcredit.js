@@ -5,10 +5,12 @@ var NC = (function(nc, $) {
     this.each(function(){
       var $instigator = $(this),
           ui = $instigator.data('ui'),
-          defaults = {"slider" : {"range" : "min"}},
+          defaults = {"slider" : {"range" : "min"}, "accordion" : {"autoHeight" : false, "collapsible" : true, "active" : false}},
           options = $.extend(true, {}, defaults[ui], $instigator.data('ui-options') || {}),
-          $ui = $('<div id="' + $instigator.attr('id').replace(/_/g,'-') + '-ui-' + ui + '"></div>').insertAfter($instigator);
-          
+          needs_ui_element = !(ui == 'accordion');
+      
+      var $ui = (needs_ui_element) ? $('<div id="' + $instigator.attr('id').replace(/_/g,'-') + '-ui-' + ui + '"></div>').insertAfter($instigator) : $instigator;
+      
       switch (ui) {
       case 'slider' :
         options.value = $instigator.val();
