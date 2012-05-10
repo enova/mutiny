@@ -37,6 +37,35 @@ var NC = (function(nc, $) {
         options.slide = function(event,slider) { $instigator.val(slider.value); };
         $ui.append('<span class="min-amount">' + options.min + '</span><span class="max-amount">' + options.max + '</span>');
         break;
+        
+        case 'accordion' :
+          var hash = window.location.hash || undefined;
+          var $menu = (options.menu) ? $(options.menu) : undefined;
+          if (hash) {
+            var active_index = -1;
+            var $search = ($menu) ? $menu : $ui;
+            $search.find('a').each(function(index, anchorEl){
+              if ($(anchorEl).attr('href') == hash) { active_index = index; return false; }
+            });
+            if (active_index > -1) { options.active = active_index; }
+          }
+          
+          if ($menu) {
+            $menu.click(function(event) {
+              var toggle_index = -1;
+              var $target = $(event.target);
+              if ($target.is("a")) {
+                $menu.find('a').each(function(index, anchorEl){
+                  if ($(anchorEl).attr('href') == $target.attr('href')) {
+                    toggle_index = index;
+                    return false;
+                  };
+                });
+              }
+              if (toggle_index > -1) { $ui.accordion("activate", toggle_index); }
+            });            
+          }
+          break;
       }
       
       $ui[ui](options);
