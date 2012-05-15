@@ -81,6 +81,7 @@ var NC = (function(nc, $) {
   
   
   $(function(){
+    $body = $($('body').get(0));
     nc.hijackUI();
   });
   
