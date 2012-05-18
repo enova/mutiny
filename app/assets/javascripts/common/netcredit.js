@@ -74,15 +74,35 @@ var NC = (function(nc, $) {
     return this;
   });
   
+  $.fn.initWizard = (function(){
+    this.each(function(){
+      var $wizard = $(this),
+          wizard = $wizard.data('wizard');
+          
+          switch (wizard) {
+            case 'paydate' :
+              var paydate_wizard = new PaydateWizard($wizard);
+              paydate_wizard.decorate();
+              break;
+          }    
+      });
+    return this;
+  });
+  
   nc.hijackUI = function(el) {
     var $el = $(el || $body);
     return ($el.is('[data-ui]')) ? $el.uiTransform() : $el.find('[data-ui]').uiTransform();
   };
   
+  nc.wizzo = function (el) {
+    var $el = $(el || $body);        
+    return ($el.is('[data-wizard]')) ? $el.initWizard() : $el.find('[data-wizard]').initWizard();
+  };
   
   $(function(){
     $body = $($('body').get(0));
     nc.hijackUI();
+    nc.wizzo();
   });
   
   return nc;
