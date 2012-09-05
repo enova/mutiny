@@ -21,7 +21,7 @@ $.fn.macgyver = (function(){
       options.max = parseInt($instigator.attr('max') || $instigator.data('max'));
       options.step = parseInt($instigator.attr('step') || $instigator.data('step'));
 
-      $instigator.blur(function(){
+      $instigator.change(function(){
         var val = parseInt($instigator.val());
         if (val > options.max) { val = options.max; }
         if (val < options.min) { val = options.min; }
