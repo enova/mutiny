@@ -1,19 +1,43 @@
-<div>
+<article>
   <p>Bare bones.  This shows the minimum required fields.</p>
-  <input type='number' min='0' max='1000' step='50' data-macgyver='slider' />
-</div>
+  <div class='example'>
+    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' />
+  </div>
+</article>
 
-<div>
+<article>
   <p>The id of the slider wrapper is <tt>[inputid]-macgyver-slider.</tt></p>
-  <input id='example-id' type='number' min='0' max='1000' step='50' data-macgyver='slider' />
-</div>
+  <div class='example'>
+    <input id='example-id' type='number' min='0' max='1000' step='50' data-macgyver='slider' />
+  </div>
+</article>
 
-<div>
-  <p>Starting at a default value.</p>
-  <input type='number' min='0' max='1000' step='50' value='250' data-macgyver='slider' />
-</div>
+<article>
+  <p>Start at a default value.</p>
+  <div class='example'>
+    <input type='number' min='0' max='1000' step='50' value='250' data-macgyver='slider' />
+  </div>
+</article>
 
-<div>
+<article>
   <p>Display min/max labels</p>
-  <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"min-label": true, "max-label": true}' />
-</div>
+  <div class='example'>
+    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"min-label": true, "max-label": true}' />
+  </div>
+</article>
+
+<article>
+  <p>Create the slider inside of an existing element instead of appending a new one to the end.</p>
+  <div class='example'>
+    <div id='slider'></div>
+    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"target": "#slider"}' />
+  </div>
+</article>
+
+<script>
+  $('article').each(function(i, e) {
+    var $e = $(e);
+    var $code = $('<h3 class="code"></h3>').prependTo($e);
+    $code.text($e.find('.example').html());
+  });
+</script>

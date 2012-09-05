@@ -4,10 +4,16 @@ $.fn.macgyver = (function(){
         defaults = {"range" : "min"};
         options = $.extend(true, {}, defaults, $instigator.data('macgyver-options') || {});
 
-    var $ui = $('<div></div>').insertAfter($instigator);
-    var id = $instigator.attr('id');
-    if(id) {
-      $ui.attr('id', id + '-macgyver-slider');
+    var $ui;
+    if(options['target']) {
+      $ui = $(options['target']);
+    } else {
+      var id = $instigator.attr('id');
+      var extras = '';
+      if(id) {
+        extras = ' id="' + id + '-macgyver-slider"';
+      }
+      $ui = $('<div' + extras + '></div>').insertAfter($instigator);
     }
 
     options.value = $instigator.val();
