@@ -4,7 +4,11 @@ $.fn.macgyver = (function(){
         defaults = {"range" : "min"};
         options = $.extend(true, {}, defaults, $instigator.data('macgyver-options') || {});
 
-    var $ui = $('<div id="' + $instigator.attr('id').replace(/_/g,'-') + '-macgyver-slider"></div>').insertAfter($instigator);
+    var $ui = $('<div></div>').insertAfter($instigator);
+    var id = $instigator.attr('id');
+    if(id) {
+      $ui.attr('id', id + '-macgyver-slider');
+    }
 
     options.value = $instigator.val();
     if ($instigator.is('select')) {
