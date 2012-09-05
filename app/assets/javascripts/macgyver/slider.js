@@ -31,7 +31,13 @@ $.fn.macgyver = (function(){
       });
     }
     options.slide = function(event,slider) { $instigator.val(slider.value); };
-    $ui.append('<span class="min-amount">' + options.min + '</span><span class="max-amount">' + options.max + '</span>');
+
+    if(options['min-label']) {
+      $ui.append('<span class="min-amount">' + options.min + '</span>');
+    }
+    if(options['max-label']) {
+      $ui.append('<span class="max-amount">' + options.max + '</span>');
+    }
 
     $ui.slider(options);
   });
