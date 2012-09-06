@@ -1,4 +1,4 @@
-(function($) {
+(function($, undefined) {
   $.fn.macgyver.accordion = (function($els){
     $els.each(function(){
       var $instigator = $(this),
