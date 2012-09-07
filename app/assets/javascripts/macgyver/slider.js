@@ -22,21 +22,22 @@
         var $options = $instigator.find('option');
         options.min = parseInt($options.first().val());
         options.max = parseInt($options.last().val());
-        options.step = $options.length;
+        options.step = (options.max - options.min) / ($options.length - 1);
       } else {
         options.min = parseInt($instigator.attr('min') || $instigator.data('min'));
         options.max = parseInt($instigator.attr('max') || $instigator.data('max'));
         options.step = parseInt($instigator.attr('step') || $instigator.data('step'));
 
-        $instigator.change(function(){
-          var val = parseInt($instigator.val());
-          if (val > options.max) { val = options.max; }
-          if (val < options.min) { val = options.min; }
-          if (isNaN(val)) { val = options.value; }
-          $instigator.val(val);
-          $ui.slider('option','value',val);
-        });
       }
+
+      $instigator.change(function(){
+        var val = parseInt($instigator.val());
+        if (val > options.max) { val = options.max; }
+        if (val < options.min) { val = options.min; }
+        if (isNaN(val)) { val = options.value; }
+        $instigator.val(val);
+        $ui.slider('option','value',val);
+      });
       options.slide = function(event,slider) { $instigator.val(slider.value); };
 
       if(options['minLabel']) {
