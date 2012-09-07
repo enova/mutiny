@@ -34,7 +34,7 @@
           if (val < options.min) { val = options.min; }
           if (isNaN(val)) { val = options.value; }
           $instigator.val(val);
-          $instigator.next('.ui-slider').slider('option','value',val);
+          $ui.slider('option','value',val);
         });
       }
       options.slide = function(event,slider) { $instigator.val(slider.value); };
