@@ -2,7 +2,7 @@
   $.fn.macgyver.slider = (function($els){
     $els.each(function(){
       var $instigator = $(this),
-          defaults = {"range" : "min"};
+          defaults = {"range" : "min"},
           options = $.extend(true, {}, defaults, $instigator.data('macgyver-options') || {});
 
       var $ui;
