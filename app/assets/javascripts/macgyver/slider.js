@@ -17,37 +17,37 @@
         $ui = $('<div' + extras + '></div>').insertAfter($instigator);
       }
 
-      options.value = $instigator.val();
-      options.slide = function(event, slider) {
+      options['value'] = $instigator.val();
+      options['slide'] = function(event, slider) {
         /* Force trigger of .change() to propagate the value elsewhere. */
         $instigator.val(slider.value).change();
       };
 
       if ($instigator.is('select')) {
         var $options = $instigator.find('option');
-        options.min = parseInt($options.first().val());
-        options.max = parseInt($options.last().val());
-        options.step = (options.max - options.min) / ($options.length - 1);
+        options['min'] = parseInt($options.first().val());
+        options['max'] = parseInt($options.last().val());
+        options['step'] = (options['max'] - options['min']) / ($options.length - 1);
       } else {
-        options.min = parseInt($instigator.attr('min') || $instigator.data('min'));
-        options.max = parseInt($instigator.attr('max') || $instigator.data('max'));
-        options.step = parseInt($instigator.attr('step') || $instigator.data('step'));
+        options['min'] = parseInt($instigator.attr('min') || $instigator.data('min'));
+        options['max'] = parseInt($instigator.attr('max') || $instigator.data('max'));
+        options['step'] = parseInt($instigator.attr('step') || $instigator.data('step'));
       }
 
       $instigator.change(function(){
         var val = parseInt($instigator.val());
-        if (val > options.max) { val = options.max; }
-        if (val < options.min) { val = options.min; }
-        if (isNaN(val)) { val = options.value; }
+        if (val > options['max']) { val = options['max']; }
+        if (val < options['min']) { val = options['min']; }
+        if (isNaN(val)) { val = options['value']; }
         $instigator.val(val);
         $ui.slider('value', val);
       });
 
       if(options['minLabel']) {
-        $ui.append('<span class="min-amount">' + options.min + '</span>');
+        $ui.append('<span class="min-amount">' + options['min'] + '</span>');
       }
       if(options['maxLabel']) {
-        $ui.append('<span class="max-amount">' + options.max + '</span>');
+        $ui.append('<span class="max-amount">' + options['max'] + '</span>');
       }
 
       $ui.slider(options);
