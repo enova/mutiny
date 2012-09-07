@@ -18,6 +18,11 @@
       }
 
       options.value = $instigator.val();
+      options.slide = function(event, slider) {
+        /* Force trigger of .change() to propagate the value elsewhere. */
+        $instigator.val(slider.value).change();
+      };
+
       if ($instigator.is('select')) {
         var $options = $instigator.find('option');
         options.min = parseInt($options.first().val());
@@ -27,7 +32,6 @@
         options.min = parseInt($instigator.attr('min') || $instigator.data('min'));
         options.max = parseInt($instigator.attr('max') || $instigator.data('max'));
         options.step = parseInt($instigator.attr('step') || $instigator.data('step'));
-
       }
 
       $instigator.change(function(){
@@ -36,9 +40,8 @@
         if (val < options.min) { val = options.min; }
         if (isNaN(val)) { val = options.value; }
         $instigator.val(val);
-        $ui.slider('option','value',val);
+        $ui.slider('value', val);
       });
-      options.slide = function(event,slider) { $instigator.val(slider.value); };
 
       if(options['minLabel']) {
         $ui.append('<span class="min-amount">' + options.min + '</span>');
@@ -48,6 +51,19 @@
       }
 
       $ui.slider(options);
+
+      if(options['valueLabel']) {
+        /* If value does not exist, force a non-empty element draw.  Starting with empty
+         * element prevents correct drawing when it has been replace with real contents.
+         */
+        var val = (options['value'] || '&nbsp;');
+        var text = options['valueLabel'].replace('%s', '<span class="value">' + val + '</span>')
+        var $valueLabel = $('<span class="value-label">' + text + '</span>').appendTo($ui.find('.ui-slider-handle'))
+        var $value = $valueLabel.find('.value');
+        $instigator.change(function() {
+          $value.html($instigator.val());
+        });
+      }
     });
     return this;
   });
