@@ -39,10 +39,10 @@
       }
       options.slide = function(event,slider) { $instigator.val(slider.value); };
 
-      if(options['min-label']) {
+      if(options['minLabel']) {
         $ui.append('<span class="min-amount">' + options.min + '</span>');
       }
-      if(options['max-label']) {
+      if(options['maxLabel']) {
         $ui.append('<span class="max-amount">' + options.max + '</span>');
       }
 
