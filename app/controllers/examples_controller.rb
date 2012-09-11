@@ -12,13 +12,8 @@ class ExamplesController < ApplicationController
   private
 
   def examples
-    examples = Set.new
-    view_paths.each do |path|
-      Dir.chdir(File.join(path, controller_name)) do
-        examples.merge Dir.glob('*').map{|f| f.sub(/\..*/, '')}
-      end
-    end
-    examples
+    globs = view_paths.map{|path| File.join(path, controller_name, '*.html')}
+    Dir[*globs].uniq.sort.map{|p| File.basename(p).sub('.html', '')}
   end
   helper_method :examples
 end
