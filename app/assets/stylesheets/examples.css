@@ -1,2 +1,3 @@
-// Place all the styles related to the examples controller here.
-// They will automatically be included in application.css.
+article { margin:8px; padding:8px; border:2px solid black; }
+article h3 { margin:0; }
+article code { white-space:pre; }
