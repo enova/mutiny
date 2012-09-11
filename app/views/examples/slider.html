@@ -1,35 +1,40 @@
 <article>
   <h3>Bare bones.</h3>
   <div class='example'>
-    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' />
+    <input type='number' min='0' max='1000' step='50'
+           data-macgyver='slider' />
   </div>
 </article>
 
 <article>
   <h3>The id of the slider wrapper is <tt>[inputid]-macgyver-slider</tt></h3>
   <div class='example'>
-    <input id='example-id' type='number' min='0' max='1000' step='50' data-macgyver='slider' />
+    <input id='example-id' type='number' min='0' max='1000' step='50'
+           data-macgyver='slider' />
   </div>
 </article>
 
 <article>
   <h3>Start value</h3>
   <div class='example'>
-    <input type='number' min='0' max='1000' step='50' value='250' data-macgyver='slider' />
+    <input type='number' min='0' max='1000' step='50' value='250'
+           data-macgyver='slider' />
   </div>
 </article>
 
 <article>
   <h3>Min/max labels</h3>
   <div class='example'>
-    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"minLabel": "min:%s", "maxLabel": "max:%s"}' />
+    <input type='number' min='0' max='1000' step='50'
+           data-macgyver='{"slider": {"minLabel": "min:%s", "maxLabel": "max:%s"}}' />
   </div>
 </article>
 
 <article>
   <h3>Value label</h3>
   <div class='example'>
-    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"valueLabel": "about %s pieces of 8"}' />
+    <input type='number' min='0' max='1000' step='50'
+           data-macgyver='{"slider": {"valueLabel": "about %s pieces of 8"}}' />
   </div>
 </article>
 
@@ -37,7 +42,8 @@
   <h3>Create slider with an existing element instead of appending a new one</p>
   <div class='example'>
     <div id='slider'></div>
-    <input type='number' min='0' max='1000' step='50' data-macgyver='slider' data-macgyver-options='{"target": "#slider"}' />
+    <input type='number' min='0' max='1000' step='50'
+           data-macgyver='{"slider": {"target": "#slider"}}' />
   </div>
 </article>
 
