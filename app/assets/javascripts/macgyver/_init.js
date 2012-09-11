@@ -11,7 +11,6 @@
         default:
           /* data-macgyver='{"slider": {"some": "options"}}' */
           for(var directive in data) {
-            console.log(data[directive]);
             $.fn.macgyver[directive]($e, data[directive]);
           }
       }
@@ -19,7 +18,11 @@
     return this;
   };
 
-  $(document).ready(function() {
+  $.fn.macgyver.init = function() {
     $('[data-macgyver]').macgyver();
+  }
+
+  $(function() {
+    $.fn.macgyver.init && $.fn.macgyver.init();
   });
 })(jQuery);
