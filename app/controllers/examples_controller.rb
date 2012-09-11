@@ -1,6 +1,6 @@
 class ExamplesController < ApplicationController
   def index
-    render :inline => <<-END
+    render :layout => 'application', :inline => <<-END
     <ul>
       <% examples.each do |example| %>
         <li><%= link_to example, :action => example %></li>
