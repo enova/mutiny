@@ -1,12 +1,32 @@
 <article>
-  <h3>Bare bones.</h3>
+  <h3>Bare bones</h3>
   <div class='example'>
     <div data-macgyver='accordion' data-macgyver-options='{"header": "h2"}'>
       <div>
         <h2>Title 1</h2>
         <div>Body 1</div>
       </div>
-      <div class='section'>
+      <div>
+        <h2>Title 2</h2>
+        <div>Body 2</div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h3>Menu</h3>
+  <div class='example'>
+    <div data-macgyver='accordion' data-macgyver-options='{"header": "h2", "menu": "ul"}'>
+      <ul>
+        <li><a href="#menu1">Title 1</a></li>
+        <li><a href="#menu2">Title 2</a></li>
+      </ul>
+      <div id="menu1">
+        <h2>Title 1</h2>
+        <div>Body 1</div>
+      </div>
+      <div id="menu2">
         <h2>Title 2</h2>
         <div>Body 2</div>
       </div>
