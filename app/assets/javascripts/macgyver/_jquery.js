@@ -7,12 +7,12 @@ var Macgyver = (function(macgyver, $) {
       switch(typeof data) {
         case 'string':
           /* data-macgyver='slider' */
-          macgyver[data]($e, {});
+          macgyver[data].init($e, {});
           break;
         default:
           /* data-macgyver='{"slider": {"some": "options"}}' */
           for(var directive in data) {
-            macgyver[directive]($e, data[directive]);
+            macgyver[directive].init($e, data[directive]);
           }
       }
     });
