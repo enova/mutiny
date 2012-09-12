@@ -1,7 +1,5 @@
-//= require ./_init
-
-(function($, undefined) {
-  $.fn.macgyver.accordion = (function($instigator, options){
+var Macgyver = function(macgyver, $, undefined) {
+  macgyver.accordion = function($instigator, options){
     var defaults = {"autoHeight" : false, "collapsible" : true, "active" : false};
     options = $.extend(true, {}, defaults, options);
 
@@ -33,5 +31,7 @@
     }
 
     $instigator.accordion(options);
-  });
-})(jQuery);
+  };
+
+  return macgyver;
+}(Macgyver || {}, jQuery);

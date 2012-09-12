@@ -1,7 +1,5 @@
-//= require ./_init
-
-(function($) {
-  $.fn.macgyver.slider = (function($instigator, options){
+var Macgyver = function(macgyver, $) {
+  macgyver.slider = function($instigator, options){
     var defaults = {"range" : "min"};
     options = $.extend(true, {}, defaults, options);
 
@@ -72,5 +70,7 @@
       });
     }
     return $instigator;
-  });
-})(jQuery);
+  };
+
+  return macgyver;
+}(Macgyver || {}, jQuery);

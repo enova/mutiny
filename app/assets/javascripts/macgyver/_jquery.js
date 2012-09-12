@@ -1,4 +1,4 @@
-(function($) {
+var Macgyver = (function(macgyver, $) {
   $.fn.macgyver = function(dataAttr){
     dataAttr = dataAttr || 'macgyver';
     this.each(function(i, e) {
@@ -7,20 +7,22 @@
       switch(typeof data) {
         case 'string':
           /* data-macgyver='slider' */
-          $.fn.macgyver[data]($e, {});
+          macgyver[data]($e, {});
           break;
         default:
           /* data-macgyver='{"slider": {"some": "options"}}' */
           for(var directive in data) {
-            $.fn.macgyver[directive]($e, data[directive]);
+            macgyver[directive]($e, data[directive]);
           }
       }
     });
     return this;
   };
 
-  $.fn.macgyver.init = function(dataAttr) {
+  macgyver.init = function(dataAttr) {
     dataAttr = dataAttr || 'macgyver';
     $('[data-' + dataAttr + ']').macgyver();
   }
-})(jQuery);
+
+  return macgyver;
+})(Macgyver || {}, jQuery);
