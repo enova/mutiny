@@ -1,3 +1,5 @@
+//= require ./_init
+
 (function($) {
   $.fn.macgyver.slider = (function($instigator, options){
     var defaults = {"range" : "min"};

@@ -1,3 +1,5 @@
+//= require ./_init
+
 (function($, undefined) {
   $.fn.macgyver.accordion = (function($instigator, options){
     var defaults = {"autoHeight" : false, "collapsible" : true, "active" : false};
