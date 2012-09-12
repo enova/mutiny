@@ -1,8 +1,8 @@
 var Macgyver = function(macgyver, $, undefined) {
   macgyver.accordion = {
+    'defaults': {"autoHeight" : false, "collapsible" : true, "active" : false},
     'init': function($instigator, options){
-      var defaults = {"autoHeight" : false, "collapsible" : true, "active" : false};
-      options = $.extend(true, {}, defaults, options);
+      options = $.extend({}, macgyver.accordion.defaults, options);
 
       var hash = window.location.hash || undefined;
       var $menu = (options.menu) ? $(options.menu) : undefined;
