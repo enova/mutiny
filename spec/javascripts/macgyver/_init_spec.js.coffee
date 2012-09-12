@@ -18,3 +18,8 @@ describe '$.fn.macgyver()', ->
     el = $("""<div data-macgyver='{"test": "var"}' />""")
     el.macgyver()
     expect($.fn.macgyver.test).wasCalledWith($(el[0]), 'var')
+
+  it 'invokes widget using data-custom', ->
+    el = $("""<div data-custom='test' />""")
+    el.macgyver('custom')
+    expect($.fn.macgyver.test).wasCalled()

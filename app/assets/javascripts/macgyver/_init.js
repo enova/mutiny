@@ -1,8 +1,9 @@
 (function($) {
   $.fn.macgyver = function(dataAttr){
+    dataAttr = dataAttr || 'macgyver';
     this.each(function(i, e) {
       var $e = $(e);
-      var data = $e.data('macgyver');
+      var data = $e.data(dataAttr);
       switch(typeof data) {
         case 'string':
           /* data-macgyver='slider' */
