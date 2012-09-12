@@ -1,8 +1,8 @@
 var Macgyver = function(macgyver, $) {
   macgyver.slider = {
-    'defaults': {"range" : "min"},
+    'defaults': {'range': 'min'},
     'init': function($instigator, options){
-      options = $.extend({}, macgyver.slider.defaults, options);
+      options = $.extend({}, this.defaults, options);
 
       var $ui;
       if(options['target']) {
@@ -70,7 +70,6 @@ var Macgyver = function(macgyver, $) {
           $value.html($instigator.val());
         });
       }
-      return $instigator;
     }
   };
 

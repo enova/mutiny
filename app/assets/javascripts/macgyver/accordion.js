@@ -1,18 +1,18 @@
 var Macgyver = function(macgyver, $, undefined) {
   macgyver.accordion = {
-    'defaults': {"autoHeight" : false, "collapsible" : true, "active" : false},
+    'defaults': {'autoHeight': false, 'collapsible': true, 'active': false},
     'init': function($instigator, options){
-      options = $.extend({}, macgyver.accordion.defaults, options);
+      options = $.extend({}, this.defaults, options);
 
       var hash = window.location.hash || undefined;
-      var $menu = (options.menu) ? $(options.menu) : undefined;
+      var $menu = (options['menu']) ? $(options['menu']) : undefined;
       if (hash) {
         var active_index = -1;
         var $search = ($menu) ? $menu : $instigator;
         $search.find('a').each(function(index, anchorEl){
           if ($(anchorEl).attr('href') == hash) { active_index = index; return false; }
         });
-        if (active_index > -1) { options.active = active_index; }
+        if (active_index > -1) { options['active'] = active_index; }
       }
 
       if ($menu) {
