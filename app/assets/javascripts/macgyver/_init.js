@@ -19,7 +19,8 @@
     return this;
   };
 
-  $.fn.macgyver.init = function() {
-    $('[data-macgyver]').macgyver();
+  $.fn.macgyver.init = function(dataAttr) {
+    dataAttr = dataAttr || 'macgyver';
+    $('[data-' + dataAttr + ']').macgyver();
   }
 })(jQuery);
