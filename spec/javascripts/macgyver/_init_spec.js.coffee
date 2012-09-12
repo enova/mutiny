@@ -8,13 +8,13 @@ describe '$.fn.macgyver()', ->
   afterEach ->
     delete $.fn.macgyver.test
 
-  it 'invokes widget using string', ->
+  it 'invokes widget using data-macgyver=string', ->
     el = $("""<div data-macgyver='test' />""")
     el.macgyver()
     # Kludgey but necessary: el === $(el[0]) in practice but not on paper
     expect($.fn.macgyver.test).wasCalledWith($(el[0]), {})
 
-  it 'invokes widget using JSON', ->
+  it 'invokes widget using data-macgyver=JSON', ->
     el = $("""<div data-macgyver='{"test": "var"}' />""")
     el.macgyver()
     expect($.fn.macgyver.test).wasCalledWith($(el[0]), 'var')

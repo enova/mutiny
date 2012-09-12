@@ -1,5 +1,5 @@
 (function($) {
-  $.fn.macgyver = function(){
+  $.fn.macgyver = function(dataAttr){
     this.each(function(i, e) {
       var $e = $(e);
       var data = $e.data('macgyver');
@@ -21,8 +21,4 @@
   $.fn.macgyver.init = function() {
     $('[data-macgyver]').macgyver();
   }
-
-  $(function() {
-    $.fn.macgyver.init && $.fn.macgyver.init();
-  });
 })(jQuery);
