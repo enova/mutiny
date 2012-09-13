@@ -1,6 +1,14 @@
 var Macgyver = function(macgyver, $) {
   macgyver.slider = {
     'defaults': {'range': 'min'},
+    '_createFormatSpan': function(format, value, className) {
+      var inner = format.replace('%s', '<span>' + (value || '&nbsp;') + '</span>');
+      if(className) {
+        return '<span class="' + className + '">' + inner + '</span>';
+      } else {
+        return '<span>' + inner + '</span>';
+      }
+    },
     'init': function($instigator, options){
       options = $.extend({}, this.defaults, options);
 
@@ -42,18 +50,11 @@ var Macgyver = function(macgyver, $) {
         $ui.slider('value', val);
       });
 
-      /* >> newLabel('hamlet', 'romeo%sjuliet', 'othello');
-         -> '<span class="hamlet">romeo<span>othello</span>juliet</span>'
-       */
-      var newLabel = function(className, format, value) {
-        var inner = format.replace('%s', '<span>' + value + '</span>');
-        return '<span class="' + className + '">' + inner + '</span>';
-      };
       if(options['minLabel']) {
-        $ui.append(newLabel('min-label', options['minLabel'], options['min']));
+        $ui.append(this._createFormatSpan('min-label', options['minLabel'], options['min']));
       }
       if(options['maxLabel']) {
-        $ui.append(newLabel('max-label', options['maxLabel'], options['max']));
+        $ui.append(this._createFormatSpan('max-label', options['maxLabel'], options['max']));
       }
 
       $ui.slider(options);
@@ -63,8 +64,7 @@ var Macgyver = function(macgyver, $) {
         /* If value does not exist, force a non-empty element draw.  Starting with empty
          * element prevents correct drawing when it has been replace with real contents.
          */
-        var val = (options['value'] || '&nbsp;');
-        var $valueLabel = $(newLabel('value-label', options['valueLabel'], val)).appendTo($ui.find('.ui-slider-handle'));
+        var $valueLabel = $(this._createFormatSpan('value-label', options['valueLabel'], options['value'])).appendTo($ui.find('.ui-slider-handle'));
         var $value = $valueLabel.find('span');
         $instigator.change(function() {
           $value.html($instigator.val());
