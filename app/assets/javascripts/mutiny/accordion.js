@@ -1,5 +1,5 @@
-var Macgyver = function(macgyver, $, undefined) {
-  macgyver.accordion = {
+var Mutiny = function(mutiny, $, undefined) {
+  mutiny.accordion = {
     'defaults': {'autoHeight': false, 'collapsible': true, 'active': false},
     '_hrefIndex': function($search, href) {
       var active_index = -1;
@@ -30,5 +30,5 @@ var Macgyver = function(macgyver, $, undefined) {
     }
   };
 
-  return macgyver;
-}(Macgyver || {}, jQuery);
+  return mutiny;
+}(Mutiny || {}, jQuery);

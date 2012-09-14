@@ -1,5 +1,5 @@
-var Macgyver = function(macgyver, $) {
-  macgyver.slider = {
+var Mutiny = function(mutiny, $) {
+  mutiny.slider = {
     'defaults': {'range': 'min'},
     '_createFormatSpan': function(format, value, className) {
       var inner = format.replace('%s', '<span>' + (value || '&nbsp;') + '</span>');
@@ -19,7 +19,7 @@ var Macgyver = function(macgyver, $) {
         var id = $instigator.attr('id');
         var extras = '';
         if(id) {
-          extras = ' id="' + id + '-macgyver-slider"';
+          extras = ' id="' + id + '-mutiny-slider"';
         }
         $ui = $('<div' + extras + '></div>').insertAfter($instigator);
       }
@@ -73,5 +73,5 @@ var Macgyver = function(macgyver, $) {
     }
   };
 
-  return macgyver;
-}(Macgyver || {}, jQuery);
+  return mutiny;
+}(Mutiny || {}, jQuery);

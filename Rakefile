@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Macgyver::Application.load_tasks
+Mutiny::Application.load_tasks

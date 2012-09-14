@@ -7,5 +7,5 @@ $(document).ready(function() {
     $code.text($e.find('.example').html().replace(/"/g, "'").replace(/&quot;/g, '"'));
   });
 
-  Macgyver.init();
+  Mutiny.init();
 });
