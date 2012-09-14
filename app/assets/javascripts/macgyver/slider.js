@@ -51,10 +51,10 @@ var Macgyver = function(macgyver, $) {
       });
 
       if(options['minLabel']) {
-        $ui.append(this._createFormatSpan('min-label', options['minLabel'], options['min']));
+        $ui.append(this._createFormatSpan(options['minLabel'], options['min'], 'min-label'));
       }
       if(options['maxLabel']) {
-        $ui.append(this._createFormatSpan('max-label', options['maxLabel'], options['max']));
+        $ui.append(this._createFormatSpan(options['maxLabel'], options['max'], 'max-label'));
       }
 
       $ui.slider(options);
@@ -64,7 +64,7 @@ var Macgyver = function(macgyver, $) {
         /* If value does not exist, force a non-empty element draw.  Starting with empty
          * element prevents correct drawing when it has been replace with real contents.
          */
-        var $valueLabel = $(this._createFormatSpan('value-label', options['valueLabel'], options['value'])).appendTo($ui.find('.ui-slider-handle'));
+        var $valueLabel = $(this._createFormatSpan(options['valueLabel'], options['value'], 'valueLabel')).appendTo($ui.find('.ui-slider-handle'));
         var $value = $valueLabel.find('span');
         $instigator.change(function() {
           $value.html($instigator.val());
