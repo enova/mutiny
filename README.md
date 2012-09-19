@@ -9,3 +9,8 @@ Getting Started
     $ bundle install
     $ script/rails server
     $ open http://localhost:3000/
+
+Licensing
+-----
+Mutiny is released by [Enova Financial](http://www.enova.com) under the
+[MIT License](https://github.com/enova/mutiny/blob/master/LICENSE).
