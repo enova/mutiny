@@ -1,6 +1,7 @@
 **.orig
 
-# Rails
+# Server files --
+
 /server/log/*
 /server/tmp/*
 /server/spec/tmp/*
