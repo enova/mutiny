@@ -1,4 +1,18 @@
 var Mutiny = (function(mutiny, $, undefined) {
+  var mutiny_call = function($instigator, name, instance_options){
+    if(mutiny[name] === undefined) {
+      throw '"' + name + '" not found';
+    }
+
+    var options = $.extend({}, mutiny[name].defaults);
+    if(typeof instance_options === 'string') {
+      options[mutiny[name].string_arg] = instance_options;
+    } else {
+      $.extend(options, instance_options);
+    }
+    mutiny[name].init($instigator, options);
+  };
+
   $.fn.mutiny = function(dataAttr){
     dataAttr = dataAttr || 'mutiny';
     this.each(function(i, e) {
@@ -7,23 +21,12 @@ var Mutiny = (function(mutiny, $, undefined) {
       switch(typeof data) {
         case 'string':
           /* data-mutiny='slider' */
-          if(mutiny[data] === undefined) {
-            throw '"' + data + '" not found';
-          }
-          mutiny[data].init($e, $.extend({}, mutiny[data].defaults));
+          mutiny_call($e, data, {});
           break;
         default:
           /* data-mutiny='{"slider": {"some": "options"}}' */
           for(var directive in data) {
-            var mutiny_func = mutiny[directive];
-            var mutiny_options = $.extend({}, mutiny_func.defaults);
-            var data_options = data[directive];
-            if(typeof(data_options) === "string") {
-              mutiny_options[mutiny_func.string_arg] = data_options;
-              mutiny_func.init($e, mutiny_options);
-            } else {
-              mutiny_func.init($e, $.extend(mutiny_options, data_options));
-            }
+            mutiny_call($e, directive, data[directive]);
           }
       }
     });
