@@ -10,8 +10,6 @@ var Mutiny = function(mutiny, $) {
       }
     },
     'init': function($instigator, options){
-      options = $.extend({}, this.defaults, options);
-
       var $ui;
       if(options['target']) {
         $ui = $(options['target']);

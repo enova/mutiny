@@ -9,8 +9,6 @@ var Mutiny = function(mutiny, $, undefined) {
       return active_index;
     },
     'init': function($instigator, options){
-      options = $.extend({}, this.defaults, options);
-
       var hash = window.location.hash || undefined;
       var $menu = (options['menu']) ? $(options['menu']) : undefined;
       if (hash) {
