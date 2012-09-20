@@ -12,7 +12,15 @@ var Mutiny = (function(mutiny, $) {
         default:
           /* data-mutiny='{"slider": {"some": "options"}}' */
           for(var directive in data) {
-            mutiny[directive].init($e, data[directive]);
+            var mutiny_func = mutiny[directive];
+            var data_options = data[directive];
+            if(typeof(data_options) === "string") {
+              var options = {};
+              options[mutiny_func.string_arg] = data_options;
+              mutiny_func.init($e, options);
+            } else {
+              mutiny_func.init($e, data_options);
+            }
           }
       }
     });
