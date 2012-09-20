@@ -2,7 +2,10 @@ var Mutiny = function(mutiny, $) {
   mutiny.slider = {
     'defaults': {'range': 'min'},
     '_createFormatSpan': function(format, value, className) {
-      var inner = format.replace('%s', '<span>' + (value || '&nbsp;') + '</span>');
+      if(value === null || value === '') {
+        value = '&nbsp;'
+      }
+      var inner = format.replace('%s', '<span>' + value + '</span>');
       if(className) {
         return '<span class="' + className + '">' + inner + '</span>';
       } else {

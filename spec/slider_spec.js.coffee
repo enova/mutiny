@@ -18,3 +18,7 @@ describe 'Mutiny.slider', ->
     it 'converts empty value into &nbsp; to fix DOM rendering', ->
       s = Mutiny.slider._createFormatSpan('%s', '')
       expect(s).toEqual('<span><span>&nbsp;</span></span>')
+
+    it 'does not convert 0', ->
+      s = Mutiny.slider._createFormatSpan('%s', 0)
+      expect(s).toEqual('<span><span>0</span></span>')
