@@ -63,3 +63,7 @@ describe '$(element).mutiny()', ->
     el = $("""<div data-custom='directive' />""")
     el.mutiny('custom')
     expect(Mutiny.directive.init).wasCalled()
+
+  it """<div data-mutiny='cannot find directive'>""", ->
+    el = $("""<div data-mutiny='nonexistent directive' />""")
+    expect(-> el.mutiny()).toThrow('"nonexistent directive" not found')

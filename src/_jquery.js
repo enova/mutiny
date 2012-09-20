@@ -1,4 +1,4 @@
-var Mutiny = (function(mutiny, $) {
+var Mutiny = (function(mutiny, $, undefined) {
   $.fn.mutiny = function(dataAttr){
     dataAttr = dataAttr || 'mutiny';
     this.each(function(i, e) {
@@ -7,6 +7,9 @@ var Mutiny = (function(mutiny, $) {
       switch(typeof data) {
         case 'string':
           /* data-mutiny='slider' */
+          if(mutiny[data] === undefined) {
+            throw '"' + data + '" not found';
+          }
           mutiny[data].init($e, $.extend({}, mutiny[data].defaults));
           break;
         default:
