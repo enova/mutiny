@@ -28,16 +28,16 @@ Extending
 Javascript:
 ```javascript
 var Mutiny = function(mutiny){
-  mutiny.textToOptions = { 
+  mutiny.textToOptions = {
     'defaults': {'def': 'opt'},
-    'init': function($instigator, options) { 
+    'init': function($instigator, options) {
       var s = [];
-      for(var key in options) { 
+      for(var key in options) {
         s.push('"' + key + '": "' + options[key] + '"');
-      } 
+      }
       $instigator.text('{' + s.join(', ') + '}');
-    } 
-  } 
+    }
+  }
 
   return mutiny;
 }(Mutiny || {});
@@ -49,14 +49,13 @@ HTML5:
 <div data-mutiny='{"textToOptions": {"custom": "arg"}}'></div>
 ```
 
-Development
+Running Tests/Examples
 -----
 ```console
 $ git clone https://git.cashnetusa.com/ui/mutiny.git
 $ cd mutiny
-$ bundle install
-$ script/rails server
-$ open http://localhost:3000/
+$ ./server.sh
+$ open http://localhost:5100/
 ```
 
 Licensing
