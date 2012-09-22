@@ -1,13 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
   <title>Jasmine Spec Runner</title>
 
   <link rel="shortcut icon" type="image/png" href="jasmine/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
-  <script type="text/javascript" src="jasmine/jasmine.js"></script>
-  <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+  <link rel="stylesheet" href="jasmine/jasmine.css">
+  <script src="jasmine/jasmine.js"></script>
+  <script src="jasmine/jasmine-html.js"></script>
 
   <!-- include source files here... -->
   <script src='jquery.js'></script>
@@ -15,17 +14,9 @@
   <script src='page.js'></script>
 
   <!-- include spec files here... -->
-  <script>
-    /* helpers + widgets are defined in page.js */
-    $.each(helpers.concat(widgets), function(i, name) {
-      /* document.write shows be */
-      var script = document.createElement('script');
-      script.src = 'spec/' + name + '_spec.js';
-      document.getElementsByTagName("head")[0].appendChild(script);
-    });
-  </script>
+  <script>Page.loadSpecs()</script>
 
-  <script type="text/javascript">
+  <script>
     (function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
