@@ -2,7 +2,7 @@ var helpers = ['_jquery'];
 var widgets = ['accordion', 'slider', 'toggler'];
 
 $.each(helpers.concat(widgets), function(i, name) {
-  $('body').append('<script src="src/' + name + '.js"></' + 'script>');
+  $('head').append('<script src="src/' + name + '.js"></script>');
 });
 
 $.each(widgets, function(i, widget) {
