@@ -15,12 +15,12 @@ var Page = function($) {
   include('src/', files, '.js');
 
   $.each(widgets, function(i, widget) {
-    $('<a href="#%s">%s</a>'.replace(/%s/g, widget))
-      .appendTo('menu')
+    $('<li><a href="#%s">%s</a></li>'.replace(/%s/g, widget))
+      .appendTo('menu#examples ul')
       .click(function() {
         $.get('examples/' + widget + '.html', function(data) {
           $('#main').html(data);
-          $('article').each(function(i, e) {
+          $('#main section').each(function(i, e) {
             var $e = $(e);
             var $code = $('<code></code>').insertAfter($e.find('> h3'));
             /* .html() pulls out the code of the parsed Javascript.  This can cause the
