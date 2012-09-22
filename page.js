@@ -15,10 +15,13 @@ var Page = function($) {
   include('src/', files, '.js');
 
   $.each(widgets, function(i, widget) {
-    $('<li><a href="#%s">%s</a></li>'.replace(/%s/g, widget))
-      .appendTo('menu#examples ul')
+    var $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
+    $e.appendTo('#examples')
       .click(function() {
         $.get('examples/' + widget + '.html', function(data) {
+          $('#examples a').removeClass('active');
+          $e.addClass('active');
+
           $('#main').html(data);
           $('#main section').each(function(i, e) {
             var $e = $(e);
