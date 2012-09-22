@@ -4,31 +4,34 @@ var Page = function($) {
   var files = helpers.concat(widgets);
 
   /* Manual DOM manipulation because jQuery versions swallow errors */
-  var include = function(prepend, paths, append) {
+  var include = function(paths, transform) {
+    transform = transform || '%s';
     for(var i=0; i < paths.length; i++) {
       var script = document.createElement('script');
-      script.src = prepend + paths[i] + append;
+      script.src = transform.replace('%s', paths[i]);
       document.getElementsByTagName('head')[0].appendChild(script);
     }
   }
 
-  include('src/', files, '.js');
+  include(files, 'src/%s.js');
 
   $.each(widgets, function(i, widget) {
-    var $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
+    $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
     $e.appendTo('#examples')
       .click(function() {
-        $.get('examples/' + widget + '.html', function(data) {
-          $('#examples a').removeClass('active');
-          $e.addClass('active');
+        /* I'd love to make this a Mutiny widget but the main utility is the JS callback... */
+        $('#examples a').removeClass('active');
+        $e.addClass('active');
 
-          $('#main').html(data);
+        $('#main').load('examples/' + widget + '.html', function() {
           $('#main section').each(function(i, e) {
             var $e = $(e);
             var $code = $('<code></code>').insertAfter($e.find('> h3'));
             /* .html() pulls out the code of the parsed Javascript.  This can cause the
             browser to re-encode ' => " and " => &quot; */
-            $code.text($e.find('.example').html().replace(/"/g, "'").replace(/&quot;/g, '"'));
+            $code.text($e.find('.example').html().replace(/"/g,      "'")
+                                                 .replace(/&quot;/g, '"')
+                                                 .replace(/&gt;/g,   '>'));
           });
 
           Mutiny.init();
@@ -39,7 +42,7 @@ var Page = function($) {
 
   return {
     'loadSpecs': function() {
-      include('spec/', files, '_spec.js');
+      include(files, 'spec/%s_spec.js');
     }
   };
 }(jQuery);
