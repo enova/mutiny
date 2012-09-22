@@ -1,5 +1,5 @@
 #!/bin/bash
 
-PORT=${1:5100}
+PORT=${1:-5100}
 
-exec python -m SimpleHTTPServer 5100
+exec python -m SimpleHTTPServer $PORT
