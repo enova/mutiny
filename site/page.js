@@ -34,7 +34,7 @@ var Page = function($) {
                                                  .replace(/&gt;/g,   '>'));
           });
 
-          Mutiny.init();
+          $('#main *').mutiny();
         });
         return false;
       });

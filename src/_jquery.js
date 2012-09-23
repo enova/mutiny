@@ -15,7 +15,7 @@ var Mutiny = (function(mutiny, $, undefined) {
 
   $.fn.mutiny = function(dataAttr){
     dataAttr = dataAttr || 'mutiny';
-    this.each(function(i, e) {
+    this.filter('[data-' + dataAttr + ']').each(function(i, e) {
       var $e = $(e);
       var data = $e.data(dataAttr);
       switch(typeof data) {
@@ -32,11 +32,6 @@ var Mutiny = (function(mutiny, $, undefined) {
     });
     return this;
   };
-
-  mutiny.init = function(dataAttr) {
-    dataAttr = dataAttr || 'mutiny';
-    $('[data-' + dataAttr + ']').mutiny();
-  }
 
   return mutiny;
 })(Mutiny || {}, jQuery);
