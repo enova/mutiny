@@ -74,16 +74,28 @@ describe('$(element).mutiny()', function() {
     });
   });
 
-  it("<div data-custom='directive'> requires 'custom' argument", function() {
-    var el = $("<div data-custom='directive' />");
-    el.mutiny('custom');
-    expect(Mutiny.directive.init).wasCalled();
+  describe("<div data-custom='directive'>", function() {
+    beforeEach(function() {
+      this.el = $("<div data-custom='directive' />");
+    });
+
+    it("ignores standard mutiny calls", function() {
+      this.el.mutiny();
+      expect(Mutiny.directive.init).wasNotCalled();
+    });
+
+    it("triggers using argument", function() {
+      this.el.mutiny('custom');
+      expect(Mutiny.directive.init).wasCalled();
+    });
   });
 
-  it("<div data-mutiny='nonexistent directive'>", function() {
-    var el = $("<div data-mutiny='nonexistent directive' />");
-    expect(function() {
-      el.mutiny();
-    }).toThrow('"nonexistent directive" not found');
+  describe("exceptions", function() {
+    it("<div data-mutiny='nonexistent'> throws nonexistent directive", function() {
+      var el = $("<div data-mutiny='nonexistent' />");
+      expect(function() {
+        el.mutiny();
+      }).toThrow('"nonexistent" not found');
+    });
   });
 });
