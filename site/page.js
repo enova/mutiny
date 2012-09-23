@@ -16,10 +16,10 @@ var Page = function($) {
   include(files, 'src/%s.js');
 
   $.each(widgets, function(i, widget) {
-    $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
+    var $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
     $e.appendTo('#examples')
       .click(function() {
-        /* I'd love to make this a Mutiny widget but the main utility is the JS callback... */
+        /* Replace with Mutiny.tabber */
         $('#examples a').removeClass('active');
         $e.addClass('active');
 
