@@ -10,10 +10,10 @@ var Mutiny = function(mutiny, $, undefined) {
     },
     'init': function($instigator, options){
       var hash = window.location.hash || undefined;
-      var $menu = (options['menu']) ? $(options['menu']) : undefined;
+      var $menu = (options.menu) ? $(options.menu) : undefined;
       if (hash) {
         var active_index = this._hrefIndex($menu || $instigator, hash);
-        if (active_index > -1) { options['active'] = active_index; }
+        if (active_index > -1) { options.active = active_index; }
       }
 
       if ($menu) {

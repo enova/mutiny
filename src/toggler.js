@@ -3,12 +3,12 @@ var Mutiny = function(mutiny, $) {
     'defaults': {'class': 'active'},
     'string_arg': 'target',
     'init': function($instigator, options){
-      var $target = $(options['target']);
+      var $target = $(options.target);
 
       var css_initial = null;
-      if(options['css']) {
-        css_initial = {}
-        for(var key in options['css']) {
+      if(options.css) {
+        css_initial = {};
+        for(var key in options.css) {
           css_initial[key] = $target.css(key) || '';
         }
       }
@@ -23,7 +23,7 @@ var Mutiny = function(mutiny, $) {
           $instigator.addClass(options['class']);
           $target.addClass(options['class']);
           if(css_initial) {
-            $target.css(options['css']);
+            $target.css(options.css);
           }
         }
       });
