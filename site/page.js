@@ -13,7 +13,7 @@ var Page = function($) {
     }
   }
 
-  include(files, 'src/%s.js');
+  include(files, '/src/%s.js');
 
   $.each(widgets, function(i, widget) {
     var $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
@@ -23,7 +23,7 @@ var Page = function($) {
         $('#examples a').removeClass('active');
         $e.addClass('active');
 
-        $('#main').load('examples/' + widget + '.html', function() {
+        $('#main').load('/examples/' + widget + '.html', function() {
           $('#main section').each(function(i, e) {
             var $e = $(e);
             var $code = $('<code></code>').insertAfter($e.find('> h3'));
@@ -42,7 +42,7 @@ var Page = function($) {
 
   return {
     'loadSpecs': function() {
-      include(files, 'spec/%s_spec.js');
+      include(files, '/spec/%s_spec.js');
     }
   };
 }(jQuery);
