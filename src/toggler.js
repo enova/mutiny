@@ -1,30 +1,34 @@
 var Mutiny = function(mutiny, $) {
   mutiny.toggler = {
-    'defaults': {'class': 'active'},
+    'defaults': {'class': 'active', 'preventDefault':true},
     'string_arg': 'target',
     'init': function($instigator, options){
       var $target = $(options['target']);
 
-      var css_initial = null;
+      var cssInitial = null;
       if(options['css']) {
-        css_initial = {}
+        cssInitial = {}
         for(var key in options['css']) {
-          css_initial[key] = $target.css(key) || '';
+          cssInitial[key] = '';
         }
       }
-      $instigator.click(function() {
+      $instigator.click(function(event) {
         if($instigator.hasClass(options['class'])) {
           $instigator.removeClass(options['class']);
           $target.removeClass(options['class']);
-          if(css_initial) {
-            $target.css(css_initial);
+          if(cssInitial) {
+            $target.css(cssInitial);
           }
         } else {
           $instigator.addClass(options['class']);
           $target.addClass(options['class']);
-          if(css_initial) {
+          if(cssInitial) {
             $target.css(options['css']);
           }
+        }
+
+        if(options['preventDefault']) {
+          event.preventDefault();
         }
       });
     }

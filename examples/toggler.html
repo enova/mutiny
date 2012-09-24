@@ -1,7 +1,7 @@
 <section>
   <h3>Bare bones</h3>
   <div class='example'>
-    <span data-mutiny='{"toggler": "#bare-bones"}'>Toggle</span>
+    <input type='checkbox' data-mutiny='{"toggler": "#bare-bones"}' />
     <p id='bare-bones'>Check out my class name.</p>
   </div>
 </section>
@@ -19,5 +19,13 @@
   <div class='example'>
     <span data-mutiny='{"toggler": {"target":"#css-changes", "css":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
     <p id='css-changes'>Stylize!</p>
+  </div>
+</section>
+
+<section>
+  <h3>No clickjack</h3>
+  <div class='example'>
+    <input type='checkbox' data-mutiny='{"toggler": {"target":"#no-clickjack", "preventDefault":false}}' />
+    <p id='no-clickjack'>Classed</p>
   </div>
 </section>
