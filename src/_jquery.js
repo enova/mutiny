@@ -23,11 +23,14 @@ var Mutiny = (function(mutiny, $, undefined) {
           /* data-mutiny='slider' */
           mutiny_call($e, data, {});
           break;
-        default:
+        case 'object':
           /* data-mutiny='{"slider": {"some": "options"}}' */
           for(var directive in data) {
             mutiny_call($e, directive, data[directive]);
           }
+          break;
+        default:
+          throw 'Unsupported data';
       }
     });
     return this;
