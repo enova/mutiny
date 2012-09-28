@@ -15,5 +15,5 @@ nav a:hover { background:#555; }
 
 #main { min-height:100%; margin-left:130px; padding:12px 8px; box-shadow:-1px 0 5px #222; }
 #main section { margin:8px; padding:8px; border:2px solid black; }
-#main section h3 { margin:0; }
+#main section h1 { margin:0; }
 #main section code { white-space:pre; }
