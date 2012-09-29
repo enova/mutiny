@@ -29,5 +29,16 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('set_config', 'Set a config property.', function(name, val) {
+    grunt.config.set(name, val);
+  });
+
+  /* TODO: remove once this feature has been merged into npm grunt
+   * https://github.com/cowboy/grunt/issues/236 */
+  grunt.registerTask('wait', 'Wait forever.', function() {
+    grunt.log.write('Waiting...');
+    this.async();
+  });
+
   grunt.registerTask('default', 'lint');
 };
