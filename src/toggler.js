@@ -1,31 +1,31 @@
 var Mutiny = function(mutiny, $) {
   mutiny.toggler = {
-    'defaults': {'class': 'active', 'preventDefault':true},
+    'defaults': {'style': {'display': 'none'}, 'preventDefault': false, 'instigatorClass': 'active'},
     'string_arg': 'target',
     'init': function($instigator, options){
       var $target = $(options.target);
 
-      var cssInitial = null;
-      if(options.css) {
-        cssInitial = {};
-        for(var key in options.css) {
-          cssInitial[key] = '';
+      var targetFunc;
+      if(options['class']) {
+        targetFunc = function(on) {
+          $target.toggleClass(options['class'], on);
+        };
+      } else {
+        var noStyle = {};
+        for(var key in options.style) {
+          noStyle[key] = '';
         }
+
+        targetFunc = function(on) {
+          $target.css(on ? options.style : noStyle);
+        };
       }
+
+      var active = false;
       $instigator.click(function(event) {
-        if($instigator.hasClass(options['class'])) {
-          $instigator.removeClass(options['class']);
-          $target.removeClass(options['class']);
-          if(cssInitial) {
-            $target.css(cssInitial);
-          }
-        } else {
-          $instigator.addClass(options['class']);
-          $target.addClass(options['class']);
-          if(cssInitial) {
-            $target.css(options.css);
-          }
-        }
+        active = !active;
+        $instigator.toggleClass(options.instigatorClass, active);
+        targetFunc(active);
 
         if(options.preventDefault) {
           event.preventDefault();

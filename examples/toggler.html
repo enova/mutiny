@@ -1,31 +1,31 @@
 <section>
   <h1>Bare bones</h1>
   <div class='example'>
-    <input type='checkbox' data-mutiny='{"toggler": "#bare-bones"}' />
-    <p id='bare-bones'>Check out my class name.</p>
+    <span data-mutiny='{"toggler": "#bare-bones"}'>Click me</span>
+    <p id='bare-bones'>Disappearing!</p>
   </div>
 </section>
 
 <section>
-  <h1>Different class</h1>
+  <h1>Class name</h1>
   <div class='example'>
-    <span data-mutiny='{"toggler": {"target":"#different-class", "class":"hide"}}'>Toggle</span>
-    <p id='different-class'>Class act.</p>
+    <span data-mutiny='{"toggler": {"target":"#class-name", "class":"active"}}'>Toggle</span>
+    <p id='class-name'>Inspect my class name</p>
   </div>
 </section>
 
 <section>
-  <h1>CSS changes</h1>
+  <h1>Style changes</h1>
   <div class='example'>
-    <span data-mutiny='{"toggler": {"target":"#css-changes", "css":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
-    <p id='css-changes'>Stylize!</p>
+    <span data-mutiny='{"toggler": {"target":"#style-changes", "style":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
+    <p id='style-changes'>Stylize!</p>
   </div>
 </section>
 
 <section>
-  <h1>No clickjack</h1>
+  <h1>Hijack default behavior</h1>
   <div class='example'>
-    <input type='checkbox' data-mutiny='{"toggler": {"target":"#no-clickjack", "preventDefault":false}}' />
-    <p id='no-clickjack'>Classed</p>
+    <a href='http://www.google.com' data-mutiny='{"toggler": {"target":"#hijack", "preventDefault":true}}'>Definitely not a link</a>
+    <p id='hijack'>No Google 4 u!</p>
   </div>
 </section>
