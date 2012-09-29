@@ -11,7 +11,7 @@ var Page = function($) {
       script.src = transform.replace('%s', paths[i]);
       document.getElementsByTagName('head')[0].appendChild(script);
     }
-  }
+  };
 
   include(files, '/src/%s.js');
 
