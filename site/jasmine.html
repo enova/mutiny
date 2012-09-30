@@ -14,7 +14,7 @@
   <script src='page.js'></script>
 
   <!-- include spec files here... -->
-  <script>Page.loadSpecs()</script>
+  <script>Page.include(Page.files, '/spec/%s_spec.js');</script>
 
   <script>
     (function() {
