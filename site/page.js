@@ -3,12 +3,10 @@ var Page = function(page, $) {
   page.widgets = ['accordion', 'slider', 'toggler'];
   page.files = page.helpers.concat(page.widgets);
 
-  /* Manual DOM manipulation because jQuery versions swallow errors */
+  /* Manual document.write to force blocked loading */
   page.include = function(paths, transform) {
     for(var i=0; i < paths.length; i++) {
-      var script = document.createElement('script');
-      script.src = transform.replace('%s', paths[i]);
-      document.getElementsByTagName('head')[0].appendChild(script);
+      document.write('<script src="' + transform.replace('%s', paths[i]) + '"><\/script>');
     }
   };
 

@@ -26,31 +26,28 @@
 
     <script>
       $.each(Page.widgets, function(i, widget) {
-        var $e = $('<a href="#%s">%s</a>'.replace(/%s/g, widget));
-        $e.appendTo('#examples')
-          .click(function() {
-            /* Replace with Mutiny.tabber */
-            $('#examples a').removeClass('active');
-            $e.addClass('active');
-
-            $('#main').load('/examples/' + widget + '.html', function() {
-              $('#main section').each(function(i, e) {
-                var $e = $(e);
-                var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
-                var $code = $('<code data-language="html"></code>').appendTo($pre);
-                /* .html() pulls out the code of the parsed Javascript.  This can cause the
-                browser to re-encode ' => " and " => &quot; */
-                $code.text($e.find('.example').html().replace(/"/g,      "'")
-                                                     .replace(/&quot;/g, '"')
-                                                     .replace(/&gt;/g,   '>'));
-              });
-
-              Rainbow.color();
-              $('#main *').mutiny();
-            });
-            return false;
-          });
+        $('<a href="?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
       });
+
+      var queryString = window.location.search.replace('?', '');
+      if(queryString) {
+        $('[href$=' + queryString + ']').addClass('active');
+        $('#main').load('/examples/' + queryString + '.html', function() {
+          $('#main section').each(function(i, e) {
+            var $e = $(e);
+            var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
+            var $code = $('<code data-language="html"></code>').appendTo($pre);
+            /* .html() pulls out the code of the parsed Javascript.  This can cause the
+            browser to re-encode ' => " and " => &quot; */
+            $code.text($e.find('.example').html().replace(/"/g,      "'")
+                                                 .replace(/&quot;/g, '"')
+                                                 .replace(/&gt;/g,   '>'));
+          });
+
+          Rainbow.color();
+          $('#main *').mutiny();
+        });
+      }
     </script>
   </body>
 </html>
