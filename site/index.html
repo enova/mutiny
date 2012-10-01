@@ -25,14 +25,17 @@
     <script src='/site/rainbow.min.js'></script>
 
     <script>
+      var currentPage = window.location.search.replace('?', '');
+
       $.each(Page.widgets, function(i, widget) {
-        $('<a href="?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
+        var link = $('<a href="?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
+        if(currentPage === widget) {
+          link.addClass('active');
+        }
       });
 
-      var queryString = window.location.search.replace('?', '');
-      if(queryString) {
-        $('[href$=' + queryString + ']').addClass('active');
-        $('#main').load('/examples/' + queryString + '.html', function() {
+      if(currentPage) {
+        $('#main').load('/examples/' + currentPage + '.html', function() {
           $('#main section').each(function(i, e) {
             var $e = $(e);
             var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
