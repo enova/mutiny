@@ -28,7 +28,7 @@
       var currentPage = window.location.search.replace('?', '');
 
       $.each(Page.widgets, function(i, widget) {
-        var link = $('<a href="?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
+        var link = $('<a href="index.html?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
         if(currentPage === widget) {
           link.addClass('active');
         }
