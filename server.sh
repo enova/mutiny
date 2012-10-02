@@ -10,17 +10,15 @@ fi
 
 cd `dirname "${BASH_SOURCE[0]}"`
 
-should_run() {
-  [ "$COMMAND" = "$1" ] || ( [ -z $COMMAND ] && command -v $1 >/dev/null 2>&1 )
+run() {
+  if [ "$COMMAND" = "$1" ] || ( [ -z $COMMAND ] && command -v $1 &>/dev/null ); then
+    exec $*
+  fi
 }
 
-if should_run grunt; then
-  exec grunt set_config:server.port:$PORT server wait
-elif should_run python3; then
-  exec python3 -m http.server $PORT
-elif should_run python; then
-  exec python -m SimpleHTTPServer $PORT
-else
-  echo 'No compatible web server found.' >&2
-  exit 1
-fi
+run grunt set_config:server.port:$PORT server wait
+run python3 -m http.server $PORT
+run python -m SimpleHTTPServer $PORT
+
+echo 'No compatible web server found.' >&2
+exit 1
