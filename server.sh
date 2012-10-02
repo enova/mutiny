@@ -8,14 +8,16 @@ else
   COMMAND=$1
 fi
 
+# cd into executing script's directory
 cd `dirname "${BASH_SOURCE[0]}"`
 
 run() {
-  if [ "$COMMAND" = "$1" ] || ( [ -z $COMMAND ] && command -v $1 &>/dev/null ); then
+  if [ "$COMMAND" = "$1" ] || ( [ -z "$COMMAND" ] && command -v "$1" &>/dev/null ); then
     exec $*
   fi
 }
 
+# if run is successful, it will replace current process so rest of the script is automatically aborted
 run grunt set_config:server.port:$PORT server wait
 run python3 -m http.server $PORT
 run python -m SimpleHTTPServer $PORT
