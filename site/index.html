@@ -23,5 +23,34 @@
     <script src='/site/jquery-ui.js'></script>
     <script src='/site/page.js'></script>
     <script src='/site/rainbow.min.js'></script>
+
+    <script>
+      var currentPage = window.location.search.replace('?', '');
+
+      $.each(Page.widgets, function(i, widget) {
+        var link = $('<a href="?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
+        if(currentPage === widget) {
+          link.addClass('active');
+        }
+      });
+
+      if(currentPage) {
+        $('#main').load('/examples/' + currentPage + '.html', function() {
+          $('#main section').each(function(i, e) {
+            var $e = $(e);
+            var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
+            var $code = $('<code data-language="html"></code>').appendTo($pre);
+            /* .html() pulls out the code of the parsed Javascript.  This can cause the
+            browser to re-encode ' => " and " => &quot; */
+            $code.text($e.find('.example').html().replace(/"/g,      "'")
+                                                 .replace(/&quot;/g, '"')
+                                                 .replace(/&gt;/g,   '>'));
+          });
+
+          Rainbow.color();
+          $('#main *').mutiny();
+        });
+      }
+    </script>
   </body>
 </html>
