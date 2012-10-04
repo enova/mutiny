@@ -22,6 +22,7 @@
     <script src='/site/jquery.js'></script>
     <script src='/site/jquery-ui.js'></script>
     <script src='/site/page.js'></script>
+    <script src='/site/marked.min.js'></script>
     <script src='/site/rainbow.min.js'></script>
 
     <script>
@@ -47,8 +48,11 @@
                                                  .replace(/&gt;/g,   '>'));
           });
 
-          Rainbow.color();
           $('#main *').mutiny();
+        });
+      } else {
+        $.get('/README.md', function(data) {
+          $('#main').html(marked(data));
         });
       }
     </script>
