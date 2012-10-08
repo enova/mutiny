@@ -50,10 +50,12 @@
           });
 
           $('#main *').mutiny();
+          Rainbow.color();
         });
       } else {
         $.get('/README.md', function(data) {
           $('#main').html(marked(data));
+          Rainbow.color();
         });
       }
     </script>
