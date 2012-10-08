@@ -1,8 +1,2 @@
 dist/*
 **.orig
-
-# Server files --
-
-/server/log/*
-/server/tmp/*
-/server/spec/tmp/*
