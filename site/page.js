@@ -1,6 +1,6 @@
 var Page = function(page, $) {
   page.helpers = ['_jquery'];
-  page.widgets = ['accordion', 'slider', 'toggler'];
+  page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
   page.files = page.helpers.concat(page.widgets);
 
   /* Manual document.write to force blocked loading */
