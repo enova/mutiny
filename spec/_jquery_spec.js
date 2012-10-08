@@ -79,11 +79,6 @@ describe('$(element).mutiny()', function() {
       this.el = $("<div data-custom='directive' />");
     });
 
-    it("ignores standard mutiny calls", function() {
-      this.el.mutiny();
-      expect(Mutiny.directive.init).wasNotCalled();
-    });
-
     it("triggers using argument", function() {
       this.el.mutiny('custom');
       expect(Mutiny.directive.init).wasCalled();

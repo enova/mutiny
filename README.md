@@ -18,7 +18,7 @@ Usage
 
     ```html
     <script src='mutiny.js'></script>
-    <script>$(document).ready(function(){ $('*').mutiny(); })</script>
+    <script>$(document).ready(Mutiny.init)</script>
     ```
 
 3. There is no step 3!
