@@ -37,7 +37,12 @@
       });
 
       if(currentPage) {
-        $('#main').load('/examples/' + currentPage + '.html', function() {
+        $('#main').load('/examples/' + currentPage + '.html', function(data, status, xhr) {
+          if(status == "error") {
+            $('#main').addClass('error').html('<h1>Error ' + xhr.status + '</h1><code>' + data + '</code>');
+            return;
+          }
+
           $('#main section').each(function(i, e) {
             var $e = $(e);
             var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
