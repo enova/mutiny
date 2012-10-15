@@ -60,5 +60,5 @@ $ open http://localhost:5100/
 
 Licensing
 -----
-Mutiny is released by [Enova Financial](http://www.enova.com) under the
+Mutiny is released by [Enova](http://www.enova.com) under the
 [MIT License](https://github.com/enova/mutiny/blob/master/LICENSE).
