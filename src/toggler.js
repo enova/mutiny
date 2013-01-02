@@ -23,7 +23,7 @@ var Mutiny = function(mutiny, $) {
 
       if($instigator.is('input[type=radio]')) {
         var name = $instigator.attr("name");
-        $('input[name='+ name +']').change(function(event){
+        $('input[name="'+ name +'"]').change(function(event){
           var active = $instigator.is(':checked');
           $instigator.toggleClass(options.instigatorClass, active);
           targetFunc(active);
