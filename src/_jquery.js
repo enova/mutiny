@@ -39,7 +39,7 @@ var Mutiny = (function(mutiny, $, undefined) {
   mutiny.init = function(dataAttr) {
     dataAttr = dataAttr || 'mutiny';
     $('[data-' + dataAttr + ']').mutiny(dataAttr);
-  }
+  };
 
   return mutiny;
 })(Mutiny || {}, jQuery);
