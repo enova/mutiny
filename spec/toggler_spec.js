@@ -5,26 +5,26 @@ describe('Mutiny.toggler', function() {
   });
 
   it('triggers Bare Bones toggler', function() {
-    expect($('#bare-bones')).toBeVisible();
-    $('#bare-bones-toggler').click();
-    expect($('#bare-bones')).toBeHidden();
+    expect($('#bare-bones .toggled')).toBeVisible();
+    $('#bare-bones [data-mutiny]').click();
+    expect($('#bare-bones .toggled')).toBeHidden();
   });
 
   it('triggers Class Name toggler', function() {
-    expect($('#class-name')).not.toHaveClass('active');
-    $('#class-name-toggler').click();
-    expect($('#class-name')).toHaveClass('active');
+    expect($('#class-name .toggled')).not.toHaveClass('active');
+    $('#class-name [data-mutiny]').click();
+    expect($('#class-name .toggled')).toHaveClass('active');
   });
 
   it('triggers Style Changes toggler', function() {
-    expect($('#style-changes')).not.toHaveCss({'font-style':'italic'});
-    $('#style-changes-toggler').click();
-    expect($('#style-changes')).toHaveCss({'font-style':'italic'});
+    expect($('#style-changes .toggled')).not.toHaveCss({'font-style':'italic'});
+    $('#style-changes [data-mutiny]').click();
+    expect($('#style-changes .toggled')).toHaveCss({'font-style':'italic'});
   });
 
   it('triggers Radio Button toggler', function() {
-    expect($('#option_group')).toBeHidden();
-    $('#choice2').click();
-    expect($('#option_group')).toBeVisible();
+    expect($('#radio-buttons .toggled')).toBeHidden();
+    $('#radio-buttons [data-mutiny]').click();
+    expect($('#radio-buttons .toggled')).toBeVisible();
   });
 });

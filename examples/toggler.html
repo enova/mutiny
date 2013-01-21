@@ -1,54 +1,54 @@
-<section>
+<section id='bare-bones'>
   <h1>Bare bones</h1>
   <div class='example'>
-    <span id='bare-bones-toggler' data-mutiny='{"toggler": "#bare-bones"}'>Click me</span>
-    <p id='bare-bones'>Disappearing!</p>
+    <span data-mutiny='{"toggler": "#bare-bones .toggled"}'>Click me</span>
+    <p class='toggled'>Disappearing!</p>
   </div>
 </section>
 
-<section>
+<section id='class-name'>
   <h1>Class name</h1>
   <div class='example'>
-    <span id='class-name-toggler' data-mutiny='{"toggler": {"target":"#class-name", "class":"active"}}'>Toggle</span>
-    <p id='class-name'>Inspect my class name</p>
+    <span data-mutiny='{"toggler": {"target":"#class-name .toggled", "class":"active"}}'>Toggle</span>
+    <p class='toggled'>Inspect my class name</p>
   </div>
 </section>
 
-<section>
+<section id='style-changes'>
   <h1>Style changes</h1>
   <div class='example'>
-    <span id='style-changes-toggler' data-mutiny='{"toggler": {"target":"#style-changes", "style":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
-    <p id='style-changes'>Stylize!</p>
+    <span data-mutiny='{"toggler": {"target":"#style-changes .toggled", "style":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
+    <p class='toggled'>Stylize!</p>
   </div>
 </section>
 
-<section>
+<section id='hijack'>
   <h1>Hijack default behavior</h1>
   <div class='example'>
-    <a href='http://www.google.com' data-mutiny='{"toggler": {"target":"#hijack", "preventDefault":true}}'>Definitely not a link</a>
-    <p id='hijack'>No Google 4 u!</p>
+    <a href='http://www.google.com' data-mutiny='{"toggler": {"target":"#hijack .toggled", "preventDefault":true}}'>Definitely not a link</a>
+    <p class='toggled'>No Google 4 u!</p>
   </div>
 </section>
 
-<section>
+<section id='radio-buttons'>
   <h1>Radio Buttons</h1>
   <div class='example'>
-    <ul style='list-style: none'>
+    <ul>
       <li>
-        <input type='radio' id='choice1' name="first_group">
+        <input type='radio' id='choice1' name="group1">
         <label for='choice1'>1st Choice</label>
       </li>
       <li>
-        <input type='radio' id='choice2' name="first_group" data-mutiny='{"toggler": {"target":"#option_group", "style":{"display": "block"}}}'>
+        <input type='radio' id='choice2' name="group1" data-mutiny='{"toggler": {"target":"#radio-buttons .toggled", "style":{"display": "block"}}}'>
         <label for='choice2'>2nd Choice(Click Me!)</label>
-        <ul id="option_group" style='list-style: none; display: none;'>
+        <ul class="toggled" style='display: none;'>
           <li>
-            <input type='radio' id='option1' name="second_group">
-            <label for='option1'>1st Option</label>
+            <input type='radio' id='choice21' name="group2">
+            <label for='choice21'>1st Option</label>
           </li>
           <li>
-            <input type='radio' id='option2' name="second_group">
-            <label for='option2'>2nd Option</label>
+            <input type='radio' id='choice22' name="group2">
+            <label for='choice22'>2nd Option</label>
           </li>
         </ul>
       </li>
