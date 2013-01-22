@@ -29,6 +29,15 @@ module.exports = function(grunt) {
 
     jshint: {
       all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js', 'site/page.js']
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: grunt.option('port') || 8000,
+          keepalive: true
+        }
+      }
     }
   });
 
@@ -36,16 +45,10 @@ module.exports = function(grunt) {
     grunt.config.set(name, val);
   });
 
-  /* TODO: remove once this feature has been merged into npm grunt
-   * https://github.com/cowboy/grunt/issues/236 */
-  grunt.registerTask('wait', 'Wait forever.', function() {
-    grunt.log.write('Waiting...');
-    this.async();
-  });
-
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.registerTask('default', 'jshint');
 };
