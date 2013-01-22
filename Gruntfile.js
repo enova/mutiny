@@ -2,6 +2,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    jshint: {
+      all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js', 'site/page.js']
+    },
+
     concat: {
       options: {
         stripBanners: true,
@@ -27,10 +31,6 @@ module.exports = function(grunt) {
       }
     },
 
-    jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js', 'site/page.js']
-    },
-
     connect: {
       server: {
         options: {
@@ -41,13 +41,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('set_config', 'Set a config property.', function(name, val) {
-    grunt.config.set(name, val);
-  });
-
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.registerTask('default', 'jshint');
