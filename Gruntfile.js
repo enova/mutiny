@@ -1,8 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    meta: {
-      banner: '/*! Mutiny - https://github.com/enova/mutiny */'
-    },
+    pkg: grunt.file.readJSON('package.json'),
 
     concat: {
       dist: {
@@ -18,14 +16,8 @@ module.exports = function(grunt) {
       }
     },
 
-    lint: {
-      all: ['grunt.js', 'src/**/*.js', 'spec/**/*.js', 'site/page.js']
-    },
-
     jshint: {
-      options: {
-        browser: true
-      }
+      all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js', 'site/page.js']
     }
   });
 
@@ -40,5 +32,6 @@ module.exports = function(grunt) {
     this.async();
   });
 
-  grunt.registerTask('default', 'lint');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.registerTask('default', 'jshint');
 };
