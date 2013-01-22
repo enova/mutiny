@@ -15,10 +15,15 @@ module.exports = function(grunt) {
       }
     },
 
-    min: {
+    uglify: {
+      options: {
+        banner: '<%= concat.options.banner %>'
+      },
+
       dist: {
-        src: ['<banner>', 'dist/mutiny.js'],
-        dest: 'dist/mutiny.min.js'
+        files: {
+          'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js']
+        }
       }
     },
 
@@ -39,6 +44,8 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+
   grunt.registerTask('default', 'jshint');
 };
