@@ -10,7 +10,5 @@ var Page = function(page, $) {
     }
   };
 
-  page.include(page.files, '/src/%s.js');
-
   return page;
 }({}, jQuery);
