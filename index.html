@@ -2,9 +2,9 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
+    <link rel='stylesheet' href='vendor/jquery-ui.css' />
+    <link rel='stylesheet' href='vendor/rainbow.css' />
     <link rel='stylesheet' href='site/page.css' />
-    <link rel='stylesheet' href='site/jquery-ui.css' />
-    <link rel='stylesheet' href='site/rainbow.css' />
     <title>Mutiny</title>
   </head>
   <body>
@@ -19,12 +19,13 @@
 
     <article id='main'></article>
 
-    <script src='site/jquery.js'></script>
-    <script src='site/jquery-ui.js'></script>
+    <script src='vendor/jquery.js'></script>
+    <script src='vendor/jquery-ui.js'></script>
+    <script src='vendor/marked.min.js'></script>
+    <script src='vendor/rainbow.min.js'></script>
+    <script src='vendor/rainbow.patterns.js'></script>
+
     <script src='site/page.js'></script>
-    <script src='site/marked.min.js'></script>
-    <script src='site/rainbow.min.js'></script>
-    <script src='site/rainbow.patterns.js'></script>
 
     <script>
       var currentPage = window.location.search.replace('?', '');
