@@ -3,9 +3,15 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     concat: {
+      options: {
+        stripBanners: true,
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> */\n',
+        separator: ';'
+      },
+
       dist: {
-        src: ['<banner>', 'src/**/*.js'],
-        dest: 'dist/mutiny.js'
+        src: ['src/**/*.js'],
+        dest: 'dist/<%= pkg.name %>.js'
       }
     },
 
@@ -32,6 +38,7 @@ module.exports = function(grunt) {
     this.async();
   });
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.registerTask('default', 'jshint');
 };
