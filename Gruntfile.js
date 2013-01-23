@@ -5,7 +5,9 @@ module.exports = function(grunt) {
     banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n',
 
     jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
+      grunt: ['Gruntfile.js'],
+      src: ['src/**/*.js'],
+      spec: ['spec/**/*.js']
     },
 
     concat: {
@@ -16,8 +18,9 @@ module.exports = function(grunt) {
       },
 
       dist: {
-        src: ['src/**/*.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+        files: {
+          'dist/<%= pkg.name %>.js': ['src/**/*.js']
+        }
       }
     },
 
@@ -43,7 +46,7 @@ module.exports = function(grunt) {
     },
 
     jasmine: {
-      pivotal: {
+      mutiny: {
         src: 'src/**/*.js',
         options: {
           specs: 'spec/**/*_spec.js',
