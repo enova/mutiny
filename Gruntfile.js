@@ -44,7 +44,7 @@ module.exports = function(grunt) {
       pivotal: {
         src: 'src/**/*.js',
         options: {
-          specs: 'spec/**/*.js',
+          specs: 'spec/**/*_spec.js',
           vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
         }
       }
