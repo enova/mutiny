@@ -38,6 +38,16 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
+    },
+
+    jasmine: {
+      pivotal: {
+        src: 'src/**/*.js',
+        options: {
+          specs: 'spec/**/*_spec.js',
+          vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
+        }
+      }
     }
   });
 
@@ -45,6 +55,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.registerTask('default', 'jshint');
 };

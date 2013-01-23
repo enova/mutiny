@@ -5,6 +5,7 @@ describe('Mutiny.toggler', function() {
   });
 
   it('triggers Bare Bones toggler', function() {
+    console.log(jasmine.getFixtures().fixturesPath);
     expect($('#bare-bones .toggled')).toBeVisible();
     $('#bare-bones [data-mutiny]').click();
     expect($('#bare-bones .toggled')).toBeHidden();
