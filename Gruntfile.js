@@ -2,6 +2,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n',
+
     jshint: {
       all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
     },
@@ -9,7 +11,7 @@ module.exports = function(grunt) {
     concat: {
       options: {
         stripBanners: true,
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> */\n',
+        banner: '<%= banner %>',
         separator: ';'
       },
 
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
 
     uglify: {
       options: {
-        banner: '<%= concat.options.banner %>'
+        banner: '<%= banner %>'
       },
 
       dist: {
