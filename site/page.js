@@ -1,8 +1,8 @@
 var Page = function(page, $) {
-  page.helpers = ['_jquery'];
+  page.helpers = ['mutiny'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
-  page.subPaths = page.helpers.concat(page.widgets);
+  page.subPaths = page.helpers.concat($.map(page.widgets, function(e){return 'widgets/'+e}));
 
   page.srcFiles = $.map(page.subPaths, function(e){return 'src/'+e+'.js'});
   page.specFiles = $.map(page.subPaths, function(e){return 'spec/'+e+'_spec.js'});
