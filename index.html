@@ -30,7 +30,7 @@
     <script>
       var currentPage = window.location.search.replace('?', '');
 
-      Page.include(Page.files, 'src/%s.js');
+      Page.include(Page.srcFiles);
 
       $.each(Page.widgets, function(i, widget) {
         var link = $('<a href="index.html?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
