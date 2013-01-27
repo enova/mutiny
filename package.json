@@ -15,6 +15,9 @@
       "url": "https://github.com/enova/mutiny/blob/master/LICENSE"
     }
   ],
+  "engines": {
+    "node": "~0.8.0"
+  },
   "scripts": {
     "test": "grunt"
   },
