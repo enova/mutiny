@@ -1,4 +1,4 @@
-mutiny.js
+mutiny.js [![Build Status](https://secure.travis-ci.org/enova/mutiny.png)](http://travis-ci.org/enova/mutiny)
 =====
 Tired of writing procedural code to generate Javascript UI elements in a
 completely different section of the HTML document?  So are we!  Mutiny.js allows
