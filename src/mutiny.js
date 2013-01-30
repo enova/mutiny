@@ -41,3 +41,7 @@ $.fn.mutiny = function(dataAttr){
   });
   return this;
 };
+
+$(function(){
+  Mutiny.init();
+});

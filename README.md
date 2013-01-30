@@ -14,11 +14,10 @@ Usage
     <p id='target'>Toggle</p>
     ```
 
-2.  Initialize Mutiny
+2.  Load Mutiny
 
     ```html
     <script src='mutiny.js'></script>
-    <script>$(document).ready(function(){Mutiny.init()})</script>
     ```
 
 3. There is no step 3!
