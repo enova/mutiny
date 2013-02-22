@@ -20,6 +20,14 @@ module.exports = function(grunt) {
       }
     },
 
+    wrap: {
+      modules: {
+        src: 'dist/<%= pkg.name %>.js',
+        dest: '',
+        wrapper: ['(function(window, $, undefined) {\n', '\n})(window, jQuery);']
+      }
+    },
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n'
@@ -65,10 +73,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-wrap');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.registerTask('default', ['jshint', 'jasmine']);
-  grunt.registerTask('dist', ['concat', 'uglify']);
+  grunt.registerTask('dist', ['concat', 'wrap', 'uglify']);
 };
