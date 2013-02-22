@@ -5,7 +5,7 @@
   "author": "Enova",
   "homepage": "http://mutinyjs.com/",
   "version": "0.2.0dev",
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/enova/mutiny.git"
   },
@@ -23,8 +23,9 @@
   },
   "devDependencies": {
     "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.1.0",
-    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-jshint":  "~0.1.0",
+    "grunt-contrib-concat":  "~0.1.3",
+    "grunt-contrib-uglify":  "~0.1.1",
     "grunt-contrib-connect": "~0.1.0",
     "grunt-contrib-jasmine": "~0.3.0"
   }

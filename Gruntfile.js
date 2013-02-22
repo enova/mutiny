@@ -8,6 +8,18 @@ module.exports = function(grunt) {
       spec: ['spec/**/*.js']
     },
 
+    concat: {
+      options: {
+        separator: ';',
+        stripBanners: true
+      },
+
+      dist: {
+        src: ['src/**/*.js'],
+        dest: 'dist/<%= pkg.name %>.js'
+      }
+    },
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n'
@@ -20,13 +32,13 @@ module.exports = function(grunt) {
           compress: false
         },
         files: {
-          'dist/<%= pkg.name %>.js': ['src/**/*.js']
+          'dist/<%= pkg.name %>.js': 'dist/<%= pkg.name %>.js'
         }
       },
 
       min: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['src/**/*.js']
+          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
         }
       }
     },
@@ -52,10 +64,11 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.registerTask('default', ['jshint', 'jasmine']);
-  grunt.registerTask('dist', ['uglify']);
+  grunt.registerTask('dist', ['concat', 'uglify']);
 };
