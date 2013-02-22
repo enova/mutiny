@@ -87,6 +87,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('default', ['jshint', 'jasmine:src']);
+  grunt.registerTask('dist-build', ['concat', 'wrap', 'uglify']);
   grunt.registerTask('dist', ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
+  grunt.registerTask('test', ['jshint', 'jasmine:src']);
+  grunt.registerTask('test-all', ['jshint', 'dist-build', 'jasmine']);
+  grunt.registerTask('default', 'test');
 };
