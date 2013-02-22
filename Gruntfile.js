@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
 
-      dist: {
+      build: {
         src: ['src/**/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
@@ -61,12 +61,21 @@ module.exports = function(grunt) {
     },
 
     jasmine: {
-      mutiny: {
-        src: 'src/**/*.js',
-        options: {
-          specs: 'spec/**/*_spec.js',
-          vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
-        }
+      options: {
+        specs: 'spec/**/*_spec.js',
+        vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
+      },
+
+      src: {
+        src: 'src/**/*.js'
+      },
+
+      build: {
+        src: 'dist/<%= pkg.name %>.js'
+      },
+
+      min: {
+        src: 'dist/<%= pkg.name %>.min.js'
       }
     }
   });
@@ -78,6 +87,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('default', ['jshint', 'jasmine']);
-  grunt.registerTask('dist', ['concat', 'wrap', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'jasmine:src']);
+  grunt.registerTask('dist', ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
 };
