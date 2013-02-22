@@ -1,4 +1,4 @@
-var Mutiny = {
+var Mutiny = window.Mutiny = {
   init: function(dataAttr) {
     dataAttr = dataAttr || 'mutiny';
     $('[data-' + dataAttr + ']').mutiny(dataAttr);
