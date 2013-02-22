@@ -1,4 +1,4 @@
-/*! Mutiny v0.1.0 - http://mutinyjs.com/ */
+/*! Mutiny v0.1.1 - http://mutinyjs.com/ */
 var Mutiny = {
     init: function(dataAttr) {
         dataAttr = dataAttr || "mutiny";
@@ -85,7 +85,7 @@ Mutiny.accordion = {
 
 Mutiny.datepicker = {
     init: function($instigator, options) {
-        $instigator.datepicker();
+        $instigator.datepicker(options);
     }
 };
 
