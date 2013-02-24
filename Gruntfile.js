@@ -4,26 +4,26 @@ module.exports = function(grunt) {
 
     jshint: {
       meta: ['Gruntfile.js', 'package.json'],
-      src: ['src/**/*.js'],
+      src:  ['src/**/*.js'],
       spec: ['spec/**/*.js']
     },
 
     concat: {
       options: {
-        separator: ';',
+        separator:    ';',
         stripBanners: true
       },
 
       build: {
-        src: ['src/**/*.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'dist/<%= pkg.name %>.js',
+        src:  ['src/**/*.js']
       }
     },
 
     wrap: {
       modules: {
-        src: 'dist/<%= pkg.name %>.js',
-        dest: '',
+        dest:    '',
+        src:     ['dist/<%= pkg.name %>.js'],
         wrapper: ['(function(window, $, undefined) {\n', '\n})(window, jQuery);']
       }
     },
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       base: {
         options: {
           beautify: true,
-          mangle: false,
+          mangle:   false,
           compress: false
         },
         files: {
@@ -62,21 +62,13 @@ module.exports = function(grunt) {
 
     jasmine: {
       options: {
-        specs: 'spec/**/*_spec.js',
+        specs:  ['spec/**/*_spec.js'],
         vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
       },
 
-      src: {
-        src: 'src/**/*.js'
-      },
-
-      build: {
-        src: 'dist/<%= pkg.name %>.js'
-      },
-
-      min: {
-        src: 'dist/<%= pkg.name %>.min.js'
-      }
+      src:   ['src/**/*.js'],
+      build: ['dist/<%= pkg.name %>.js'],
+      min:   ['dist/<%= pkg.name %>.min.js']
     }
   });
 
@@ -88,8 +80,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.registerTask('dist-build', ['concat', 'wrap', 'uglify']);
-  grunt.registerTask('dist', ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
-  grunt.registerTask('test', ['jshint:meta', 'jshint:src', 'jasmine:src']);
-  grunt.registerTask('test-all', ['jshint:meta', 'jshint:src', 'dist-build', 'jasmine']);
-  grunt.registerTask('default', 'test');
+  grunt.registerTask('dist',       ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
+  grunt.registerTask('test',       ['jshint:meta', 'jshint:src', 'jasmine:src']);
+  grunt.registerTask('test-all',   ['jshint:meta', 'jshint:src', 'dist-build', 'jasmine']);
+  grunt.registerTask('default',    ['test']);
 };
