@@ -9,7 +9,7 @@ var Mutiny = window.Mutiny = {
       }
 
       var options = $.extend({}, Mutiny[name].defaults);
-      if(typeof instance_options === 'string') {
+      if(isString(instance_options)) {
         options[Mutiny[name].string_arg] = instance_options;
       } else {
         $.extend(options, instance_options);
@@ -20,19 +20,16 @@ var Mutiny = window.Mutiny = {
     el.each(function(i, e) {
       var $e = $(e);
       var data = $e.data(dataAttr);
-      switch(typeof data) {
-        case 'string':
-          /* data-mutiny='slider' */
-          mutiny_call($e, data, {});
-          break;
-        case 'object':
-          /* data-mutiny='{"slider": {"some": "options"}}' */
-          for(var directive in data) {
-            mutiny_call($e, directive, data[directive]);
-          }
-          break;
-        default:
-          throw 'Unsupported data';
+      if(isString(data)) {
+        /* data-mutiny='slider' */
+        mutiny_call($e, data, {});
+      } else if(typeof data === 'object') {
+        /* data-mutiny='{"slider": {"some": "options"}}' */
+        for(var directive in data) {
+          mutiny_call($e, directive, data[directive]);
+        }
+      } else {
+        throw 'Unsupported data';
       }
     });
     return this;
