@@ -1,3 +1,7 @@
+$(function(){
+  Mutiny.init();
+});
+
 var Mutiny = window.Mutiny = {
   init: function(el, dataAttr) {
     dataAttr = dataAttr || 'mutiny';
@@ -35,7 +39,3 @@ var Mutiny = window.Mutiny = {
     return this;
   }
 };
-
-$(function(){
-  Mutiny.init();
-});

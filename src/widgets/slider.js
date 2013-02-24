@@ -36,9 +36,9 @@ Mutiny.slider = {
       options.max = Number($options.last().val());
       options.step = (options.max - options.min) / ($options.length - 1);
     } else {
-      options.min = Number($instigator.attr('min') || $instigator.data('min'));
-      options.max = Number($instigator.attr('max') || $instigator.data('max'));
-      options.step = Number($instigator.attr('step') || $instigator.data('step'));
+      $.each(['min', 'max', 'step'], function(i, attr) {
+        options[attr] = Number(options[attr] || $instigator.attr(attr) || $instigator.data(attr));
+      });
     }
 
     $instigator.change(function(){
