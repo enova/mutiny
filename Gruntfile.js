@@ -9,14 +9,11 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      options: {
+      build: {
+        dest:         'dist/<%= pkg.name %>.js',
+        src:          ['src/**/*.js'],
         separator:    ';',
         stripBanners: true
-      },
-
-      build: {
-        dest: 'dist/<%= pkg.name %>.js',
-        src:  ['src/**/*.js']
       }
     },
 
@@ -62,11 +59,14 @@ module.exports = function(grunt) {
 
     jasmine: {
       options: {
-        specs:  ['spec/**/*_spec.js'],
+        specs:  ['spec/*_spec.js', 'spec/widgets/*_spec.js'],
         vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
       },
 
-      src:   ['src/**/*.js'],
+      src: {
+        src:   ['src/**/*.js'],
+        specs: ['spec/**/*_spec.js']
+      },
       build: ['dist/<%= pkg.name %>.js'],
       min:   ['dist/<%= pkg.name %>.min.js']
     }

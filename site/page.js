@@ -1,5 +1,5 @@
 var Page = function(page, $) {
-  page.helpers = ['mutiny', 'util'];
+  page.helpers = ['mutiny', 'util/typecheck'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
   page.subPaths = page.helpers.concat($.map(page.widgets, function(e){return 'widgets/'+e}));
