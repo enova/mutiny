@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('dist-build', ['concat', 'wrap', 'uglify']);
   grunt.registerTask('dist', ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
-  grunt.registerTask('test', ['jshint', 'jasmine:src']);
-  grunt.registerTask('test-all', ['jshint', 'dist-build', 'jasmine']);
+  grunt.registerTask('test', ['jshint:meta', 'jshint:src', 'jasmine:src']);
+  grunt.registerTask('test-all', ['jshint:meta', 'jshint:src', 'dist-build', 'jasmine']);
   grunt.registerTask('default', 'test');
 };
