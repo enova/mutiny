@@ -1,4 +1,4 @@
-describe('$(element).mutiny()', function() {
+describe('Mutiny.init()', function() {
   beforeEach(function() {
     Mutiny.widget = {
       'init': function(){}
@@ -16,13 +16,13 @@ describe('$(element).mutiny()', function() {
     });
 
     it("invokes with empty options", function() {
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {});
     });
 
     it("invokes with defaults", function() {
       Mutiny.widget.defaults = {'default': 'option'};
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option'});
     });
   });
@@ -33,19 +33,19 @@ describe('$(element).mutiny()', function() {
     });
 
     it("invokes with options", function() {
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
     });
 
     it("invokes with defaults merged with options", function() {
       Mutiny.widget.defaults = {'default': 'option'};
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'key': 'value'});
     });
 
     it("invokes with overridden defaults", function() {
       Mutiny.widget.defaults = {'key': 'default'};
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
     });
   });
@@ -57,19 +57,19 @@ describe('$(element).mutiny()', function() {
     });
 
     it("converts options into {Mutiny.widget.string_arg: 'string'}", function() {
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
     });
 
     it("merges defaults with options", function() {
       Mutiny.widget.defaults = {'default': 'option'};
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
     });
 
     it("overrides defaults with options", function() {
       Mutiny.widget.defaults = {'objectize': 'default'};
-      this.el.mutiny();
+      Mutiny.init(this.el);
       expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
     });
   });
@@ -80,7 +80,7 @@ describe('$(element).mutiny()', function() {
     });
 
     it("triggers using argument", function() {
-      this.el.mutiny('custom');
+      Mutiny.init(this.el, 'custom');
       expect(Mutiny.widget.init).wasCalled();
     });
   });
@@ -89,7 +89,7 @@ describe('$(element).mutiny()', function() {
     it("<div data-mutiny='nonexistent'> throws nonexistent widget", function() {
       var el = $("<div data-mutiny='nonexistent' />");
       expect(function() {
-        el.mutiny();
+        Mutiny.init(el);
       }).toThrow('"nonexistent" not found');
     });
   });
