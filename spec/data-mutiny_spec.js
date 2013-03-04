@@ -1,4 +1,5 @@
-describe('Mutiny.init()', function() {
+/* Deprecated syntax. */
+describe('data-mutiny=', function() {
   beforeEach(function() {
     Mutiny.widget = {
       'init': function(){}
@@ -10,9 +11,9 @@ describe('Mutiny.init()', function() {
     delete Mutiny.widget;
   });
 
-  describe("<div data-mutiny-widget='' />", function() {
+  describe("<div data-mutiny='widget' />", function() {
     beforeEach(function() {
-      this.el = $("<div data-mutiny-widget='' />");
+      this.el = $("<div data-mutiny='widget' />");
     });
 
     it("invokes with empty options", function() {
@@ -27,9 +28,9 @@ describe('Mutiny.init()', function() {
     });
   });
 
-  describe('<div data-mutiny-widget=\'{"key": "value"}\' />', function() {
+  describe('<div data-mutiny=\'{"widget": {"key": "value"}}\' />', function() {
     beforeEach(function() {
-      this.el = $('<div data-mutiny-widget=\'{"key": "value"}\' />');
+      this.el = $('<div data-mutiny=\'{"widget": {"key": "value"}}\' />');
     });
 
     it("invokes with options", function() {
@@ -50,10 +51,10 @@ describe('Mutiny.init()', function() {
     });
   });
 
-  describe('<div data-mutiny-widget="string" />', function() {
+  describe('<div data-mutiny=\'{"widget": "string"}\' />', function() {
     beforeEach(function() {
       Mutiny.widget.string_arg = 'objectize';
-      this.el = $('<div data-mutiny-widget="string" />');
+      this.el = $('<div data-mutiny=\'{"widget": "string"}\' />');
     });
 
     it("converts options into {Mutiny.widget.string_arg: 'string'}", function() {
@@ -74,9 +75,9 @@ describe('Mutiny.init()', function() {
     });
   });
 
-  describe("<div data-custom-widget=''>", function() {
+  describe("<div data-custom='widget'>", function() {
     beforeEach(function() {
-      this.el = $("<div data-custom-widget='' />");
+      this.el = $("<div data-custom='widget' />");
     });
 
     it("triggers using argument", function() {
@@ -86,8 +87,8 @@ describe('Mutiny.init()', function() {
   });
 
   describe("exceptions", function() {
-    it("<div data-mutiny-nonexistent=''> throws nonexistent widget", function() {
-      var el = $("<div data-mutiny-nonexistent='' />");
+    it("<div data-mutiny='nonexistent'> throws nonexistent widget", function() {
+      var el = $("<div data-mutiny='nonexistent' />");
       expect(function() {
         Mutiny.init(el);
       }).toThrow('"nonexistent" not found');
