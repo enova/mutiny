@@ -47,6 +47,5 @@ var Mutiny = window.Mutiny = {
         }
       }
     });
-    return this;
   }
 };
