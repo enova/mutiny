@@ -3,37 +3,48 @@ $(function(){
 });
 
 var Mutiny = window.Mutiny = {
-  init: function(el, dataAttr) {
-    dataAttr = dataAttr || 'mutiny';
-    el = el || $('[data-' + dataAttr + ']');
+  init: function(el, namespace) {
+    namespace = namespace || 'mutiny';
+    el = el || $('[data-' + namespace + ']');
 
-    var mutiny_call = function($instigator, name, instance_options){
-      if(Mutiny[name] === undefined) {
-        throw '"' + name + '" not found';
+    var mutiny_call = function($instigator, widget, instance_options){
+      if(Mutiny[widget] === undefined) {
+        throw '"' + widget + '" not found';
       }
 
-      var options = $.extend({}, Mutiny[name].defaults);
+      var options = $.extend({}, Mutiny[widget].defaults);
       if(isString(instance_options)) {
-        options[Mutiny[name].string_arg] = instance_options;
+        options[Mutiny[widget].string_arg] = instance_options;
       } else {
         $.extend(options, instance_options);
       }
-      Mutiny[name].init($instigator, options);
+      Mutiny[widget].init($instigator, options);
     };
 
     el.each(function(i, e) {
       var $e = $(e);
-      var data = $e.data(dataAttr);
-      if(isString(data)) {
-        /* data-mutiny='slider' */
-        mutiny_call($e, data, {});
-      } else if(typeof data === 'object') {
-        /* data-mutiny='{"slider": {"some": "options"}}' */
-        for(var directive in data) {
-          mutiny_call($e, directive, data[directive]);
+      var data = $e.data();
+      if(namespace in data) {
+        var directives = data[namespace];
+        if(isString(directives)) {
+          /* data-mutiny='slider' */
+          mutiny_call($e, directives, {});
+        } else if(typeof data === 'object') {
+          /* data-mutiny='{"slider": {"some": "options"}}' */
+          for(var directive in directives) {
+            mutiny_call($e, directive, directives[directive]);
+          }
+        } else {
+          throw 'Unsupported data';
         }
-      } else {
-        throw 'Unsupported data';
+      }
+
+      for(var key in data) {
+        if(key.indexOf(namespace) === 0 && key != namespace) {
+          var widget = key.replace(namespace, '').toLowerCase();
+          var options = data[key];
+          mutiny_call($e, widget, options || {});
+        }
       }
     });
     return this;
