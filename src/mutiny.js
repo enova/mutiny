@@ -5,7 +5,7 @@ $(function(){
 var Mutiny = window.Mutiny = {
   init: function(el, namespace) {
     namespace = namespace || 'mutiny';
-    el = el || $('[data-' + namespace + ']');
+    el = el || $('*');
 
     var mutiny_call = function($instigator, widget, instance_options){
       if(Mutiny[widget] === undefined) {
