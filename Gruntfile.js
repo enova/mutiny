@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+  var banner = '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n';
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
       modules: {
         dest:    '',
         src:     ['dist/<%= pkg.name %>.js'],
-        wrapper: ['(function(window, $, undefined) {\n', '\n})(window, jQuery);']
+        wrapper: [banner + '(function(window, $, undefined) {\n', '\n})(window, jQuery);']
       }
     },
 
