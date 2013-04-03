@@ -1,7 +1,7 @@
 <section id='bare-bones'>
   <h1>Bare bones</h1>
   <div class='example'>
-    <span data-mutiny='{"toggler": "#bare-bones .toggled"}'>Click me</span>
+    <span data-mutiny-toggler='#bare-bones .toggled'>Click me</span>
     <p class='toggled'>Disappearing!</p>
   </div>
 </section>
@@ -9,7 +9,7 @@
 <section id='class-name'>
   <h1>Class name</h1>
   <div class='example'>
-    <span data-mutiny='{"toggler": {"target":"#class-name .toggled", "class":"active"}}'>Toggle</span>
+    <span data-mutiny-toggler='{"target":"#class-name .toggled", "class":"active"}'>Toggle</span>
     <p class='toggled'>Inspect my class name</p>
   </div>
 </section>
@@ -17,7 +17,7 @@
 <section id='style-changes'>
   <h1>Style changes</h1>
   <div class='example'>
-    <span data-mutiny='{"toggler": {"target":"#style-changes .toggled", "style":{"color":"blue", "font-style": "italic"}}}'>Toggle</span>
+    <span data-mutiny-toggler='{"target":"#style-changes .toggled", "style":{"color":"blue", "font-style": "italic"}}'>Toggle</span>
     <p class='toggled'>Stylize!</p>
   </div>
 </section>
@@ -25,7 +25,7 @@
 <section id='hijack'>
   <h1>Hijack default behavior</h1>
   <div class='example'>
-    <a href='http://www.google.com' data-mutiny='{"toggler": {"target":"#hijack .toggled", "preventDefault":true}}'>Definitely not a link</a>
+    <a href='http://www.google.com' data-mutiny-toggler='{"target":"#hijack .toggled", "preventDefault":true}'>Definitely not a link</a>
     <p class='toggled'>No Google 4 u!</p>
   </div>
 </section>
@@ -39,7 +39,7 @@
         <label for='choice1'>1st Choice</label>
       </li>
       <li>
-        <input type='radio' id='choice2' name="group1" data-mutiny='{"toggler": {"target":"#radio-buttons .toggled", "style":{"display": "block"}}}'>
+        <input type='radio' id='choice2' name="group1" data-mutiny-toggler='{"target":"#radio-buttons .toggled", "style":{"display": "block"}}'>
         <label for='choice2'>2nd Choice(Click Me!)</label>
         <ul class="toggled" style='display: none;'>
           <li>
