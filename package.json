@@ -4,7 +4,7 @@
   "description": "Reusable, declarative HTML5 widgets",
   "author": "Enova",
   "homepage": "http://mutinyjs.com/",
-  "version": "0.2.0dev",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/enova/mutiny.git"
