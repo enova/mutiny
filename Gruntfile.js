@@ -30,17 +30,6 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n'
       },
 
-      base: {
-        options: {
-          beautify: true,
-          mangle:   false,
-          compress: false
-        },
-        files: {
-          'dist/<%= pkg.name %>.js': 'dist/<%= pkg.name %>.js'
-        }
-      },
-
       min: {
         files: {
           'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
