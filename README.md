@@ -10,7 +10,7 @@ Usage
 1.  Add the HTML5 data attributes.
 
     ```html
-    <span data-mutiny='{"toggler": "#target"}'>Toggle</span>
+    <span data-mutiny-toggler='#target'>Toggle</span>
     <p id='target'>Toggle</p>
     ```
 
@@ -45,7 +45,7 @@ var Mutiny = function(mutiny){
 HTML5:
 
 ```html
-<div data-mutiny='{"textToOptions": {"custom": "arg"}}'></div>
+<div data-mutiny-text-to-options='{"custom": "arg"}'></div>
 ```
 
 Running Tests/Examples
