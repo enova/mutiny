@@ -46,15 +46,18 @@
             return;
           }
 
-          $('#main section').each(function(i, e) {
+          $('#main section').wrapInner('<div class="example"/>').each(function(i, e) {
             var $e = $(e);
-            var $pre = $('<pre></pre>').insertBefore($e.find('.example'));
-            var $code = $('<code data-language="html"></code>').appendTo($pre);
+            var $h1 = $('<h1/>').prependTo($e).text(
+                        $e.attr('id').replace(/-/, ' ')
+                      );
             /* .html() pulls out the code of the parsed Javascript.  This can cause the
             browser to re-encode ' => " and " => &quot; */
-            $code.text($e.find('.example').html().replace(/"/g,      "'")
-                                                 .replace(/&quot;/g, '"')
-                                                 .replace(/&gt;/g,   '>'));
+            var $code = $('<pre data-language="html"/>').insertAfter($h1).text(
+                          $e.find('.example').html().replace(/"/g,      "'")
+                                                    .replace(/&quot;/g, '"')
+                                                    .replace(/&gt;/g,   '>')
+                        );
           });
 
           Mutiny.init();

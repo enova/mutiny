@@ -1,60 +1,39 @@
-<section>
-  <h1>Bare bones.</h1>
-  <div class='example'>
-    <input type='number' min='0' max='1000' step='50'
-           data-mutiny-slider='' />
-  </div>
+<section id='bare-bones'>
+  <input type='number' min='0' max='1000' step='50'
+         data-mutiny-slider='' />
 </section>
 
-<section>
-  <h1>The id of the slider wrapper is <tt>[inputid]-mutiny-slider</tt></h1>
-  <div class='example'>
-    <input id='example-id' type='number' min='0' max='1000' step='50'
-           data-mutiny-slider='' />
-  </div>
+<section id='slider-wrapper-id'>
+  <input id='example-id' type='number' min='0' max='1000' step='50'
+         data-mutiny-slider='' />
 </section>
 
-<section>
-  <h1>Start value</h1>
-  <div class='example'>
-    <input type='number' min='0' max='1000' step='50' value='250'
-           data-mutiny-slider='' />
-  </div>
+<section id='start-value'>
+  <input type='number' min='0' max='1000' step='50' value='250'
+         data-mutiny-slider='' />
 </section>
 
-<section>
-  <h1>Min/max labels</h1>
-  <div class='example'>
-    <input type='number' min='0' max='1000' step='50'
-           data-mutiny-slider='{"minLabel": "min:%s", "maxLabel": "max:%s"}' />
-  </div>
+<section id='min-max-labels'>
+  <input type='number' min='0' max='1000' step='50'
+         data-mutiny-slider='{"minLabel": "min:%s", "maxLabel": "max:%s"}' />
 </section>
 
-<section>
-  <h1>Value label</h1>
-  <div class='example'>
-    <input type='number' min='0' max='1000' step='50'
-           data-mutiny-slider='{"valueLabel": "about %s pieces of 8"}' />
-  </div>
+<section id='value-label'>
+  <input type='number' min='0' max='1000' step='50'
+         data-mutiny-slider='{"valueLabel": "about %s pieces of 8"}' />
 </section>
 
-<section>
-  <h1>Create slider with an existing element instead of appending a new one</p>
-  <div class='example'>
-    <div id='slider'></div>
-    <input type='number' min='0' max='1000' step='50'
-           data-mutiny-slider='{"target": "#slider"}' />
-  </div>
+<section id='slider-within-existing-element'>
+  <div id='slider'></div>
+  <input type='number' min='0' max='1000' step='50'
+         data-mutiny-slider='{"target": "#slider"}' />
 </section>
 
-<section>
-  <h1>Select box</h1>
-  <div class='example'>
-    <select data-mutiny-slider=''>
-      <option value='50'>50</option>
-      <option value='100'>100</option>
-      <option value='150'>150</option>
-      <option value='200'>200</option>
-    </select>
-  </div>
+<section id='select-box'>
+  <select data-mutiny-slider=''>
+    <option value='50'>50</option>
+    <option value='100'>100</option>
+    <option value='150'>150</option>
+    <option value='200'>200</option>
+  </select>
 </section>
