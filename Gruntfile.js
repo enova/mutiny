@@ -11,25 +11,21 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      build: {
-        dest:         'dist/<%= pkg.name %>.js',
-        src:          ['src/**/*.js'],
-        separator:    ';',
-        stripBanners: true
-      }
-    },
+      options: {
+        banner: banner + '(function(window, $, undefined) {\n',
+        footer: '\n})(window, jQuery);'
+      },
 
-    wrap: {
-      modules: {
-        dest:    '',
-        src:     ['dist/<%= pkg.name %>.js'],
-        wrapper: [banner + '(function(window, $, undefined) {\n', '\n})(window, jQuery);']
+      dist: {
+        files: {
+          'dist/<%= pkg.name %>.js': ['src/**/*.js']
+        }
       }
     },
 
     uglify: {
       options: {
-        banner: '/*! <%= pkg.title %> v<%= pkg.version %> - <%= pkg.homepage %> */\n'
+        banner: banner
       },
 
       min: {
@@ -65,13 +61,12 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-wrap');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('dist-build', ['concat', 'wrap', 'uglify']);
-  grunt.registerTask('dist',       ['concat', 'wrap', 'uglify', 'jasmine:build', 'jasmine:min']);
+  grunt.registerTask('dist-build', ['concat', 'uglify']);
+  grunt.registerTask('dist',       ['dist-build', 'jasmine:build', 'jasmine:min']);
   grunt.registerTask('test',       ['jshint:meta', 'jshint:src', 'jasmine:src']);
   grunt.registerTask('test-all',   ['jshint:meta', 'jshint:src', 'dist-build', 'jasmine']);
   grunt.registerTask('default',    ['test']);
