@@ -1,8 +1,14 @@
 $(function(){
-  Mutiny.init();
+  if(Mutiny.options.initOnReady) {
+    Mutiny.init();
+  }
 });
 
 var Mutiny = window.Mutiny = {
+  options: {
+    initOnReady: true
+  },
+
   init: function(el, namespace) {
     namespace = namespace || 'mutiny';
     el = el || $('*');

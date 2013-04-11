@@ -38,8 +38,12 @@
           link.addClass('active');
         }
       });
+    </script>
 
+    <script>
       if(currentPage) {
+        Mutiny.options.initOnReady = false;
+
         $('#main').load('examples/' + currentPage + '.html', function(data, status, xhr) {
           if(status == "error") {
             $('#main').addClass('error').html('<h1>Error ' + xhr.status + '</h1><code>' + data + '</code>');
