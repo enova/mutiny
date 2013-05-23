@@ -1,19 +1,5 @@
 Mutiny.slider = {
   'defaults': {'range': 'min'},
-  '_createFormatSpan': function(format, value, className) {
-    if(value === null || value === '') {
-      /* If value does not exist, force a non-empty element draw.  Starting with empty
-       * element prevents correct drawing when it has been replace with real contents.
-       */
-      value = '&nbsp;';
-    }
-    var inner = format.replace('%s', '<span>' + value + '</span>');
-    if(className) {
-      return '<span class="' + className + '">' + inner + '</span>';
-    } else {
-      return '<span>' + inner + '</span>';
-    }
-  },
   'init': function($instigator, options){
     var $ui;
     if(options.target) {
@@ -54,17 +40,17 @@ Mutiny.slider = {
     });
 
     if(options.minLabel) {
-      $ui.append(this._createFormatSpan(options.minLabel, options.min, 'min-label'));
+      $ui.append(formatSpan(options.minLabel, options.min, 'min-label'));
     }
     if(options.maxLabel) {
-      $ui.append(this._createFormatSpan(options.maxLabel, options.max, 'max-label'));
+      $ui.append(formatSpan(options.maxLabel, options.max, 'max-label'));
     }
 
     $ui.slider(options);
 
     /* Need to append the element to a DOM loaded slider so this occurs after the slider instantiation. */
     if(options.valueLabel) {
-      var $valueLabel = $(this._createFormatSpan(options.valueLabel, options.value, 'value-label')).appendTo($ui.find('.ui-slider-handle'));
+      var $valueLabel = $(formatSpan(options.valueLabel, options.value, 'value-label')).appendTo($ui.find('.ui-slider-handle'));
       var $value = $valueLabel.find('span');
       $instigator.change(function() {
         $value.html($instigator.val());

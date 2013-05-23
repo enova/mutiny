@@ -52,7 +52,9 @@ module.exports = function(grunt) {
 
       src: {
         src:   ['src/**/*.js'],
-        specs: ['spec/**/*_spec.js']
+        options: {
+          specs: ['spec/**/*_spec.js']
+        }
       },
       build: ['dist/<%= pkg.name %>.js'],
       min:   ['dist/<%= pkg.name %>.min.js']
