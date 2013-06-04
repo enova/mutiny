@@ -1,21 +1,22 @@
 <section id='bare-bones'>
-  <span data-mutiny-toggler='#bare-bones .toggled'>Click me</span>
-  <p class='toggled'>Disappearing!</p>
+  <span data-mutiny-toggler=''>Click me</span>
+</section>
+
+<section id='targeted'>
+  <span data-mutiny-toggler='#targeted .target'>Click me</span>
+  <p class='target'>Appearing!</p>
 </section>
 
 <section id='class-name'>
-  <span data-mutiny-toggler='{"target":"#class-name .toggled", "class":"start end"}'>Toggle</span>
-  <p class='toggled'>Inspect my class name</p>
+  <span data-mutiny-toggler='{"class":"start end"}'>Inspect my class name</span>
 </section>
 
 <section id='style-changes'>
-  <span data-mutiny-toggler='{"target":"#style-changes .toggled", "style":{"color":"blue", "font-style": "italic"}}'>Toggle</span>
-  <p class='toggled'>Stylize!</p>
+  <span data-mutiny-toggler='{"style":{"color":"blue", "font-style": "italic"}}'>Toggle</span>
 </section>
 
 <section id='prevent-default'>
-  <a href='http://www.google.com' data-mutiny-toggler='{"target":"#prevent-default .toggled", "preventDefault":true}'>Definitely not a link</a>
-  <p class='toggled'>No Google 4 u!</p>
+  <a href='http://www.google.com' data-mutiny-toggler='{"preventDefault":true}'>Definitely not a link</a>
 </section>
 
 <section id='radio-buttons'>
@@ -25,18 +26,8 @@
       <label for='choice1'>1st Choice</label>
     </li>
     <li>
-      <input type='radio' id='choice2' name="group1" data-mutiny-toggler='{"target":"#radio-buttons .toggled"}'>
+      <input type='radio' id='choice2' name="group1" data-mutiny-toggler=''>
       <label for='choice2'>2nd Choice(Click Me!)</label>
-      <ul class="toggled">
-        <li>
-          <input type='radio' id='choice21' name="group2">
-          <label for='choice21'>1st Option</label>
-        </li>
-        <li>
-          <input type='radio' id='choice22' name="group2">
-          <label for='choice22'>2nd Option</label>
-        </li>
-      </ul>
     </li>
   </ul>
 </section>

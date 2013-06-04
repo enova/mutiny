@@ -1,41 +1,42 @@
 Mutiny.toggler = {
-  'defaults': {'class': 'inactive active', 'preventDefault': false, 'instigatorClass': 'active'},
+  'defaults': {'class': 'inactive active', 'preventDefault': false},
   'string_arg': 'target',
   'init': function($instigator, options){
     var $target = $(options.target);
 
-    var targetFunc;
+    var toggleFunc;
     if(options.style) {
       var noStyle = {};
       for(var key in options.style) {
         noStyle[key] = $target.css(key);
       }
 
-      targetFunc = function(on) {
+      toggleFunc = function(on) {
+        $instigator.css(on ? options.style : noStyle);
         $target.css(on ? options.style : noStyle);
       };
     } else {
       var classes = options['class'].split(' ');
-      targetFunc = function(on) {
+      toggleFunc = function(on) {
+        $instigator.toggleClass(classes[0], !on);
+        $instigator.toggleClass(classes[1], on);
         $target.toggleClass(classes[0], !on);
         $target.toggleClass(classes[1], on);
       };
-      targetFunc(false);
     }
 
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
+      toggleFunc($instigator.is(':checked'));
       $('input[name="'+ name +'"]').change(function(event){
-        var active = $instigator.is(':checked');
-        $instigator.toggleClass(options.instigatorClass, active);
-        targetFunc(active);
+        toggleFunc($instigator.is(':checked'));
       });
     } else {
       var active = false;
+      toggleFunc(active);
       $instigator.click(function(event) {
         active = !active;
-        $instigator.toggleClass(options.instigatorClass, active);
-        targetFunc(active);
+        toggleFunc(active);
 
         if(options.preventDefault) {
           event.preventDefault();
