@@ -28,9 +28,13 @@
     <script src='site/page.js'></script>
 
     <script>
-      var currentPage = window.location.search.replace('?', '');
-
       Page.include(Page.srcFiles);
+    </script>
+
+    <script>
+      Mutiny.options.initOnReady = false;
+
+      var currentPage = window.location.search.replace('?', '');
 
       $.each(Page.widgets, function(i, widget) {
         var link = $('<a href="index.html?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
@@ -38,11 +42,9 @@
           link.addClass('active');
         }
       });
-    </script>
 
-    <script>
       if(currentPage) {
-        Mutiny.options.initOnReady = false;
+        $('body').attr('id', currentPage);
 
         $('#main').load('examples/' + currentPage + '.html', function(data, status, xhr) {
           if(status == "error") {
