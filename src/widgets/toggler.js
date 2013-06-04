@@ -1,15 +1,11 @@
 Mutiny.toggler = {
-  'defaults': {'style': {'display': 'none'}, 'preventDefault': false, 'instigatorClass': 'active'},
+  'defaults': {'class': 'inactive active', 'preventDefault': false, 'instigatorClass': 'active'},
   'string_arg': 'target',
   'init': function($instigator, options){
     var $target = $(options.target);
 
     var targetFunc;
-    if(options['class']) {
-      targetFunc = function(on) {
-        $target.toggleClass(options['class'], on);
-      };
-    } else {
+    if(options.style) {
       var noStyle = {};
       for(var key in options.style) {
         noStyle[key] = $target.css(key);
@@ -18,6 +14,13 @@ Mutiny.toggler = {
       targetFunc = function(on) {
         $target.css(on ? options.style : noStyle);
       };
+    } else {
+      var classes = options['class'].split(' ');
+      targetFunc = function(on) {
+        $target.toggleClass(classes[0], !on);
+        $target.toggleClass(classes[1], on);
+      };
+      targetFunc(false);
     }
 
     if($instigator.is('input[type=radio]')) {

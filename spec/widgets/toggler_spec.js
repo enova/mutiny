@@ -4,16 +4,31 @@ describe('Mutiny.toggler', function() {
     Mutiny.init();
   });
 
+  function expectClass($e, directives) {
+    $.each(directives.split(' '), function(i, directive) {
+      switch(directive[0]) {
+        case '+':
+          expect($e).toHaveClass(directive.substring(1));
+          break;
+        case '-':
+          expect($e).not.toHaveClass(directive.substring(1));
+          break;
+        default:
+          throw "expectClass directive not supported: '"+directive[0]+"'";
+      }
+    });
+  }
+
   it('triggers Bare Bones toggler', function() {
-    expect($('#bare-bones .toggled')).toBeVisible();
+    expectClass($('#bare-bones .toggled'), '+inactive -active');
     $('#bare-bones [data-mutiny-toggler]').click();
-    expect($('#bare-bones .toggled')).toBeHidden();
+    expectClass($('#bare-bones .toggled'), '+active -inactive');
   });
 
   it('triggers Class Name toggler', function() {
-    expect($('#class-name .toggled')).not.toHaveClass('active');
+    expectClass($('#class-name .toggled'), '+start -end');
     $('#class-name [data-mutiny-toggler]').click();
-    expect($('#class-name .toggled')).toHaveClass('active');
+    expectClass($('#class-name .toggled'), '+end -start');
   });
 
   it('triggers Style Changes toggler', function() {
@@ -23,8 +38,8 @@ describe('Mutiny.toggler', function() {
   });
 
   it('triggers Radio Button toggler', function() {
-    expect($('#radio-buttons .toggled')).toBeHidden();
+    expectClass($('#radio-buttons .toggled'), '+inactive -active');
     $('#radio-buttons [data-mutiny-toggler]').click();
-    expect($('#radio-buttons .toggled')).toBeVisible();
+    expectClass($('#radio-buttons .toggled'), '+active -inactive');
   });
 });
