@@ -23,24 +23,32 @@ describe('Mutiny.toggler', function() {
     expectClass($('#bare-bones [data-mutiny-toggler]'), '+inactive -active');
     $('#bare-bones [data-mutiny-toggler]').click();
     expectClass($('#bare-bones [data-mutiny-toggler]'), '+active -inactive');
+    $('#bare-bones [data-mutiny-toggler]').click();
+    expectClass($('#bare-bones [data-mutiny-toggler]'), '+inactive -active');
   });
 
   it('triggers Targeted toggler', function() {
     expectClass($('#targeted .target'), '+inactive -active');
     $('#targeted [data-mutiny-toggler]').click();
     expectClass($('#targeted .target'), '+active -inactive');
+    $('#targeted [data-mutiny-toggler]').click();
+    expectClass($('#targeted .target'), '+inactive -active');
   });
 
   it('triggers Class Name toggler', function() {
     expectClass($('#class-name [data-mutiny-toggler]'), '+start -end');
     $('#class-name [data-mutiny-toggler]').click();
     expectClass($('#class-name [data-mutiny-toggler]'), '+end -start');
+    $('#class-name [data-mutiny-toggler]').click();
+    expectClass($('#class-name [data-mutiny-toggler]'), '+start -end');
   });
 
   it('triggers Style Changes toggler', function() {
     expect($('#style-changes [data-mutiny-toggler]')).not.toHaveCss({'font-style':'italic'});
     $('#style-changes [data-mutiny-toggler]').click();
     expect($('#style-changes [data-mutiny-toggler]')).toHaveCss({'font-style':'italic'});
+    $('#style-changes [data-mutiny-toggler]').click();
+    expect($('#style-changes [data-mutiny-toggler]')).not.toHaveCss({'font-style':'italic'});
   });
 
   it('triggers Radio Button toggler', function() {

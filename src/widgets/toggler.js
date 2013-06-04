@@ -8,7 +8,7 @@ Mutiny.toggler = {
     if(options.style) {
       var noStyle = {};
       for(var key in options.style) {
-        noStyle[key] = $target.css(key);
+        noStyle[key] = $instigator.css(key);
       }
 
       toggleFunc = function(on) {
