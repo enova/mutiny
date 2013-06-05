@@ -44,7 +44,7 @@
       });
 
       if(currentPage) {
-        $('body').attr('id', currentPage);
+        $('#main').addClass(currentPage);
 
         $('#main').load('examples/' + currentPage + '.html', function(data, status, xhr) {
           if(status == "error") {
@@ -55,7 +55,7 @@
           $('#main section').wrapInner('<div class="example"/>').each(function(i, e) {
             var $e = $(e);
             var $h1 = $('<h1/>').prependTo($e).text(
-                        $e.attr('id').replace(/-/, ' ')
+                        $e.attr('id').replace(/-/g, ' ')
                       );
             /* .html() pulls out the code of the parsed Javascript.  This can cause the
             browser to re-encode ' => " and " => &quot; */
