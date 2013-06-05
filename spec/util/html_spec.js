@@ -20,7 +20,7 @@ describe('formatSpan', function() {
   });
 
   it('does not convert 0 into &nbsp;', function() {
-    var s = formatSpan('%s', 0);
+    var s = formatSpan('%s', '0');
     expect(s).toEqual('<span><span>0</span></span>');
   });
 });
