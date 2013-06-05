@@ -1,4 +1,4 @@
-Mutiny.slider = {
+Mutiny.widgets.slider = {
   'defaults': {'range': 'min'},
   'init': function($instigator, options){
     var $ui;

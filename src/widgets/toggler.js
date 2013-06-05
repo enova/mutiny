@@ -1,4 +1,4 @@
-Mutiny.toggler = {
+Mutiny.widgets.toggler = {
   'defaults': {'class': 'inactive active', 'preventDefault': false},
   'string_arg': 'target',
   'init': function($instigator, options){

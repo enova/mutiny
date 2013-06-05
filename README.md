@@ -26,26 +26,22 @@ Extending
 -----
 Javascript:
 ```javascript
-var Mutiny = function(mutiny){
-  mutiny.textToOptions = {
-    'defaults': {'def': 'opt'},
-    'init': function($instigator, options) {
-      var s = [];
-      for(var key in options) {
-        s.push('"' + key + '": "' + options[key] + '"');
-      }
-      $instigator.text('{' + s.join(', ') + '}');
+Mutiny.widgets.optionsToText = {
+  'defaults': {'def': 'opt'},
+  'init': function($instigator, options) {
+    var s = [];
+    for(var key in options) {
+      s.push('"' + key + '": "' + options[key] + '"');
     }
+    $instigator.text('{' + s.join(', ') + '}');
   }
-
-  return mutiny;
-}(Mutiny || {});
+};
 ```
 
 HTML5:
 
 ```html
-<div data-mutiny-text-to-options='{"custom": "arg"}'></div>
+<div data-mutiny-options-to-text='{"custom": "arg"}'></div>
 ```
 
 Running Tests/Examples

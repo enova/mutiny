@@ -1,4 +1,4 @@
-describe('Mutiny.toggler', function() {
+describe('Mutiny.widgets.toggler', function() {
   beforeEach(function(){
     loadFixtures('toggler.html');
     Mutiny.init();
