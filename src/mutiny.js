@@ -34,6 +34,7 @@ var Mutiny = window.Mutiny = {
     el.each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
+      /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
       if(namespace in data) {
         var directives = data[namespace];
         if(isString(directives)) {
