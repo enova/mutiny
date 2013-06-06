@@ -1,20 +1,24 @@
 var Page = function(page, $) {
-  page.helpers = ['mutiny', 'util/html', 'util/typecheck'];
+  page.helpers = ['mutiny', 'util/typecheck'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
-  page.subPaths = page.helpers.concat($.map(page.widgets, function(e){return 'widgets/'+e}));
+  page.subPaths = page.helpers.concat($.map(page.widgets, function(w){return 'widgets/'+w}));
 
-  page.srcFiles = $.map(page.subPaths, function(e){return 'src/'+e+'.js'});
-  page.specFiles = $.map(page.subPaths, function(e){return 'spec/'+e+'_spec.js'});
+  page.srcFiles = [];
+  page.specFiles = [];
 
-  page.include = function() {
-    for(var i=0; i < arguments.length; i++) {
-      var arrayFiles = [].concat(arguments[i]);
-      for(var j=0; j < arrayFiles.length; j++) {
-        /* document.write to force blocked loading */
-        document.write('<script src="' + arrayFiles[j] + '"><\/script>');
-      }
-    }
+  $.each(page.subPaths, function(i, widget) {
+    page.srcFiles.push('src/' + widget + '.js');
+    $.each(['unit', 'func'], function(i, subdir) {
+      page.specFiles.push('spec/' + subdir + '/' + widget + '_spec.js');
+    });
+  });
+
+  page.include = function(files) {
+    $.each(files, function(i, file) {
+      /* document.write to force blocked loading */
+      document.write('<script src="' + file + '"></script>');
+    });
   };
 
   return page;

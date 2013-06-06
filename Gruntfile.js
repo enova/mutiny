@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 
     jasmine: {
       options: {
-        specs:  ['spec/*_spec.js', 'spec/widgets/*_spec.js'],
+        specs:  ['spec/func/**/*_spec.js'],
         vendor: ['vendor/jquery.js', 'vendor/jquery-ui.js', 'vendor/jasmine-jquery.js']
       },
 
