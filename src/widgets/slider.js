@@ -19,6 +19,7 @@ Mutiny.widgets.slider = {
       $instigator.val(slider.value).change();
     };
 
+    /* Deprecated.  No more select sliders! */
     if ($instigator.is('select')) {
       var $options = $instigator.find('option');
       options.min = Number($options.first().val());
