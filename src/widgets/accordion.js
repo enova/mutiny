@@ -1,4 +1,4 @@
-Mutiny.accordion = {
+Mutiny.widgets.accordion = {
   'defaults': {'autoHeight': false, 'collapsible': true, 'active': false},
   'init': function($instigator, options){
     var hash = window.location.hash;

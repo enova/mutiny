@@ -1,4 +1,4 @@
-Mutiny.slider = {
+Mutiny.widgets.slider = {
   'defaults': {'range': 'min'},
   'init': function($instigator, options){
     var $ui;
@@ -19,6 +19,7 @@ Mutiny.slider = {
       $instigator.val(slider.value).change();
     };
 
+    /* Deprecated.  No more select sliders! */
     if ($instigator.is('select')) {
       var $options = $instigator.find('option');
       options.min = Number($options.first().val());

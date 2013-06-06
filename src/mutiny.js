@@ -9,27 +9,32 @@ var Mutiny = window.Mutiny = {
     initOnReady: true
   },
 
+  widgets: {},
+
   init: function(el, namespace) {
     namespace = namespace || 'mutiny';
     el = el || $('*');
 
-    var mutiny_call = function($instigator, widget, instance_options){
-      if(Mutiny[widget] === undefined) {
-        throw '"' + widget + '" not found';
+    var mutiny_call = function($instigator, widget_name, instance_options) {
+      /* Deprecated: Mutiny.<widget_name> should be Mutiny.widgets.<widget_name> */
+      var widget = Mutiny.widgets[widget_name] || Mutiny[widget_name];
+      if(widget === undefined) {
+        throw '"' + widget_name + '" not found';
       }
 
-      var options = $.extend({}, Mutiny[widget].defaults);
+      var options = $.extend({}, widget.defaults);
       if(isString(instance_options)) {
-        options[Mutiny[widget].string_arg] = instance_options;
+        options[widget.string_arg] = instance_options;
       } else {
         $.extend(options, instance_options);
       }
-      Mutiny[widget].init($instigator, options);
+      widget.init($instigator, options);
     };
 
     el.each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
+      /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
       if(namespace in data) {
         var directives = data[namespace];
         if(isString(directives)) {

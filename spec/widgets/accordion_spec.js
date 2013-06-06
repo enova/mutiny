@@ -1,4 +1,4 @@
-describe('Mutiny.accordion', function() {
+describe('Mutiny.widgets.accordion', function() {
   beforeEach(function(){
     loadFixtures('accordion.html');
     Mutiny.init();
