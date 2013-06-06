@@ -4,11 +4,17 @@ describe('Mutiny.widgets.accordion', function() {
     Mutiny.init();
   });
 
-  it('triggers Bare Bones accordion', function() {
-    expect($('#bare-bones p:eq(0)')).toBeHidden();
-    expect($('#bare-bones p:eq(1)')).toBeHidden();
-    $('#bare-bones h2:eq(1)').click();
-    expect($('#bare-bones p:eq(0)')).toBeHidden();
-    expect($('#bare-bones p:eq(1)')).toBeVisible();
+  it('triggers basic accordion', function() {
+    expect($('#basic-accordion p:eq(0)')).toBeHidden();
+    expect($('#basic-accordion p:eq(1)')).toBeHidden();
+    $('#basic-accordion h2:eq(1)').click();
+    expect($('#basic-accordion p:eq(0)')).toBeHidden();
+    expect($('#basic-accordion p:eq(1)')).toBeVisible();
+  });
+
+  it('uses header argument', function() {
+    $('#header-argument h2:eq(1)').click();
+    expect($('#header-argument p:eq(0)')).toBeHidden();
+    expect($('#header-argument p:eq(1)')).toBeVisible();
   });
 });

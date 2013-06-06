@@ -19,12 +19,12 @@ describe('Mutiny.widgets.toggler', function() {
     });
   }
 
-  it('triggers Bare Bones toggler', function() {
-    expectClass($('#bare-bones [data-mutiny-toggler]'), '+inactive -active');
-    $('#bare-bones [data-mutiny-toggler]').click();
-    expectClass($('#bare-bones [data-mutiny-toggler]'), '+active -inactive');
-    $('#bare-bones [data-mutiny-toggler]').click();
-    expectClass($('#bare-bones [data-mutiny-toggler]'), '+inactive -active');
+  it('triggers basic toggler', function() {
+    expectClass($('#basic-toggler [data-mutiny-toggler]'), '+inactive -active');
+    $('#basic-toggler [data-mutiny-toggler]').click();
+    expectClass($('#basic-toggler [data-mutiny-toggler]'), '+active -inactive');
+    $('#basic-toggler [data-mutiny-toggler]').click();
+    expectClass($('#basic-toggler [data-mutiny-toggler]'), '+inactive -active');
   });
 
   it('triggers Targeted toggler', function() {
