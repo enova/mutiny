@@ -52,25 +52,38 @@ describe('Mutiny.init()', function() {
 
   describe('<div data-mutiny-widget="string" />', function() {
     beforeEach(function() {
-      Mutiny.widget.string_arg = 'objectize';
       this.el = $('<div data-mutiny-widget="string" />');
     });
 
-    it("converts options into {Mutiny.widget.string_arg: 'string'}", function() {
-      Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+    it("cannot parse stringArg by default", function() {
+      var el = this.el;
+      expect(function() {
+        Mutiny.init(el);
+      }).toThrow('"widget" cannot parse "string"');
     });
 
-    it("merges defaults with options", function() {
-      Mutiny.widget.defaults = {'default': 'option'};
-      Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
-    });
+    describe('with stringArg defined', function() {
+      beforeEach(function() {
+        Mutiny.widget.stringArg = 'objectize';
+        this.el = $('<div data-mutiny-widget="string" />');
+      });
 
-    it("overrides defaults with options", function() {
-      Mutiny.widget.defaults = {'objectize': 'default'};
-      Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+      it("converts options into {Mutiny.widget.stringArg: 'string'}", function() {
+        Mutiny.init(this.el);
+        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+      });
+
+      it("merges defaults with options", function() {
+        Mutiny.widget.defaults = {'default': 'option'};
+        Mutiny.init(this.el);
+        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
+      });
+
+      it("overrides defaults with options", function() {
+        Mutiny.widget.defaults = {'objectize': 'default'};
+        Mutiny.init(this.el);
+        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+      });
     });
   });
 

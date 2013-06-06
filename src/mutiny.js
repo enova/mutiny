@@ -24,7 +24,14 @@ var Mutiny = window.Mutiny = {
 
       var options = $.extend({}, widget.defaults);
       if(isString(instance_options)) {
-        options[widget.string_arg] = instance_options;
+        /* Deprecated: <widget>.string_arg should be <widget>.stringArg */
+        if(widget.string_arg) {
+          options[widget.string_arg] = instance_options;
+        } else if(widget.stringArg) {
+          options[widget.stringArg] = instance_options;
+        } else {
+          throw '"' + widget_name + '" cannot parse "' + instance_options + '"';
+        }
       } else {
         $.extend(options, instance_options);
       }

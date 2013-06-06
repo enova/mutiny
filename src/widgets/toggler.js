@@ -1,6 +1,6 @@
 Mutiny.widgets.toggler = {
-  'defaults': {'class': 'inactive active', 'preventDefault': false},
-  'string_arg': 'target',
+  'defaults': {'classes': 'inactive active', 'preventDefault': false},
+  'stringArg': 'target',
   'init': function($instigator, options){
     var $target = $(options.target);
 
@@ -16,7 +16,7 @@ Mutiny.widgets.toggler = {
         $target.css(on ? options.style : noStyle);
       };
     } else {
-      var classes = options['class'].split(' ');
+      var classes = options.classes.split(' ');
       toggleFunc = function(on) {
         $instigator.toggleClass(classes[0], !on);
         $instigator.toggleClass(classes[1], on);
