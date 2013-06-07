@@ -3,7 +3,7 @@ describe('Mutiny.init()', function() {
     Mutiny.widgets.widget = {
       'init': function(){}
     };
-    spyOn(Mutiny.widgets.widget, 'init');
+    this.spy = spyOn(Mutiny.widgets.widget, 'init');
   });
 
   afterEach(function() {
@@ -24,6 +24,12 @@ describe('Mutiny.init()', function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
       expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option'});
+    });
+
+    it("is invoked only once regardless of how often Mutiny.init() is called", function(){
+      Mutiny.init(this.el);
+      Mutiny.init(this.el);
+      expect(this.spy.callCount).toEqual(1);
     });
   });
 

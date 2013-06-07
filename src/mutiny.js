@@ -22,11 +22,11 @@ var Mutiny = window.Mutiny = {
         var directives = data[namespace];
         if(isString(directives)) {
           /* data-mutiny='slider' */
-          mutinyCall($e, directives, {});
+          initWidget($e, directives, {});
         } else if(typeof data === 'object') {
           /* data-mutiny='{"slider": {"some": "options"}}' */
           for(var directive in directives) {
-            mutinyCall($e, directive, directives[directive]);
+            initWidget($e, directive, directives[directive]);
           }
         } else {
           throw 'Unsupported data';
@@ -45,7 +45,10 @@ var Mutiny = window.Mutiny = {
       for(var key in data) {
         if(key.indexOf(namespace) === 0) {
           var widget = lowerCaseFirst(key.replace(namespace, ''));
-          mutinyCall($e, widget, data[key]);
+          var updatedOptions = initWidget($e, widget, data[key]);
+          if(updatedOptions) {
+            $e.data(key, updatedOptions);
+          }
         }
       }
     }
@@ -56,29 +59,32 @@ var $find = function($es, arg) {
   return $es ? $es.filter(arg) : $(arg);
 };
 
-var mutinyCall = function($instigator, widgetName, options) {
+var initWidget = function($instigator, widgetName, instanceOptions) {
   /* Deprecated: Mutiny.<widgetName> should be Mutiny.widgets.<widgetName> */
   var widget = Mutiny.widgets[widgetName] || Mutiny[widgetName];
   if(widget === undefined) {
     throw format('"{0}" not found', widgetName);
   }
 
-  var instanceOptions = {};
-  if(!options) {
-  } else if(isString(options)) {
+  instanceOptions = instanceOptions || {};
+  if(isString(instanceOptions)) {
+    var replacementOptions = {};
     /* Deprecated: <widget>.string_arg should be <widget>.stringArg */
     if(widget.string_arg) {
-      instanceOptions[widget.string_arg] = options;
+      replacementOptions[widget.string_arg] = instanceOptions;
     } else if(widget.stringArg) {
-      instanceOptions[widget.stringArg] = options;
+      replacementOptions[widget.stringArg] = instanceOptions;
     } else {
-      throw format('"{0}" cannot parse "{1}"', widgetName, options);
+      throw format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);
     }
-  } else {
-    instanceOptions = options;
+    instanceOptions = replacementOptions;
   }
 
-  widget.init($instigator, $.extend({}, widget.defaults, instanceOptions));
+  if(!instanceOptions.called) {
+    widget.init($instigator, $.extend({}, widget.defaults, instanceOptions));
+    instanceOptions.called = true;
+    return instanceOptions;
+  }
 };
 
 var dasherize = function(string) {
