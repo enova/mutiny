@@ -11,9 +11,9 @@ var Mutiny = window.Mutiny = {
 
   widgets: {},
 
-  init: function(el, namespace) {
+  init: function($es, namespace) {
     namespace = namespace || 'mutiny';
-    el = el || $('*');
+    $es = $es || $('*');
 
     var mutiny_call = function($instigator, widget_name, instance_options) {
       /* Deprecated: Mutiny.<widget_name> should be Mutiny.widgets.<widget_name> */
@@ -38,7 +38,7 @@ var Mutiny = window.Mutiny = {
       widget.init($instigator, options);
     };
 
-    el.each(function(i, e) {
+    $es.each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
       /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
