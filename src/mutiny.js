@@ -43,7 +43,7 @@ var Mutiny = window.Mutiny = {
       var $e = $($needWidgets[i]);
       var data = $e.data();
       for(var key in data) {
-        if(key.indexOf(namespace) === 0) {
+        if(startsWith(key, namespace)) {
           var widget = lowerCaseFirst(key.replace(namespace, ''));
           var updatedOptions = initWidget($e, widget, data[key]);
           if(updatedOptions) {

@@ -7,6 +7,10 @@ function lowerCaseFirst(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
+function startsWith(string, match) {
+  return string.indexOf(match) === 0;
+}
+
 var format = function() {
   var regexes = [];
   for(var i=0; i < 10; i++) {
