@@ -2,17 +2,18 @@ var Page = function(page, $) {
   page.helpers = ['mutiny', 'util/typecheck'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
-  page.subPaths = page.helpers.concat($.map(page.widgets, function(w){return 'widgets/'+w}));
+  var mapFormat = function(arr, format) {
+    return $.map(arr, function(e) { return format.replace('%s', e); });
+  };
 
-  page.srcFiles = [];
-  page.specFiles = [];
-
-  $.each(page.subPaths, function(i, widget) {
-    page.srcFiles.push('src/' + widget + '.js');
-    $.each(['unit', 'func'], function(i, subdir) {
-      page.specFiles.push('spec/' + subdir + '/' + widget + '_spec.js');
-    });
-  });
+  page.subPaths = page.helpers.concat(mapFormat(page.widgets, 'widgets/%s'));
+  page.src = mapFormat(page.subPaths, 'src/%s.js');
+  page.spec = {
+    unit: mapFormat(page.subPaths, 'spec/unit/%s_spec.js'),
+    func: mapFormat(page.subPaths, 'spec/func/%s_spec.js'),
+    perf: mapFormat(page.subPaths, 'spec/perf/%s_spec.js'),
+  };
+  page.spec.base = page.spec.unit.concat(page.spec.func);
 
   page.include = function(files) {
     $.each(files, function(i, file) {

@@ -12,7 +12,8 @@ module.exports = function(grunt) {
 
     concat: {
       options: {
-        banner: banner + '(function(window, $, undefined) {\n',
+        banner: banner +
+                '(function(window, $, undefined) {\n',
         footer: '\n})(window, jQuery);'
       },
 
@@ -53,7 +54,8 @@ module.exports = function(grunt) {
       src: {
         src:   ['src/**/*.js'],
         options: {
-          specs: ['spec/**/*_spec.js']
+          specs: ['spec/unit/**/*_spec.js',
+                  'spec/func/**/*_spec.js']
         }
       },
       build: ['dist/<%= pkg.name %>.js'],
