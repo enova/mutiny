@@ -15,7 +15,7 @@ var Mutiny = window.Mutiny = {
     namespace = namespace || 'mutiny';
 
     /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
-    $find($es, '[data-' + namespace + ']').each(function(i, e) {
+    $find($es, format('[data-{0}]', namespace)).each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
       if(namespace in data) {
@@ -36,7 +36,7 @@ var Mutiny = window.Mutiny = {
 
     var queries = [];
     for(var name in Mutiny.widgets) {
-      queries.push('[data-' + namespace + '-' + dasherize(name) + ']');
+      queries.push(format('[data-{0}-{1}]', namespace, dasherize(name)));
     }
     var $needWidgets = $find($es, queries.join(','));
     for(var i=0; i < $needWidgets.length; i++) {
@@ -56,11 +56,11 @@ var $find = function($es, arg) {
   return $es ? $es.filter(arg) : $(arg);
 };
 
-var mutinyCall = function($instigator, widget_name, options) {
-  /* Deprecated: Mutiny.<widget_name> should be Mutiny.widgets.<widget_name> */
-  var widget = Mutiny.widgets[widget_name] || Mutiny[widget_name];
+var mutinyCall = function($instigator, widgetName, options) {
+  /* Deprecated: Mutiny.<widgetName> should be Mutiny.widgets.<widgetName> */
+  var widget = Mutiny.widgets[widgetName] || Mutiny[widgetName];
   if(widget === undefined) {
-    throw '"' + widget_name + '" not found';
+    throw format('"{0}" not found', widgetName);
   }
 
   var instanceOptions = {};
@@ -72,7 +72,7 @@ var mutinyCall = function($instigator, widget_name, options) {
     } else if(widget.stringArg) {
       instanceOptions[widget.stringArg] = options;
     } else {
-      throw '"' + widget_name + '" cannot parse "' + options + '"';
+      throw format('"{0}" cannot parse "{1}"', widgetName, options);
     }
   } else {
     instanceOptions = options;

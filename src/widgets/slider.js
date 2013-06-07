@@ -1,9 +1,9 @@
-function formatSpan(format, startValue, className) {
-  var inner = format.replace('%s', '<span>' + (startValue || '&nbsp;') + '</span>');
+function formatSpan(f, startValue, className) {
+  var inner = f.replace('%s', format('<span>{0}</span>', startValue || '&nbsp;'));
   if(className) {
-    return '<span class="' + className + '">' + inner + '</span>';
+    return format('<span class="{0}">{1}</span>', className, inner);
   } else {
-    return '<span>' + inner + '</span>';
+    return format('<span>{0}</span>', inner);
   }
 }
 
@@ -15,11 +15,12 @@ Mutiny.widgets.slider = {
       $ui = $(options.target);
     } else {
       var id = $instigator.attr('id');
-      var extras = '';
       if(id) {
-        extras = ' id="' + id + '-mutiny-slider"';
+        $ui = $(format('<div id="{0}-mutiny-slider"></div>', id));
+      } else {
+        $ui = $('<div></div>');
       }
-      $ui = $('<div' + extras + '></div>').insertAfter($instigator);
+      $ui.insertAfter($instigator);
     }
 
     options.value = $instigator.val();

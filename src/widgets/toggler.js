@@ -28,7 +28,7 @@ Mutiny.widgets.toggler = {
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
       toggleFunc($instigator.is(':checked'));
-      $('input[name="'+ name +'"]').change(function(event){
+      $(format('input[name="{0}"]', name)).change(function(event){
         toggleFunc($instigator.is(':checked'));
       });
     } else {

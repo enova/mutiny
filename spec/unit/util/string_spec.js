@@ -10,4 +10,11 @@ describe('util:string', function() {
       expect(lowerCaseFirst('ABCDEFG')).toEqual('aBCDEFG');
     });
   });
+
+  describe('format()', function() {
+    it('formats based on position', function() {
+      var out = format('This is testing {0} for {1}.', 'foo', 'bar');
+      expect(out).toEqual('This is testing foo for bar.');
+    });
+  });
 });
