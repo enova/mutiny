@@ -55,11 +55,11 @@ var Mutiny = window.Mutiny = {
   }
 };
 
-var $find = function($es, arg) {
+function $find($es, arg) {
   return $es ? $es.filter(arg) : $(arg);
-};
+}
 
-var initWidget = function($instigator, widgetName, instanceOptions) {
+function initWidget($instigator, widgetName, instanceOptions) {
   /* Deprecated: Mutiny.<widgetName> should be Mutiny.widgets.<widgetName> */
   var widget = Mutiny.widgets[widgetName] || Mutiny[widgetName];
   if(widget === undefined) {
@@ -85,13 +85,4 @@ var initWidget = function($instigator, widgetName, instanceOptions) {
     instanceOptions.called = true;
     return instanceOptions;
   }
-};
-
-var dasherize = function(string) {
-  return $.map(string.split(/(?=[A-Z])/),
-               function(t){ return t.toLowerCase(); }).join('-');
-};
-
-var lowerCaseFirst = function(string) {
-  return string.charAt(0).toLowerCase() + string.slice(1);
-};
+}
