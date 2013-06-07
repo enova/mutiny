@@ -15,7 +15,7 @@ var Mutiny = window.Mutiny = {
     namespace = namespace || 'mutiny';
 
     /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
-    filter($es, '[data-' + namespace + ']').each(function(i, e) {
+    $find($es, '[data-' + namespace + ']').each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
       if(namespace in data) {
@@ -38,8 +38,7 @@ var Mutiny = window.Mutiny = {
     for(var name in Mutiny.widgets) {
       queries.push('[data-' + namespace + '-' + dasherize(name) + ']');
     }
-    console.log(queries);
-    var $needWidgets = filter($es, queries.join(','));
+    var $needWidgets = $find($es, queries.join(','));
     for(var i=0; i < $needWidgets.length; i++) {
       var $e = $($needWidgets[i]);
       var data = $e.data();
@@ -53,7 +52,7 @@ var Mutiny = window.Mutiny = {
   }
 };
 
-var filter = function($es, arg) {
+var $find = function($es, arg) {
   return $es ? $es.filter(arg) : $(arg);
 };
 

@@ -1,5 +1,5 @@
 var Page = function(page, $) {
-  page.helpers = ['mutiny', 'util/typecheck'];
+  page.helpers = ['mutiny', 'util/string', 'util/typecheck'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
   var mapFormat = function(arr, format) {
