@@ -1,13 +1,13 @@
 describe('Mutiny.init()', function() {
   beforeEach(function() {
-    Mutiny.widget = {
+    Mutiny.widgets.widget = {
       'init': function(){}
     };
-    spyOn(Mutiny.widget, 'init');
+    spyOn(Mutiny.widgets.widget, 'init');
   });
 
   afterEach(function() {
-    delete Mutiny.widget;
+    delete Mutiny.widgets.widget;
   });
 
   describe("<div data-mutiny-widget='' />", function() {
@@ -17,13 +17,13 @@ describe('Mutiny.init()', function() {
 
     it("invokes with empty options", function() {
       Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {});
+      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {});
     });
 
     it("invokes with defaults", function() {
-      Mutiny.widget.defaults = {'default': 'option'};
+      Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option'});
+      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option'});
     });
   });
 
@@ -34,19 +34,19 @@ describe('Mutiny.init()', function() {
 
     it("invokes with options", function() {
       Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
+      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
     });
 
     it("invokes with defaults merged with options", function() {
-      Mutiny.widget.defaults = {'default': 'option'};
+      Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'key': 'value'});
+      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'key': 'value'});
     });
 
     it("invokes with overridden defaults", function() {
-      Mutiny.widget.defaults = {'key': 'default'};
+      Mutiny.widgets.widget.defaults = {'key': 'default'};
       Mutiny.init(this.el);
-      expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
+      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
     });
   });
 
@@ -64,25 +64,25 @@ describe('Mutiny.init()', function() {
 
     describe('with stringArg defined', function() {
       beforeEach(function() {
-        Mutiny.widget.stringArg = 'objectize';
+        Mutiny.widgets.widget.stringArg = 'objectize';
         this.el = $('<div data-mutiny-widget="string" />');
       });
 
-      it("converts options into {Mutiny.widget.stringArg: 'string'}", function() {
+      it("converts options into {Mutiny.widgets.widget.stringArg: 'string'}", function() {
         Mutiny.init(this.el);
-        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
       });
 
       it("merges defaults with options", function() {
-        Mutiny.widget.defaults = {'default': 'option'};
+        Mutiny.widgets.widget.defaults = {'default': 'option'};
         Mutiny.init(this.el);
-        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
+        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
       });
 
       it("overrides defaults with options", function() {
-        Mutiny.widget.defaults = {'objectize': 'default'};
+        Mutiny.widgets.widget.defaults = {'objectize': 'default'};
         Mutiny.init(this.el);
-        expect(Mutiny.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
+        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
       });
     });
   });
@@ -94,7 +94,7 @@ describe('Mutiny.init()', function() {
 
     it("triggers using argument", function() {
       Mutiny.init(this.el, 'custom');
-      expect(Mutiny.widget.init).wasCalled();
+      expect(Mutiny.widgets.widget.init).wasCalled();
     });
   });
 
