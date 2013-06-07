@@ -97,13 +97,4 @@ describe('Mutiny.init()', function() {
       expect(Mutiny.widgets.widget.init).wasCalled();
     });
   });
-
-  describe("exceptions", function() {
-    it("<div data-mutiny-nonexistent=''> throws nonexistent widget", function() {
-      var el = $("<div data-mutiny-nonexistent='' />");
-      expect(function() {
-        Mutiny.init(el);
-      }).toThrow('"nonexistent" not found');
-    });
-  });
 });

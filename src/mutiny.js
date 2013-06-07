@@ -13,7 +13,10 @@ var Mutiny = window.Mutiny = {
 
   init: function($es, namespace) {
     namespace = namespace || 'mutiny';
-    $es = $es || $('*');
+
+    var filter = function($es, arg) {
+      return $es ? $es.filter(arg) : $(arg);
+    };
 
     var mutiny_call = function($instigator, widget_name, instance_options) {
       /* Deprecated: Mutiny.<widget_name> should be Mutiny.widgets.<widget_name> */
@@ -38,7 +41,7 @@ var Mutiny = window.Mutiny = {
       widget.init($instigator, options);
     };
 
-    $es.each(function(i, e) {
+    filter($es, '[data-' + namespace + ']').each(function(i, e) {
       var $e = $(e);
       var data = $e.data();
       /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
@@ -56,14 +59,19 @@ var Mutiny = window.Mutiny = {
           throw 'Unsupported data';
         }
       }
-
-      for(var key in data) {
-        if(key.indexOf(namespace) === 0 && key != namespace) {
-          var widget = key.replace(namespace, '').toLowerCase();
-          var options = data[key];
-          mutiny_call($e, widget, options || {});
-        }
-      }
     });
+
+    var capitalize = function(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
+    for(var widget in Mutiny.widgets) {
+      var $widgetable = filter($es, '[data-' + namespace + '-' + widget + ']');
+      for(var i=0; i < $widgetable.length; i++) {
+        var $e = $($widgetable[i]);
+        var options = $e.data(namespace + capitalize(widget));
+        mutiny_call($e, widget, options || {});
+      }
+    }
   }
 };
