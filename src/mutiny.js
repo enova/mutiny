@@ -65,12 +65,20 @@ var Mutiny = window.Mutiny = {
       return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
-    for(var widget in Mutiny.widgets) {
-      var $widgetable = filter($es, '[data-' + namespace + '-' + widget + ']');
-      for(var i=0; i < $widgetable.length; i++) {
-        var $e = $($widgetable[i]);
-        var options = $e.data(namespace + capitalize(widget));
-        mutiny_call($e, widget, options || {});
+    var queries = [];
+    for(var name in Mutiny.widgets) {
+      queries.push('[data-' + namespace + '-' + name + ']');
+    }
+    var $widgetable = filter($es, queries.join(','));
+    for(var i=0; i < $widgetable.length; i++) {
+      var $e = $($widgetable[i]);
+      var data = $e.data();
+      for(var key in data) {
+        if(key.indexOf(namespace) === 0) {
+          var widget = key.replace(namespace, '').toLowerCase();
+          var options = data[key];
+          mutiny_call($e, widget, options || {});
+        }
       }
     }
   }
