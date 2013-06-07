@@ -62,11 +62,15 @@
                       );
             /* .html() pulls out the code of the parsed Javascript.  This can cause the
             browser to re-encode ' => " and " => &quot; */
-            var $code = $('<pre data-language="html"/>').insertAfter($h1).text(
-                          $e.find('.example').html().replace(/"/g,      "'")
-                                                    .replace(/&quot;/g, '"')
-                                                    .replace(/&gt;/g,   '>')
-                        );
+            var code = $e.find('.example').html().replace(/"/g,      "'")
+                                                 .replace(/&quot;/g, '"')
+                                                 .replace(/&gt;/g,   '>');
+            /* Delete blank lines. */
+            code = code.replace(/^$(\r\n|\n|\r)/gm, '');
+            /* Delete opening whitespace */
+            code = code.replace(/^  /gm, '');
+
+            $('<pre data-language="html"/>').text(code).insertAfter($h1);
           });
 
           Mutiny.init();
