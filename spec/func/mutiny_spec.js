@@ -87,14 +87,29 @@ describe('Mutiny.init()', function() {
     });
   });
 
-  describe("<div data-custom-widget=''>", function() {
+  describe("<div data-namespace-widget=''>", function() {
     beforeEach(function() {
-      this.el = $("<div data-custom-widget='' />");
+      this.el = $("<div data-namespace-widget='' />");
     });
 
     it("triggers using argument", function() {
-      Mutiny.init(this.el, 'custom');
+      Mutiny.init(this.el, 'namespace');
       expect(Mutiny.widgets.widget.init).wasCalled();
+    });
+  });
+
+  describe("<div data-mutiny-long-form=''>", function() {
+    beforeEach(function() {
+      this.el = $("<div data-mutiny-long-form='' />");
+      Mutiny.widgets.longForm = {
+        'init': function(){}
+      };
+      spyOn(Mutiny.widgets.longForm, 'init');
+    });
+
+    it("triggers", function() {
+      Mutiny.init(this.el);
+      expect(Mutiny.widgets.longForm.init).wasCalled();
     });
   });
 });

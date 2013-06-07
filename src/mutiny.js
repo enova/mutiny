@@ -36,8 +36,9 @@ var Mutiny = window.Mutiny = {
 
     var queries = [];
     for(var name in Mutiny.widgets) {
-      queries.push('[data-' + namespace + '-' + name + ']');
+      queries.push('[data-' + namespace + '-' + dasherize(name) + ']');
     }
+    console.log(queries);
     var $needWidgets = filter($es, queries.join(','));
     for(var i=0; i < $needWidgets.length; i++) {
       var $e = $($needWidgets[i]);
@@ -79,6 +80,11 @@ var mutinyCall = function($instigator, widget_name, options) {
   }
 
   widget.init($instigator, $.extend({}, widget.defaults, instanceOptions));
+};
+
+var dasherize = function(string) {
+  return $.map(string.split(/(?=[A-Z])/),
+               function(t){ return t.toLowerCase(); }).join('-');
 };
 
 var lowerCaseFirst = function(string) {
