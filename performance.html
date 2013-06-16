@@ -1,54 +1,75 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Jasmine Spec Runner</title>
+  <title>Mutiny Performance</title>
+</head>
 
-  <link rel="shortcut icon" type="image/png" href="vendor/jasmine_favicon.png">
-  <link rel="stylesheet" href="vendor/jasmine.css">
-  <script src="vendor/jasmine.js"></script>
-  <script src="vendor/jasmine-html.js"></script>
-  <script src="vendor/jasmine-jquery.js"></script>
+<body>
+  <table>
+    <thead>
+      <tr><th>Test</th><th>Duration</th></tr>
+    </thead>
+    <tbody id='tbody'>
+    </tbody>
+  </table>
 
-  <!-- include source files here... -->
   <script src='vendor/jquery.js'></script>
   <script src='vendor/jquery-ui.js'></script>
   <script src='site/page.js'></script>
   <script>Page.include(Page.src);</script>
 
-  <!-- include spec files here... -->
-  <script>Page.include(Page.spec.perf);</script>
-
   <script>
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
-
-      var htmlReporter = new jasmine.HtmlReporter();
-
-      jasmineEnv.addReporter(htmlReporter);
-
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
-
-      var currentWindowOnload = window.onload;
-
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
+    function createElement(tag, options){
+      var element = document.createElement(tag);
+      for(var key in (options || {})){
+        element[key] = options[key];
       }
+      return element;
+    }
 
-    })();
+    var tbody = document.getElementById('tbody');
+
+    var tests = [];
+    function time(name, iterations, func){
+      var tr = createElement('tr');
+      tbody.appendChild(tr);
+      tr.appendChild(createElement('td', {textContent: name}));
+      var durationEl = createElement('td', {textContent: 'Loading...'});
+      tr.appendChild(durationEl);
+
+      tests.push(function(){
+        var start = +new Date();
+        for(var i=0; i < iterations; i++){
+          func();
+        }
+        var end = +new Date();
+        durationEl.textContent = end - start;
+      });
+    }
+
+    function runTests(i){
+      i = i || 0;
+      if(i < tests.length){
+        setTimeout(function(){
+          tests[i]();
+          runTests(i+1);
+        }, 50);
+      }
+    }
+
+    window.onload = function(){
+      runTests(0);
+    };
   </script>
 
-</head>
+  <script>
+    time('Mutiny.init()', 10000, function(){
+      Mutiny.init();
+    });
 
-<body>
+    time('format()', 1000000, function(){
+      format('{0} {1} {2} {2} {1} {0}', 'foo', 'bar', 'baz');
+    });
+  </script>
 </body>
 </html>
