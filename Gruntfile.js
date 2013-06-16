@@ -13,8 +13,8 @@ module.exports = function(grunt) {
     concat: {
       options: {
         banner: banner +
-                '(function(window, $, undefined) {\n',
-        footer: '\n})(window, jQuery);'
+                '(function(window, undefined) {\n',
+        footer: '\n})(window);'
       },
 
       dist: {
