@@ -17,20 +17,17 @@ var Mutiny = window.Mutiny = {
     /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
     $find($es, format('[data-{0}]', namespace)).each(function(i, e) {
       var $e = $(e);
-      var data = $e.data();
-      if(namespace in data) {
-        var directives = data[namespace];
-        if(isString(directives)) {
-          /* data-mutiny='slider' */
-          initWidget($e, directives, {});
-        } else if(typeof data === 'object') {
-          /* data-mutiny='{"slider": {"some": "options"}}' */
-          for(var directive in directives) {
-            initWidget($e, directive, directives[directive]);
-          }
-        } else {
-          throw 'Unsupported data';
+      var directives = $e.data(namespace);
+      if(isString(directives)) {
+        /* data-mutiny='slider' */
+        initWidget($e, directives, {});
+      } else if(typeof data === 'object') {
+        /* data-mutiny='{"slider": {"some": "options"}}' */
+        for(var directive in directives) {
+          initWidget($e, directive, directives[directive]);
         }
+      } else {
+        throw 'Unsupported data';
       }
     });
 
@@ -41,11 +38,11 @@ var Mutiny = window.Mutiny = {
     var $needWidgets = $find($es, queries.join(','));
     for(var i=0; i < $needWidgets.length; i++) {
       var $e = $($needWidgets[i]);
-      var data = $e.data();
-      for(var key in data) {
-        if(startsWith(key, namespace)) {
-          var widget = lowerCaseFirst(key.replace(namespace, ''));
-          var updatedOptions = initWidget($e, widget, data[key]);
+      for(name in Mutiny.widgets) {
+        var key = format('{0}-{1}', namespace, name);
+        var data = $e.data(key);
+        if(data !== undefined) {
+          var updatedOptions = initWidget($e, name, data);
           if(updatedOptions) {
             $e.data(key, updatedOptions);
           }

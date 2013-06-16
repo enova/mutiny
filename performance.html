@@ -67,6 +67,11 @@
       Mutiny.init();
     });
 
+    time('Mutiny.init($e)', 10000, function(){
+      var $e = $('<div data-mutiny-toggler="" />');
+      Mutiny.init($e);
+    });
+
     time('format()', 1000000, function(){
       format('{0} {1} {2} {2} {1} {0}', 'foo', 'bar', 'baz');
     });
