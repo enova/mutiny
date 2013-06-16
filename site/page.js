@@ -1,4 +1,4 @@
-var Page = function(page, $) {
+var Page = function(page) {
   page.helpers = ['mutiny', 'util/string', 'util/typecheck'];
   page.widgets = ['accordion', 'datepicker', 'slider', 'toggler'];
 
@@ -19,4 +19,4 @@ var Page = function(page, $) {
   };
 
   return page;
-}({}, jQuery);
+}({});
