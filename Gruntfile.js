@@ -54,8 +54,7 @@ module.exports = function(grunt) {
       src: {
         src:   ['src/**/*.js'],
         options: {
-          specs: ['spec/unit/**/*_spec.js',
-                  'spec/func/**/*_spec.js']
+          specs: ['spec/**/*_spec.js']
         }
       },
       build: ['dist/<%= pkg.name %>.js'],
