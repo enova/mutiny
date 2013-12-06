@@ -1,5 +1,5 @@
 Mutiny.widgets.accordion = {
-  'defaults': {'autoHeight': false, 'collapsible': true, 'active': false},
+  'defaults': {},
   'init': function($instigator, options){
     var hash = window.location.hash;
     if(hash && $instigator.find(hash).length > 0) {
