@@ -1,45 +1,31 @@
+function toggleFunc($e, style, classes){
+  if($e.length === 0){
+    return function(){};
+  } else if(style) {
+    var noStyle = {};
+    for(var key in style) {
+      noStyle[key] = $e.css(key);
+    }
+    return function(on) {
+      $e.css(on ? style : noStyle);
+    };
+  } else {
+    classes = classes.split(' ');
+    return function(on) {
+      $e.toggleClass(classes[0], !on);
+      $e.toggleClass(classes[1], on);
+    };
+  }
+}
+
 Mutiny.widgets.toggler = {
   'defaults': {'classes': 'inactive active', 'preventDefault': false},
   'stringArg': 'target',
   'init': function($instigator, options){
     var $target = $(options.target);
 
-    var instigatorFunc;
-    var targetFunc;
-    var key;
-    if(options.style) {
-      var noStyle = {};
-      for(key in options.style) {
-        noStyle[key] = $instigator.css(key);
-      }
-      instigatorFunc = function(on) {
-        $instigator.css(on ? options.style : noStyle);
-      };
-    } else {
-      var classes = options.classes.split(' ');
-      instigatorFunc = function(on) {
-        $instigator.toggleClass(classes[0], !on);
-        $instigator.toggleClass(classes[1], on);
-      };
-    }
-
-    if($target.length === 0){
-      targetFunc = function(){};
-    } else if(options.targetStyle) {
-      var noTargetStyle = {};
-      for(key in options.targetStyle) {
-        noTargetStyle[key] = $target.css(key);
-      }
-      targetFunc = function(on) {
-        $target.css(on ? options.targetStyle : noTargetStyle);
-      };
-    } else {
-      var targetClasses = (options.targetClasses || options.classes).split(' ');
-      targetFunc = function(on) {
-        $target.toggleClass(targetClasses[0], !on);
-        $target.toggleClass(targetClasses[1], on);
-      };
-    }
+    var instigatorFunc = toggleFunc($instigator, options.style, options.classes);
+    var targetFunc = toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
 
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
