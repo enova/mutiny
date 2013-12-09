@@ -51,6 +51,12 @@ describe('Mutiny.widgets.toggler', function() {
     expect($('#style-changes [data-mutiny-toggler]')).not.toHaveCss({'font-style':'italic'});
   });
 
+  it('triggers Checkbox toggler', function() {
+    expectClass($('#checkbox [data-mutiny-toggler]'), '+inactive -active');
+    $('#checkbox [data-mutiny-toggler]').click();
+    expectClass($('#checkbox [data-mutiny-toggler]'), '+active -inactive');
+  });
+
   it('triggers Radio Button toggler', function() {
     expectClass($('#radio-buttons [data-mutiny-toggler]'), '+inactive -active');
     $('#radio-buttons [data-mutiny-toggler]').click();

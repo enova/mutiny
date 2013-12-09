@@ -31,6 +31,11 @@ Mutiny.widgets.toggler = {
       $(format('input[name="{0}"]', name)).change(function(event){
         toggleFunc($instigator.is(':checked'));
       });
+    } else if($instigator.is('input[type=checkbox]')) {
+      toggleFunc($instigator.is(':checked'));
+      $instigator.change(function(event){
+        toggleFunc($instigator.is(':checked'));
+      });
     } else {
       var active = false;
       toggleFunc(active);
