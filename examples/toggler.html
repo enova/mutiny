@@ -2,17 +2,22 @@
   <span data-mutiny-toggler=''>Click me</span>
 </section>
 
-<section id='targeted'>
-  <span data-mutiny-toggler='#targeted .target'>Click me</span>
-  <p class='target'>I can change!</p>
-</section>
-
 <section id='class-name'>
   <span data-mutiny-toggler='{"classes":"start end"}'>Inspect my class name</span>
 </section>
 
 <section id='style-changes'>
-  <span data-mutiny-toggler='{"style":{"color":"blue", "font-style": "italic"}}'>Toggle</span>
+  <span data-mutiny-toggler='{"style":{"color":"blue", "font-style":"italic"}}'>Toggle</span>
+</section>
+
+<section id='targeted-class'>
+  <span data-mutiny-toggler='{"target":"#targeted-class .target", "targetClasses": "first last"}'>Click me</span>
+  <p class='target'>Inspect my class name</p>
+</section>
+
+<section id='targeted-style'>
+  <span data-mutiny-toggler='{"target":"#targeted-style .target", "targetStyle": {"font-weight":"bold"}}'>Click me</span>
+  <p class='target'>Boom goes the dynamite!</p>
 </section>
 
 <section id='prevent-default'>
