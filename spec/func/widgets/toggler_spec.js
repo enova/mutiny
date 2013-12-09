@@ -27,12 +27,12 @@ describe('Mutiny.widgets.toggler', function() {
     expectClass($('#basic-toggler [data-mutiny-toggler]'), '+inactive -active');
   });
 
-  it('triggers Targeted toggler', function() {
-    expectClass($('#targeted .target'), '+inactive -active');
-    $('#targeted [data-mutiny-toggler]').click();
-    expectClass($('#targeted .target'), '+active -inactive');
-    $('#targeted [data-mutiny-toggler]').click();
-    expectClass($('#targeted .target'), '+inactive -active');
+  it('triggers Targeted Class toggler', function() {
+    expectClass($('#targeted-class .target'), '+first -last');
+    $('#targeted-class [data-mutiny-toggler]').click();
+    expectClass($('#targeted-class .target'), '+last -first');
+    $('#targeted-class [data-mutiny-toggler]').click();
+    expectClass($('#targeted-class .target'), '+first -last');
   });
 
   it('triggers Class Name toggler', function() {
