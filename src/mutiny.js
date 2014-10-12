@@ -14,23 +14,6 @@ var Mutiny = window.Mutiny = {
   init: function($es, namespace) {
     namespace = namespace || 'mutiny';
 
-    /* Deprecated.  data-mutiny="widget" should be data-mutiny-widget="" */
-    $find($es, format('[data-{0}]', namespace)).each(function(i, e) {
-      var $e = $(e);
-      var directives = $e.data(namespace);
-      if(isString(directives)) {
-        /* data-mutiny='slider' */
-        initWidget($e, directives, {});
-      } else if(typeof data === 'object') {
-        /* data-mutiny='{"slider": {"some": "options"}}' */
-        for(var directive in directives) {
-          initWidget($e, directive, directives[directive]);
-        }
-      } else {
-        throw 'Unsupported data';
-      }
-    });
-
     var queries = [];
     for(var name in Mutiny.widgets) {
       queries.push(format('[data-{0}-{1}]', namespace, dasherize(name)));
@@ -57,8 +40,7 @@ function $find($es, arg) {
 }
 
 function initWidget($instigator, widgetName, instanceOptions) {
-  /* Deprecated: Mutiny.<widgetName> should be Mutiny.widgets.<widgetName> */
-  var widget = Mutiny.widgets[widgetName] || Mutiny[widgetName];
+  var widget = Mutiny.widgets[widgetName];
   if(widget === undefined) {
     throw format('"{0}" not found', widgetName);
   }
@@ -66,10 +48,7 @@ function initWidget($instigator, widgetName, instanceOptions) {
   instanceOptions = instanceOptions || {};
   if(isString(instanceOptions)) {
     var replacementOptions = {};
-    /* Deprecated: <widget>.string_arg should be <widget>.stringArg */
-    if(widget.string_arg) {
-      replacementOptions[widget.string_arg] = instanceOptions;
-    } else if(widget.stringArg) {
+    if(widget.stringArg) {
       replacementOptions[widget.stringArg] = instanceOptions;
     } else {
       throw format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);

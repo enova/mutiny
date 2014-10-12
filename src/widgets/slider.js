@@ -29,17 +29,9 @@ Mutiny.widgets.slider = {
       $instigator.val(slider.value).change();
     };
 
-    /* Deprecated.  No more select sliders! */
-    if ($instigator.is('select')) {
-      var $options = $instigator.find('option');
-      options.min = Number($options.first().val());
-      options.max = Number($options.last().val());
-      options.step = (options.max - options.min) / ($options.length - 1);
-    } else {
-      $.each(['min', 'max', 'step'], function(i, attr) {
-        options[attr] = Number(options[attr] || $instigator.attr(attr) || $instigator.data(attr));
-      });
-    }
+    $.each(['min', 'max', 'step'], function(i, attr) {
+      options[attr] = Number(options[attr] || $instigator.attr(attr) || $instigator.data(attr));
+    });
 
     $instigator.change(function(){
       var val = Number($instigator.val());
