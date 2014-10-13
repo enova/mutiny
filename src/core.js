@@ -50,10 +50,11 @@ var Mutiny = window.Mutiny = {
 
   init: function(els, namespace) {
     namespace = namespace || 'mutiny';
+    var name;
 
     if(!els) {
       var queries = [];
-      for(var name in Mutiny.widgets) {
+      for(name in Mutiny.widgets) {
         if(Mutiny.widgets.hasOwnProperty(name)) {
           queries.push(Mutiny.util.format('[data-{0}-{1}]', namespace, Mutiny.util.dasherize(name)));
         }
