@@ -1,6 +1,6 @@
-Mutiny.widgets.accordion = {
-  'defaults': {},
-  'init': function(instigator, options){
+Mutiny.widgets.jquiAccordion = {
+  defaults: {},
+  init: function(instigator, options){
     var $instigator = $(instigator);
     var hash = window.location.hash;
     if(hash && $instigator.find(hash).length > 0) {

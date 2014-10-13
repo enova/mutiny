@@ -13,6 +13,7 @@ var Mutiny = window.Mutiny = {
 
   util: {
     dasherize: function(string){
+      string = string.replace(/[^a-z]+/ig, '-');
       return string.replace(/(.?)([A-Z])/g, function(match, prev, cap){
         if(prev) {
           return prev + '-' + cap.toLowerCase();

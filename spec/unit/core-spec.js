@@ -1,7 +1,11 @@
-describe('Mutiny.util', function() {
-  describe('dasherize()', function() {
-    it('converts CapWords into cap-words', function() {
+describe('Mutiny.util', function(){
+  describe('dasherize()', function(){
+    it('converts CapWords into cap-words', function(){
       expect(Mutiny.util.dasherize('CapWords')).toEqual('cap-words');
+    });
+
+    it('converts foo/bar into foo-bar', function(){
+      expect(Mutiny.util.dasherize('foo/bar')).toEqual('foo-bar');
     });
   });
 

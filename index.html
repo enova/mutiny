@@ -47,7 +47,7 @@
       });
 
       if(currentPage) {
-        $('#main').addClass(currentPage);
+        $('#main').addClass(Mutiny.util.dasherize(currentPage));
 
         $('#main').load('examples/' + currentPage + '.html', function(data, status, xhr) {
           if(status == "error") {

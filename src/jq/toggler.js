@@ -18,7 +18,7 @@ function toggleFunc($e, style, classes){
   }
 }
 
-Mutiny.widgets.toggler = {
+Mutiny.widgets.jqToggler = {
   'defaults': {'classes': 'inactive active', 'preventDefault': false},
   'init': function(instigator, options){
     var $instigator = $(instigator);

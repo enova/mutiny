@@ -7,9 +7,9 @@ function formatSpan(f, startValue, className) {
   }
 }
 
-Mutiny.widgets.slider = {
-  'defaults': {'range': 'min'},
-  'init': function(instigator, options){
+Mutiny.widgets.jquiSlider = {
+  defaults: {'range': 'min'},
+  init: function(instigator, options){
     var $instigator = $(instigator);
     var $ui;
     if(options.target) {

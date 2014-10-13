@@ -1,5 +1,5 @@
-Mutiny.widgets.datepicker = {
-  'init': function(instigator, options) {
+Mutiny.widgets.jquiDatepicker = {
+  init: function(instigator, options) {
     var $instigator = $(instigator);
     $instigator.datepicker(options);
   }

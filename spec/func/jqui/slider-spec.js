@@ -1,6 +1,6 @@
-describe('Mutiny.widgets.slider', function() {
+describe('Mutiny.widgets.jquiSlider', function() {
   beforeEach(function(){
-    loadFixtures('slider.html');
+    loadFixtures('jqui/slider.html');
     Mutiny.init();
   });
 
