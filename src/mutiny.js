@@ -22,14 +22,16 @@ var Mutiny = window.Mutiny = {
         }
       }
       els = document.querySelectorAll(queries.join(','));
+    } else if(els.length === undefined) {
+      els = [els];
     }
 
     for(var i=0; i < els.length; i++) {
       var el = els[i];
       for(name in Mutiny.widgets) {
         var attr = format('data-{0}-{1}', namespace, dasherize(name));
-        var data = el.getAttribute(attr);
-        if(data !== undefined) {
+        if(el.hasAttribute(attr)){
+          var data = el.getAttribute(attr);
           var updatedOptions = initWidget(el, name, data);
           if(updatedOptions) {
             el.setAttribute(attr, JSON.stringify(updatedOptions));
@@ -59,7 +61,7 @@ function initWidget(instigator, widgetName, instanceOptions) {
         instanceOptions[key] = widget.defaults[key];
       }
     }
-    widget.init($(instigator), instanceOptions);
+    widget.init(instigator, instanceOptions);
     instanceOptions.called = true;
     return instanceOptions;
   }

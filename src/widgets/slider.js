@@ -9,7 +9,8 @@ function formatSpan(f, startValue, className) {
 
 Mutiny.widgets.slider = {
   'defaults': {'range': 'min'},
-  'init': function($instigator, options){
+  'init': function(instigator, options){
+    var $instigator = $(instigator);
     var $ui;
     if(options.target) {
       $ui = $(options.target);

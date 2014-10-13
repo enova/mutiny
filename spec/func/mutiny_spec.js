@@ -1,9 +1,15 @@
 describe('Mutiny.init()', function() {
   beforeEach(function() {
+    function clone(o){
+      return JSON.parse(JSON.stringify(o));
+    }
+
     Mutiny.widgets.widget = {
-      'init': function(){}
+      init: function(instigator, options){
+        instigator.lastCalledWith = clone(options);
+        instigator.numCalls = (instigator.numCalls || 0) + 1;
+      }
     };
-    this.spy = spyOn(Mutiny.widgets.widget, 'init');
   });
 
   afterEach(function() {
@@ -12,73 +18,70 @@ describe('Mutiny.init()', function() {
 
   describe("<div data-mutiny-widget='' />", function() {
     beforeEach(function() {
-      this.el = $("<div data-mutiny-widget='' />");
+      this.el = $("<div data-mutiny-widget='' />")[0];
     });
 
     it("invokes with empty options", function() {
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {});
+      expect(this.el.lastCalledWith).toEqual({});
     });
 
     it("invokes with defaults", function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option'});
+      expect(this.el.lastCalledWith).toEqual({'default': 'option'})
     });
 
     it("is invoked only once regardless of how often Mutiny.init() is called", function(){
       Mutiny.init(this.el);
       Mutiny.init(this.el);
-      expect(this.spy.callCount).toEqual(1);
+      expect(this.el.numCalls).toEqual(1);
     });
   });
 
   describe('<div data-mutiny-widget=\'{"key": "value"}\' />', function() {
     beforeEach(function() {
-      this.el = $('<div data-mutiny-widget=\'{"key": "value"}\' />');
+      this.el = $('<div data-mutiny-widget=\'{"key": "value"}\' />')[0];
     });
 
     it("invokes with options", function() {
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
+      expect(this.el.lastCalledWith).toEqual({'key': 'value'});
     });
 
     it("invokes with defaults merged with options", function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'key': 'value'});
+      expect(this.el.lastCalledWith).toEqual({'default': 'option', 'key': 'value'});
     });
 
     it("invokes with overridden defaults", function() {
       Mutiny.widgets.widget.defaults = {'key': 'default'};
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'key': 'value'});
+      expect(this.el.lastCalledWith).toEqual({'key': 'value'});
     });
   });
 
   describe("<div data-namespace-widget=''>", function() {
     beforeEach(function() {
-      this.el = $("<div data-namespace-widget='' />");
+      this.el = $("<div data-namespace-widget='' />")[0];
     });
 
     it("triggers using argument", function() {
       Mutiny.init(this.el, 'namespace');
-      expect(Mutiny.widgets.widget.init).wasCalled();
+      expect(this.el.numCalls).toBe(1);
     });
   });
 
   describe("<div data-mutiny-long-form=''>", function() {
     beforeEach(function() {
-      this.el = $("<div data-mutiny-long-form='' />");
-      Mutiny.widgets.longForm = {
-        'init': function(){}
-      };
-      spyOn(Mutiny.widgets.longForm, 'init');
+      this.el = $("<div data-mutiny-long-form='' />")[0];
+      Mutiny.widgets.longForm = Mutiny.widgets.widget;
     });
 
     it("triggers", function() {
       Mutiny.init(this.el);
-      expect(Mutiny.widgets.longForm.init).wasCalled();
+      expect(this.el.numCalls).toBe(1);
     });
   });
 });

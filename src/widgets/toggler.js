@@ -20,7 +20,8 @@ function toggleFunc($e, style, classes){
 
 Mutiny.widgets.toggler = {
   'defaults': {'classes': 'inactive active', 'preventDefault': false},
-  'init': function($instigator, options){
+  'init': function(instigator, options){
+    var $instigator = $(instigator);
     var $target = $(options.target);
 
     var instigatorFunc = toggleFunc($instigator, options.style, options.classes);
