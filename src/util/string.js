@@ -1,14 +1,11 @@
 function dasherize(string) {
-  return $.map(string.split(/(?=[A-Z])/),
-               function(t){ return t.toLowerCase(); }).join('-');
-}
-
-function lowerCaseFirst(string) {
-  return string.charAt(0).toLowerCase() + string.slice(1);
-}
-
-function startsWith(string, match) {
-  return string.indexOf(match) === 0;
+  return string.replace(/(.?)([A-Z])/g, function(match, prev, cap){
+    if(prev) {
+      return prev + '-' + cap.toLowerCase();
+    } else {
+      return cap.toLowerCase();
+    }
+  });
 }
 
 var format = function() {

@@ -5,22 +5,6 @@ describe('util:string', function() {
     });
   });
 
-  describe('lowerCaseFirst()', function() {
-    it('only lowercases the first letter', function() {
-      expect(lowerCaseFirst('ABCDEFG')).toEqual('aBCDEFG');
-    });
-  });
-
-  describe('startsWith()', function() {
-    it('is true for "this string" starts with "th"', function() {
-      expect(startsWith('this string', 'th')).toBe(true);
-    });
-
-    it('is false for "this string" starts with "his"', function() {
-      expect(startsWith('this string', 'his')).toBe(false);
-    });
-  });
-
   describe('format()', function() {
     it('based on position', function() {
       var out = format('This is testing {0} for {1}.', 'foo', 'bar');

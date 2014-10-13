@@ -22,7 +22,7 @@ var Mutiny = window.Mutiny = {
         }
       }
       els = document.querySelectorAll(queries.join(','));
-    } else if(els.length === undefined) {
+    } else if(!isArray(els)) {
       els = [els];
     }
 
