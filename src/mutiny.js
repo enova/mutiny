@@ -25,7 +25,7 @@ var Mutiny = window.Mutiny = {
     for(var i=0; i < es.length; i++) {
       var e = es[i];
       for(name in Mutiny.widgets) {
-        var attr = format('data-{0}-{1}', namespace, name);
+        var attr = format('data-{0}-{1}', namespace, dasherize(name));
         var data = e.getAttribute(attr);
         if(data !== undefined) {
           var updatedOptions = initWidget(e, name, data);
@@ -44,15 +44,11 @@ function initWidget(instigator, widgetName, instanceOptions) {
     throw format('"{0}" not found', widgetName);
   }
 
-  instanceOptions = instanceOptions ? JSON.parse(instanceOptions) : {};
-  if(isString(instanceOptions)) {
-    var replacementOptions = {};
-    if(widget.stringArg) {
-      replacementOptions[widget.stringArg] = instanceOptions;
-    } else {
-      throw format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);
-    }
-    instanceOptions = replacementOptions;
+  try {
+    instanceOptions = instanceOptions ? JSON.parse(instanceOptions) : {};
+  } catch(e) {
+    e.message = format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);
+    throw e;
   }
 
   if(!instanceOptions.called) {

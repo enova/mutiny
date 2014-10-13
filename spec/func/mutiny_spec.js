@@ -56,43 +56,6 @@ describe('Mutiny.init()', function() {
     });
   });
 
-  describe('<div data-mutiny-widget="string" />', function() {
-    beforeEach(function() {
-      this.el = $('<div data-mutiny-widget="string" />');
-    });
-
-    it("cannot parse stringArg by default", function() {
-      var el = this.el;
-      expect(function() {
-        Mutiny.init(el);
-      }).toThrow('"widget" cannot parse "string"');
-    });
-
-    describe('with stringArg defined', function() {
-      beforeEach(function() {
-        Mutiny.widgets.widget.stringArg = 'objectize';
-        this.el = $('<div data-mutiny-widget="string" />');
-      });
-
-      it("converts options into {Mutiny.widgets.widget.stringArg: 'string'}", function() {
-        Mutiny.init(this.el);
-        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
-      });
-
-      it("merges defaults with options", function() {
-        Mutiny.widgets.widget.defaults = {'default': 'option'};
-        Mutiny.init(this.el);
-        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'default': 'option', 'objectize': 'string'});
-      });
-
-      it("overrides defaults with options", function() {
-        Mutiny.widgets.widget.defaults = {'objectize': 'default'};
-        Mutiny.init(this.el);
-        expect(Mutiny.widgets.widget.init).wasCalledWith($(this.el[0]), {'objectize': 'string'});
-      });
-    });
-  });
-
   describe("<div data-namespace-widget=''>", function() {
     beforeEach(function() {
       this.el = $("<div data-namespace-widget='' />");
