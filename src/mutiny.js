@@ -11,23 +11,26 @@ var Mutiny = window.Mutiny = {
 
   widgets: {},
 
-  init: function($es, namespace) {
+  init: function(es, namespace) {
     namespace = namespace || 'mutiny';
 
     var queries = [];
     for(var name in Mutiny.widgets) {
       queries.push(format('[data-{0}-{1}]', namespace, dasherize(name)));
     }
-    var $needWidgets = $find($es, queries.join(','));
-    for(var i=0; i < $needWidgets.length; i++) {
-      var $e = $($needWidgets[i]);
+
+    if(!es) {
+      es = document.querySelectorAll(queries.join(','));
+    }
+    for(var i=0; i < es.length; i++) {
+      var e = es[i];
       for(name in Mutiny.widgets) {
-        var key = format('{0}-{1}', namespace, name);
-        var data = $e.data(key);
+        var attr = format('data-{0}-{1}', namespace, name);
+        var data = e.getAttribute(attr);
         if(data !== undefined) {
-          var updatedOptions = initWidget($e, name, data);
+          var updatedOptions = initWidget(e, name, data);
           if(updatedOptions) {
-            $e.data(key, updatedOptions);
+            e.setAttribute(attr, JSON.stringify(updatedOptions));
           }
         }
       }
@@ -35,17 +38,13 @@ var Mutiny = window.Mutiny = {
   }
 };
 
-function $find($es, arg) {
-  return $es ? $es.filter(arg) : $(arg);
-}
-
-function initWidget($instigator, widgetName, instanceOptions) {
+function initWidget(instigator, widgetName, instanceOptions) {
   var widget = Mutiny.widgets[widgetName];
   if(widget === undefined) {
     throw format('"{0}" not found', widgetName);
   }
 
-  instanceOptions = instanceOptions || {};
+  instanceOptions = instanceOptions ? JSON.parse(instanceOptions) : {};
   if(isString(instanceOptions)) {
     var replacementOptions = {};
     if(widget.stringArg) {
@@ -57,7 +56,7 @@ function initWidget($instigator, widgetName, instanceOptions) {
   }
 
   if(!instanceOptions.called) {
-    widget.init($instigator, $.extend({}, widget.defaults, instanceOptions));
+    widget.init($(instigator), $.extend({}, widget.defaults, instanceOptions));
     instanceOptions.called = true;
     return instanceOptions;
   }
