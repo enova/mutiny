@@ -1,9 +1,9 @@
 function formatSpan(f, startValue, className) {
-  var inner = f.replace('%s', format('<span>{0}</span>', startValue || '&nbsp;'));
+  var inner = f.replace('%s', Mutiny.util.format('<span>{0}</span>', startValue || '&nbsp;'));
   if(className) {
-    return format('<span class="{0}">{1}</span>', className, inner);
+    return Mutiny.util.format('<span class="{0}">{1}</span>', className, inner);
   } else {
-    return format('<span>{0}</span>', inner);
+    return Mutiny.util.format('<span>{0}</span>', inner);
   }
 }
 
@@ -17,7 +17,7 @@ Mutiny.widgets.slider = {
     } else {
       var id = $instigator.attr('id');
       if(id) {
-        $ui = $(format('<div id="{0}-mutiny-slider"></div>', id));
+        $ui = $(Mutiny.util.format('<div id="{0}-mutiny-slider"></div>', id));
       } else {
         $ui = $('<div></div>');
       }

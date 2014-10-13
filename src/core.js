@@ -11,6 +11,42 @@ var Mutiny = window.Mutiny = {
 
   widgets: {},
 
+  util: {
+    dasherize: function(string){
+      return string.replace(/(.?)([A-Z])/g, function(match, prev, cap){
+        if(prev) {
+          return prev + '-' + cap.toLowerCase();
+        } else {
+          return cap.toLowerCase();
+        }
+      });
+    },
+
+    format: function(){
+      var regexes = [];
+      for(var i=0; i < 10; i++) {
+        regexes[i] = new RegExp('\\{' + i + '\\}', 'gm');
+      }
+
+      return function() {
+        var s = arguments[0];
+        for(var i=1; i < arguments.length; i++) {
+          s = s.replace(regexes[i-1], arguments[i]);
+        }
+
+        return s;
+      };
+    }(),
+
+    isString: function(obj){
+      return !!obj.substring;
+    },
+
+    isArray: function(obj){
+      return obj.length !== undefined;
+    }
+  },
+
   init: function(els, namespace) {
     namespace = namespace || 'mutiny';
 
@@ -18,18 +54,18 @@ var Mutiny = window.Mutiny = {
       var queries = [];
       for(var name in Mutiny.widgets) {
         if(Mutiny.widgets.hasOwnProperty(name)) {
-          queries.push(format('[data-{0}-{1}]', namespace, dasherize(name)));
+          queries.push(Mutiny.util.format('[data-{0}-{1}]', namespace, Mutiny.util.dasherize(name)));
         }
       }
       els = document.querySelectorAll(queries.join(','));
-    } else if(!isArray(els)) {
+    } else if(!Mutiny.util.isArray(els)) {
       els = [els];
     }
 
     for(var i=0; i < els.length; i++) {
       var el = els[i];
       for(name in Mutiny.widgets) {
-        var attr = format('data-{0}-{1}', namespace, dasherize(name));
+        var attr = Mutiny.util.format('data-{0}-{1}', namespace, Mutiny.util.dasherize(name));
         if(el.hasAttribute(attr)){
           var data = el.getAttribute(attr);
           var updatedOptions = initWidget(el, name, data);
@@ -45,13 +81,13 @@ var Mutiny = window.Mutiny = {
 function initWidget(instigator, widgetName, instanceOptions) {
   var widget = Mutiny.widgets[widgetName];
   if(widget === undefined) {
-    throw format('"{0}" not found', widgetName);
+    throw Mutiny.util.format('"{0}" not found', widgetName);
   }
 
   try {
     instanceOptions = instanceOptions ? JSON.parse(instanceOptions) : {};
   } catch(e) {
-    e.message = format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);
+    e.message = Mutiny.util.format('"{0}" cannot parse "{1}"', widgetName, instanceOptions);
     throw e;
   }
 

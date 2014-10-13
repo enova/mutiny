@@ -31,7 +31,7 @@ Mutiny.widgets.toggler = {
       var name = $instigator.attr("name");
       instigatorFunc($instigator.is(':checked'));
       targetFunc($instigator.is(':checked'));
-      $(format('input[name="{0}"]', name)).change(function(event){
+      $(Mutiny.util.format('input[name="{0}"]', name)).change(function(event){
         instigatorFunc($instigator.is(':checked'));
         targetFunc($instigator.is(':checked'));
       });
