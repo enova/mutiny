@@ -1,9 +1,3 @@
-$(function(){
-  if(Mutiny.options.initOnReady) {
-    Mutiny.init();
-  }
-});
-
 var Mutiny = window.Mutiny = {
   options: {
     initOnReady: true
@@ -12,6 +6,22 @@ var Mutiny = window.Mutiny = {
   widgets: {},
 
   util: {
+    onReady: function(fn){
+      if(document.readyState === 'complete'){
+        fn();
+      } else if(document.addEventListener){
+        document.addEventListener('DOMContentLoaded', function wrapper(){
+          document.removeEventListener('DOMContentLoaded', wrapper);
+          fn();
+        });
+      } else {
+        document.attachEvent('onreadystatechange', function wrapper(){
+          document.detachEvent('onreadystatechange', wrapper);
+          fn();
+        });
+      }
+    },
+
     dasherize: function(string){
       string = string.replace(/[^a-z]+/ig, '-');
       return string.replace(/(.?)([A-Z])/g, function(match, prev, cap){
@@ -79,6 +89,12 @@ var Mutiny = window.Mutiny = {
     }
   }
 };
+
+Mutiny.util.onReady(function(){
+  if(Mutiny.options.initOnReady) {
+    Mutiny.init();
+  }
+});
 
 function initWidget(instigator, widgetName, instanceOptions) {
   var widget = Mutiny.widgets[widgetName];
