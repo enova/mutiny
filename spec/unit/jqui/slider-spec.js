@@ -1,26 +1,23 @@
-describe('formatSpan', function() {
-  it('creates span tag with correct values', function() {
-    var s = formatSpan('%s', 'val');
-    expect(s).toEqual('<span><span>val</span></span>');
-  });
+describe('Mutiny.widgets.jquiSlider', function(){
+  describe('formatSpan', function(){
+    it('creates span tag with correct values', function() {
+      var s = Mutiny.widgets.jquiSlider.formatSpan('%s', 'class up', 'val');
+      expect(s).toEqual('<span class="class up"><span>val</span></span>');
+    });
 
-  it('uses class when given', function() {
-    var s = formatSpan('%s', 'val', 'class up');
-    expect(s).toEqual('<span class="class up"><span>val</span></span>');
-  });
+    it('wraps only the value inside inner <span>', function() {
+      var s = Mutiny.widgets.jquiSlider.formatSpan('abc%s123', 'foo', 'val');
+      expect(s).toEqual('<span class="foo">abc<span>val</span>123</span>');
+    });
 
-  it('wraps only the value inside inner <span>', function() {
-    var s = formatSpan('abc%s123', 'val');
-    expect(s).toEqual('<span>abc<span>val</span>123</span>');
-  });
+    it('converts "" into &nbsp; to fix DOM rendering', function() {
+      var s = Mutiny.widgets.jquiSlider.formatSpan('%s', 'foo', '');
+      expect(s).toEqual('<span class="foo"><span>&nbsp;</span></span>');
+    });
 
-  it('converts "" into &nbsp; to fix DOM rendering', function() {
-    var s = formatSpan('%s', '');
-    expect(s).toEqual('<span><span>&nbsp;</span></span>');
-  });
-
-  it('does not convert 0 into &nbsp;', function() {
-    var s = formatSpan('%s', '0');
-    expect(s).toEqual('<span><span>0</span></span>');
+    it('does not convert 0 into &nbsp;', function() {
+      var s = Mutiny.widgets.jquiSlider.formatSpan('%s', 'foo', '0');
+      expect(s).toEqual('<span class="foo"><span>0</span></span>');
+    });
   });
 });

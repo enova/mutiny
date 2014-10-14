@@ -1,12 +1,3 @@
-function formatSpan(f, startValue, className) {
-  var inner = f.replace('%s', Mutiny.util.format('<span>{0}</span>', startValue || '&nbsp;'));
-  if(className) {
-    return Mutiny.util.format('<span class="{0}">{1}</span>', className, inner);
-  } else {
-    return Mutiny.util.format('<span>{0}</span>', inner);
-  }
-}
-
 Mutiny.widgets.jquiSlider = {
   defaults: {'range': 'min'},
   init: function(instigator, options){
@@ -44,21 +35,26 @@ Mutiny.widgets.jquiSlider = {
     });
 
     if(options.minLabel) {
-      $ui.append(formatSpan(options.minLabel, options.min, 'min-label'));
+      $ui.append(this.formatSpan(options.minLabel, 'min-label', options.min));
     }
     if(options.maxLabel) {
-      $ui.append(formatSpan(options.maxLabel, options.max, 'max-label'));
+      $ui.append(this.formatSpan(options.maxLabel, 'max-label', options.max));
     }
 
     $ui.slider(options);
 
     /* Need to append the element to a DOM loaded slider so this occurs after the slider instantiation. */
     if(options.valueLabel) {
-      var $valueLabel = $(formatSpan(options.valueLabel, options.value, 'value-label')).appendTo($ui.find('.ui-slider-handle'));
+      var $valueLabel = $(this.formatSpan(options.valueLabel, 'value-label', options.value)).appendTo($ui.find('.ui-slider-handle'));
       var $value = $valueLabel.find('span');
       $instigator.change(function() {
         $value.html($instigator.val());
       });
     }
+  },
+
+  formatSpan: function(f, className, startValue) {
+    var inner = f.replace('%s', Mutiny.util.format('<span>{0}</span>', startValue || '&nbsp;'));
+    return Mutiny.util.format('<span class="{0}">{1}</span>', className, inner);
   }
 };

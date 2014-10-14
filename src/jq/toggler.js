@@ -1,31 +1,11 @@
-function toggleFunc($e, style, classes){
-  if($e.length === 0){
-    return function(){};
-  } else if(style) {
-    var noStyle = {};
-    for(var key in style) {
-      noStyle[key] = $e.css(key);
-    }
-    return function(on) {
-      $e.css(on ? style : noStyle);
-    };
-  } else {
-    classes = classes.split(' ');
-    return function(on) {
-      $e.toggleClass(classes[0], !on);
-      $e.toggleClass(classes[1], on);
-    };
-  }
-}
-
 Mutiny.widgets.jqToggler = {
-  'defaults': {'classes': 'inactive active', 'preventDefault': false},
-  'init': function(instigator, options){
+  defaults: {'classes': 'inactive active', 'preventDefault': false},
+  init: function(instigator, options){
     var $instigator = $(instigator);
     var $target = $(options.target);
 
-    var instigatorFunc = toggleFunc($instigator, options.style, options.classes);
-    var targetFunc = toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
+    var instigatorFunc = this.toggleFunc($instigator, options.style, options.classes);
+    var targetFunc = this.toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
 
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
@@ -55,6 +35,28 @@ Mutiny.widgets.jqToggler = {
           event.preventDefault();
         }
       });
+    }
+  },
+
+  toggleFunc: function($e, style, classes){
+    if($e.length === 0){
+      return function(){};
+    } else if(style) {
+      var noStyle = {};
+      for(var key in style) {
+        if(style.hasOwnProperty(key)){
+          noStyle[key] = $e.css(key);
+        }
+      }
+      return function(on) {
+        $e.css(on ? style : noStyle);
+      };
+    } else {
+      classes = classes.split(' ');
+      return function(on) {
+        $e.toggleClass(classes[0], !on);
+        $e.toggleClass(classes[1], on);
+      };
     }
   }
 };
