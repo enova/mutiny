@@ -27,7 +27,7 @@ describe('Mutiny.util', function(){
     });
 
     it('counts new String() as string', function() {
-      expect(Mutiny.util.isString(new String())).toBe(true);
+      expect(Mutiny.util.isString(new String())).toBe(true); // jshint ignore:line
     });
   });
 });

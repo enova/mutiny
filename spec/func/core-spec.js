@@ -29,7 +29,7 @@ describe('Mutiny.init()', function() {
     it("invokes with defaults", function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({'default': 'option'})
+      expect(this.el.lastCalledWith).toEqual({'default': 'option'});
     });
 
     it("is invoked only once regardless of how often Mutiny.init() is called", function(){
