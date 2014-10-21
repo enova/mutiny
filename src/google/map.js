@@ -17,4 +17,4 @@ Mutiny.widgets.googleMap = {
       }
     });
   }
-}
+};

@@ -12,4 +12,4 @@ Mutiny.widgets.googleStreetView = {
       }
     });
   }
-}
+};
