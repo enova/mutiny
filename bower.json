@@ -1,0 +1,24 @@
+{
+  "name": "mutiny",
+  "version": "1.0.0dev",
+  "homepage": "http://mutinyjs.com",
+  "authors": [
+    "fengb <contact@fengb.info>"
+  ],
+  "description": "Reusable, declarative HTML5 widgets",
+  "main": "src/core.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "devDependencies": {
+    "chai": "~1.9.2",
+    "mocha": "~1.21.5"
+  }
+}
