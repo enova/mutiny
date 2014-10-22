@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+var gulp = require('gulp-help')(require('gulp'));
 var jshint = require('gulp-jshint');
 var mochaPhantom = require('gulp-mocha-phantomjs');
 
