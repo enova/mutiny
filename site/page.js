@@ -7,21 +7,39 @@ var Page = function(page) {
     'google/map', 'google/street-view'
   ];
 
-  function mapFormat(arr, format) {
+  function formatter(format){
+    return function(val){
+      return format.replace('%s', val);
+    };
+  }
+
+  function map(arr, func){
     var ret = [];
     for(var i=0; i < arr.length; i++){
-      ret.push(format.replace('%s', arr[i]));
+      ret.push(func(arr[i]));
     }
     return ret;
-  };
+  }
 
-  page.subPaths = page.core.concat(page.widgets);
-  page.src = page.extra.concat(
-             mapFormat(page.subPaths, 'src/%s.js'));
-  page.spec = mapFormat(page.subPaths, 'spec/unit/%s-spec.js').concat(
-              mapFormat(page.subPaths, 'spec/func/%s-spec.js'));
+  function flatten(){
+    var ret = [];
+    for(var i = 0; i < arguments.length; i++){
+      ret.push.apply(ret, arguments[i]);
+    }
+    return ret;
+  }
 
-  page.include = function include(file) {
+  page.subPaths = flatten(page.core, page.widgets);
+  page.src = flatten(
+    page.extra,
+    map(page.subPaths, formatter('src/%s.js'))
+  );
+  page.spec = flatten(
+    map(page.subPaths, formatter('spec/unit/%s-spec.js')),
+    map(page.subPaths, formatter('spec/func/%s-spec.js'))
+  );
+
+  page.include = function include(file){
     if(!!file.substring || !('length' in file)){
       /* document.write to force blocked loading */
       document.write('<script src="' + file + '"></script>');
