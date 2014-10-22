@@ -1,17 +1,23 @@
 describe('Mutiny.widgets.jqToggler', function() {
   beforeEach(function(){
-    loadFixtures('jq/toggler.html');
-    Mutiny.init();
+    fixtures.load('jq/toggler.html');
+    window.$ = fixtures.jQuery();
+    Mutiny.init($('*'));
+  });
+
+  afterEach(function(){
+    fixtures.cleanUp();
+    window.$ = window.jQuery;
   });
 
   function expectClass($e, directives) {
     $.each(directives.split(' '), function(i, directive) {
       switch(directive[0]) {
         case '+':
-          expect($e).toHaveClass(directive.substring(1));
+          expect($e).to.have.class(directive.substring(1));
           break;
         case '-':
-          expect($e).not.toHaveClass(directive.substring(1));
+          expect($e).to.not.have.class(directive.substring(1));
           break;
         default:
           throw "expectClass directive not supported: '"+directive[0]+"'";
@@ -44,11 +50,11 @@ describe('Mutiny.widgets.jqToggler', function() {
   });
 
   it('triggers Style Changes toggler', function() {
-    expect($('#style-changes [data-mutiny-jq-toggler]')).not.toHaveCss({'font-style':'italic'});
+    expect($('#style-changes [data-mutiny-jq-toggler]')).not.to.have.css('font-style', 'italic');
     $('#style-changes [data-mutiny-jq-toggler]').click();
-    expect($('#style-changes [data-mutiny-jq-toggler]')).toHaveCss({'font-style':'italic'});
+    expect($('#style-changes [data-mutiny-jq-toggler]')).to.have.css('font-style', 'italic');
     $('#style-changes [data-mutiny-jq-toggler]').click();
-    expect($('#style-changes [data-mutiny-jq-toggler]')).not.toHaveCss({'font-style':'italic'});
+    expect($('#style-changes [data-mutiny-jq-toggler]')).not.to.have.css('font-style', 'italic');
   });
 
   it('triggers Checkbox toggler', function() {
