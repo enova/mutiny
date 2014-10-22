@@ -23,19 +23,19 @@ describe('Mutiny.init()', function() {
 
     it("invokes with empty options", function() {
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({});
+      expect(this.el.lastCalledWith).to.deep.equal({});
     });
 
     it("invokes with defaults", function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({'default': 'option'});
+      expect(this.el.lastCalledWith).to.deep.equal({'default': 'option'});
     });
 
     it("is invoked only once regardless of how often Mutiny.init() is called", function(){
       Mutiny.init(this.el);
       Mutiny.init(this.el);
-      expect(this.el.numCalls).toEqual(1);
+      expect(this.el.numCalls).to.equal(1);
     });
   });
 
@@ -46,19 +46,19 @@ describe('Mutiny.init()', function() {
 
     it("invokes with options", function() {
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({'key': 'value'});
+      expect(this.el.lastCalledWith).to.deep.equal({'key': 'value'});
     });
 
     it("invokes with defaults merged with options", function() {
       Mutiny.widgets.widget.defaults = {'default': 'option'};
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({'default': 'option', 'key': 'value'});
+      expect(this.el.lastCalledWith).to.deep.equal({'default': 'option', 'key': 'value'});
     });
 
     it("invokes with overridden defaults", function() {
       Mutiny.widgets.widget.defaults = {'key': 'default'};
       Mutiny.init(this.el);
-      expect(this.el.lastCalledWith).toEqual({'key': 'value'});
+      expect(this.el.lastCalledWith).to.deep.equal({'key': 'value'});
     });
   });
 
@@ -69,7 +69,7 @@ describe('Mutiny.init()', function() {
 
     it("triggers using argument", function() {
       Mutiny.init(this.el, 'namespace');
-      expect(this.el.numCalls).toBe(1);
+      expect(this.el.numCalls).to.equal(1);
     });
   });
 
@@ -81,7 +81,7 @@ describe('Mutiny.init()', function() {
 
     it("triggers", function() {
       Mutiny.init(this.el);
-      expect(this.el.numCalls).toBe(1);
+      expect(this.el.numCalls).to.equal(1);
     });
   });
 });

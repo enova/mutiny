@@ -2,8 +2,8 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
-    <link rel='stylesheet' href='vendor/jquery-ui.css' />
-    <link rel='stylesheet' href='vendor/rainbow.css' />
+    <link rel='stylesheet' href='bower_components/jquery-ui/themes/base/all.css' />
+    <link rel='stylesheet' href='bower_components/rainbow/themes/github.css' />
     <link rel='stylesheet' href='site/page.css' />
     <title>Mutiny</title>
   </head>
@@ -11,7 +11,7 @@
     <header>
       <nav id='pages'>
         <h1>Pages</h1>
-        <a href='jasmine.html'>Jasmine</a>
+        <a href='mocha.html'>Mocha</a>
         <a href='performance.html'>Performance</a>
       </nav>
 
@@ -22,9 +22,11 @@
 
     <article id='main'></article>
 
-    <script src='vendor/marked.js'></script>
-    <script src='vendor/rainbow.js'></script>
-    <script src='vendor/rainbow.patterns.js'></script>
+    <script src='bower_components/marked/lib/marked.js'></script>
+    <script src='bower_components/rainbow/js/rainbow.js'></script>
+    <script src='bower_components/rainbow/js/language/generic.js'></script>
+    <script src='bower_components/rainbow/js/language/html.js'></script>
+    <script src='bower_components/rainbow/js/language/javascript.js'></script>
 
     <script src='site/page.js'></script>
 

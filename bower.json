@@ -1,0 +1,30 @@
+{
+  "name": "mutiny",
+  "version": "1.0.0dev",
+  "homepage": "http://mutinyjs.com",
+  "authors": [
+    "fengb <contact@fengb.info>"
+  ],
+  "description": "Reusable, declarative HTML5 widgets",
+  "main": "src/core.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "devDependencies": {
+    "chai": "~1.9.2",
+    "mocha": "~1.21.5",
+    "fixtures": "~1.3.1",
+    "chai-jquery": "~2.0.0",
+    "jquery": "~1.11.1",
+    "jquery-ui": "~1.11.2",
+    "rainbow": "~1.1.9",
+    "marked": "~0.3.2"
+  }
+}
