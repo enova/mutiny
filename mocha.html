@@ -11,7 +11,7 @@
     <div id="mocha"></div>
     <script src="bower_components/mocha/mocha.js"></script>
     <script src="bower_components/chai/chai.js"></script>
-    <script src="vendor/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/chai-jquery/chai-jquery.js"></script>
     <script src="bower_components/fixtures/fixtures.js"></script>
     <script>
@@ -20,7 +20,7 @@
       fixtures.path = 'examples'
       fixtures.jQuery = function(){
         var context = fixtures.window().document;
-        var jQueryWannabe = function(selector){
+        function jQueryWannabe(selector){
           return jQuery(selector, context);
         }
         return jQuery.extend(jQueryWannabe, jQuery);

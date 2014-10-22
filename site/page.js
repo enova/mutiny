@@ -1,5 +1,5 @@
 var Page = function(page) {
-  page.extra = ['vendor/jquery.js', 'vendor/jquery-ui.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'];
+  page.extra = ['bower_components/jquery/dist/jquery.js', 'bower_components/jquery-ui/jquery-ui.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'];
   page.core = ['core'];
   page.widgets = [
     'jq/toggler',
