@@ -19,7 +19,7 @@
     "node": "~0.8.0"
   },
   "scripts": {
-    "test": "grunt test-all",
+    "test": "gulp test",
     "postinstall": "bower install"
   },
   "devDependencies": {

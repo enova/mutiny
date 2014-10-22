@@ -10,8 +10,7 @@ gulp.task('lint', function(){
     .pipe(jshint.reporter('default'));
 });
 
-
-gulp.task('test', function () {
+gulp.task('test', ['lint'], function(){
   return gulp
     .src('mocha.html')
     .pipe(mochaPhantom());
