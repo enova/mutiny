@@ -18,7 +18,7 @@ run() {
 }
 
 # if run is successful, it will replace current process so rest of the script is automatically aborted
-#run grunt connect --port=$PORT
+run gulp server -p $PORT
 run python3 -m http.server $PORT
 run python -m SimpleHTTPServer $PORT
 
