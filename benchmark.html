@@ -11,8 +11,38 @@
     <script src='bower_components/jquery/dist/jquery.js'></script>
     <script>
       var $results = $('#results');
-      new Benchmark.Suite()
-        .add('inline', function(){
+
+      function BenchmarkPlus(options){
+        $results.html();
+        var suite = new Benchmark.Suite();
+        $.each(options, function(name, fn){
+          var $e = $('<div></div')
+                     .text(name)
+                     .appendTo($results);
+          suite.add(name, fn, {
+            onStart: function(evt){
+              $e.text(name + ' starting...');
+            },
+            onCycle: function(evt){
+              $e.text(evt.target.toString());
+            },
+            onComplete: function(evt){
+              $e.text(evt.target.toString());
+            }
+          });
+        });
+
+        suite.on('complete', function(evt){
+          $('<div></div>')
+            .text('Fastest is ' + this.filter('fastest').pluck('name'))
+            .appendTo($results);
+        });
+
+        suite.run({ async: true });
+      }
+
+      BenchmarkPlus({
+        'inline': function(){
           function format(str) {
             for(var i=1; i < arguments.length; i++) {
               var regex = new RegExp("\\{" + (i-1) + "\\}", "gm");
@@ -25,8 +55,9 @@
           return function(){
             format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
           };
-        }())
-        .add('precached', function(){
+        }(),
+
+        'precached': function(){
           var regexes = [];
           for(var i=0; i < 10; i++){
             regexes[i] = new RegExp("\\{" + i + "\\}", "gm");
@@ -42,8 +73,9 @@
           return function(){
             format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
           }
-        }())
-        .add('cache on demand', function(){
+        }(),
+
+        'cache on demand': function(){
           var regexes = [];
           function format(str) {
             for(var i=1; i < arguments.length; i++) {
@@ -61,17 +93,8 @@
           return function(){
             format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
           }
-        }())
-
-        .on('cycle', function(evt){
-          $('<div></div>').text(evt.target.toString()).appendTo($results);
-        })
-
-        .on('complete', function(){
-          $('<div></div>').text('Fastest is ' + this.filter('fastest').pluck('name')).appendTo($results);
-        })
-
-        .run({ 'async': true });
+        }()
+      });
     </script>
   </body>
 </html>
