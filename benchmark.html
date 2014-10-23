@@ -33,8 +33,7 @@
           }
           function format(str) {
             for(var i=1; i < arguments.length; i++) {
-              var regex = regexes[i-1];
-              str = str.replace(regex, arguments[i]);
+              str = str.replace(regexes[i-1], arguments[i]);
             }
 
             return str;
@@ -48,9 +47,10 @@
           var regexes = [];
           function format(str) {
             for(var i=1; i < arguments.length; i++) {
-              var regex = regexes[i-1];
+              var r = i-1;
+              var regex = regexes[r];
               if(!regex){
-                regex = regexes[i-1] = new RegExp("\\{" + i + "\\}", "gm");
+                regex = regexes[r] = new RegExp("\\{" + r + "\\}", "gm");
               }
               str = str.replace(regex, arguments[i]);
             }

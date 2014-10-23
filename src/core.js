@@ -69,17 +69,17 @@ var Mutiny = window.Mutiny = {
 
     format: function(){
       var regexes = [];
-      for(var i=0; i < 10; i++) {
-        regexes[i] = new RegExp('\\{' + i + '\\}', 'gm');
-      }
-
-      return function() {
-        var s = arguments[0];
-        for(var i=1; i < arguments.length; i++) {
-          s = s.replace(regexes[i-1], arguments[i]);
+      return function(str){
+        for(var i=1; i < arguments.length; i++){
+          var r = i-1;
+          var regex = regexes[r];
+          if(!regex){
+            regex = regexes[r] = new RegExp('\\{' + r + '\\}', 'gm');
+          }
+          str = str.replace(regex, arguments[i]);
         }
 
-        return s;
+        return str;
       };
     }(),
 
