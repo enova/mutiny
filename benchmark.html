@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <title>Mutiny</title>
+  </head>
+  <body>
+    <div id='results'></div>
+
+    <script src='bower_components/benchmark/benchmark.js'></script>
+    <script src='bower_components/jquery/dist/jquery.js'></script>
+    <script>
+      var $results = $('#results');
+      new Benchmark.Suite()
+        .add('inline', function(){
+          function format(str) {
+            for(var i=1; i < arguments.length; i++) {
+              var regex = new RegExp("\\{" + (i-1) + "\\}", "gm");
+              str = str.replace(regex, arguments[i]);
+            }
+
+            return str;
+          }
+
+          return function(){
+            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
+          };
+        }())
+        .add('precached', function(){
+          var regexes = [];
+          for(var i=0; i < 10; i++){
+            regexes[i] = new RegExp("\\{" + i + "\\}", "gm");
+          }
+          function format(str) {
+            for(var i=1; i < arguments.length; i++) {
+              var regex = regexes[i-1];
+              str = str.replace(regex, arguments[i]);
+            }
+
+            return str;
+          }
+
+          return function(){
+            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
+          }
+        }())
+        .add('cache on demand', function(){
+          var regexes = [];
+          function format(str) {
+            for(var i=1; i < arguments.length; i++) {
+              var regex = regexes[i-1];
+              if(!regex){
+                regex = regexes[i-1] = new RegExp("\\{" + i + "\\}", "gm");
+              }
+              str = str.replace(regex, arguments[i]);
+            }
+
+            return str;
+          }
+
+          return function(){
+            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
+          }
+        }())
+
+        .on('cycle', function(evt){
+          $('<div></div>').text(evt.target.toString()).appendTo($results);
+        })
+
+        .on('complete', function(){
+          $('<div></div>').text('Fastest is ' + this.filter('fastest').pluck('name')).appendTo($results);
+        })
+
+        .run({ 'async': true });
+    </script>
+  </body>
+</html>
