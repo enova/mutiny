@@ -2,18 +2,22 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
-    <title>Mutiny</title>
+    <title>Mutiny Benchmark</title>
   </head>
   <body>
+    <nav>
+      <a href='#format'>format</a>
+    </nav>
+
     <div id='results'></div>
 
     <script src='bower_components/benchmark/benchmark.js'></script>
     <script src='bower_components/jquery/dist/jquery.js'></script>
     <script>
+      var $head = $('head');
       var $results = $('#results');
 
       function BenchmarkPlus(options){
-        $results.html();
         var suite = new Benchmark.Suite();
         $.each(options, function(name, fn){
           var $e = $('<div></div')
@@ -41,60 +45,23 @@
         suite.run({ async: true });
       }
 
-      BenchmarkPlus({
-        'inline': function(){
-          function format(str) {
-            for(var i=1; i < arguments.length; i++) {
-              var regex = new RegExp("\\{" + (i-1) + "\\}", "gm");
-              str = str.replace(regex, arguments[i]);
-            }
+      function loadFromHash(){
+        $head.find('script').remove();
+        $results.html('');
 
-            return str;
-          }
+        var name = window.location.hash.substr(1);
+        if(name.length === 0) {
+          return;
+        }
 
-          return function(){
-            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
-          };
-        }(),
+        var url = 'benchmark/%s.js'.replace('%s', name);
+        $('<script></scr'+'ipt>')
+          .attr('src', url)
+          .appendTo($head);
+      }
 
-        'precached': function(){
-          var regexes = [];
-          for(var i=0; i < 10; i++){
-            regexes[i] = new RegExp("\\{" + i + "\\}", "gm");
-          }
-          function format(str) {
-            for(var i=1; i < arguments.length; i++) {
-              str = str.replace(regexes[i-1], arguments[i]);
-            }
-
-            return str;
-          }
-
-          return function(){
-            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
-          }
-        }(),
-
-        'cache on demand': function(){
-          var regexes = [];
-          function format(str) {
-            for(var i=1; i < arguments.length; i++) {
-              var r = i-1;
-              var regex = regexes[r];
-              if(!regex){
-                regex = regexes[r] = new RegExp("\\{" + r + "\\}", "gm");
-              }
-              str = str.replace(regex, arguments[i]);
-            }
-
-            return str;
-          }
-
-          return function(){
-            format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
-          }
-        }()
-      });
+      $(window).on('hashchange', loadFromHash);
+      loadFromHash();
     </script>
   </body>
 </html>
