@@ -29,7 +29,7 @@ BenchmarkPlus({
 
     return function(){
       format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
-    }
+    };
   }(),
 
   'cache on demand': function(){
@@ -49,6 +49,6 @@ BenchmarkPlus({
 
     return function(){
       format('{0} {1} {2} {3}', 'foo', 'bar', 'baz', 'boo');
-    }
+    };
   }()
 });

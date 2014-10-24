@@ -5,6 +5,7 @@ var connect = require('gulp-connect');
 
 gulp.task('lint', function(){
   return gulp.src(['./Gulpfile.js', './package.json',
+                   './benchmark/**/*.js',
                    './src/**/*.js',
                    './spec/**/*.js'])
     .pipe(jshint())
