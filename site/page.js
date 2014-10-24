@@ -1,5 +1,5 @@
 var Page = function(page) {
-  page.extra = ['bower_components/jquery/dist/jquery.js', 'bower_components/jquery-ui/jquery-ui.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'];
+  page.reqs = ['bower_components/jquery/dist/jquery.js', 'bower_components/jquery-ui/jquery-ui.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'];
   page.core = ['core'];
   page.widgets = [
     'jq/toggler',
@@ -31,7 +31,7 @@ var Page = function(page) {
 
   page.subPaths = flatten(page.core, page.widgets);
   page.src = flatten(
-    page.extra,
+    page.reqs,
     map(page.subPaths, formatter('src/%s.js'))
   );
   page.spec = flatten(
@@ -48,6 +48,41 @@ var Page = function(page) {
         include(file[i]);
       }
     }
+  };
+
+  page.loadExample = function(name, target){
+    var $target = $(target);
+    $target.addClass(Mutiny.util.dasherize(name));
+
+    $target.load('examples/' + name + '.html', function(data, status, xhr) {
+      if(status == "error") {
+        $target
+          .addClass('error')
+          .html('<h1>Error ' + xhr.status + '</h1><code>' + data + '</code>');
+        return;
+      }
+
+      $target.find('section').wrapInner('<div class="example"/>').each(function(i, e) {
+        var $e = $(e);
+        var $h1 = $('<h1/>')
+                    .text($e.attr('id').replace(/-/g, ' '))
+                    .prependTo($e);
+        /* .html() pulls out the code of the parsed Javascript.  This can cause the
+        browser to re-encode ' => " and " => &quot; */
+        var code = $e.find('.example').html().replace(/"/g,      "'")
+                                             .replace(/&quot;/g, '"')
+                                             .replace(/&gt;/g,   '>')
+                                             /* Delete blank lines. */
+                                             .replace(/^$(\r\n|\n|\r)/gm, '')
+                                             /* Delete opening whitespace */
+                                             .replace(/^  /gm, '');
+
+        $('<pre data-language="html"/>').text(code).insertAfter($h1);
+      });
+
+      Mutiny.init();
+      Rainbow.color();
+    });
   };
 
   return page;
