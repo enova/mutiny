@@ -42,7 +42,7 @@ var Page = function(page) {
   page.include = function include(file){
     if(!!file.substring || !('length' in file)){
       /* document.write to force blocked loading */
-      document.write('<script src="' + file + '"></script>');
+      document.write('<script src="' + file + '"></script>'); //jshint ignore:line
     } else {
       for(var i=0; i < file.length; i++){
         include(file[i]);
