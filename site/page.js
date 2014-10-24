@@ -17,14 +17,6 @@ var Page = (function(page) {
     };
   }
 
-  function map(arr, func){
-    var ret = [];
-    for(var i=0; i < arr.length; i++){
-      ret.push(func(arr[i]));
-    }
-    return ret;
-  }
-
   function flatten(){
     var ret = [];
     for(var i = 0; i < arguments.length; i++){
@@ -36,20 +28,23 @@ var Page = (function(page) {
   page.subPaths = flatten(page.core, page.widgets);
   page.src = flatten(
     page.reqs,
-    map(page.subPaths, formatter('src/%s.js'))
+    $.map(page.subPaths, formatter('src/%s.js'))
   );
   page.spec = flatten(
-    map(page.subPaths, formatter('spec/unit/%s-spec.js')),
-    map(page.subPaths, formatter('spec/func/%s-spec.js'))
+    $.map(page.subPaths, formatter('spec/unit/%s-spec.js')),
+    $.map(page.subPaths, formatter('spec/func/%s-spec.js'))
   );
 
-  page.include = function include(file){
-    if(!!file.substring || !('length' in file)){
-      /* document.write to force blocked loading */
-      document.write('<script src="' + file + '"></script>'); //jshint ignore:line
-    } else {
-      for(var i=0; i < file.length; i++){
-        include(file[i]);
+  page.include = function(){
+    for(var i=0; i < arguments.length; i++){
+      var arg = arguments[i];
+      if($.isArray(arg)){
+        for(var j=0; j < arg.length; j++){
+          page.include(arg[j]);
+        }
+      } else {
+        /* document.write to force blocked loading */
+        document.write('<script src="' + arg + '"></script>'); //jshint ignore:line
       }
     }
   };

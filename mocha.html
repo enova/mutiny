@@ -9,11 +9,19 @@
   </head>
   <body>
     <div id="mocha"></div>
-    <script src="bower_components/mocha/mocha.js"></script>
-    <script src="bower_components/chai/chai.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/chai-jquery/chai-jquery.js"></script>
-    <script src="bower_components/fixtures/fixtures.js"></script>
+
+    <script src='bower_components/jquery/dist/jquery.js'></script>
+    <script src='site/page.js'></script>
+    <script>
+      Page.include(
+        'bower_components/mocha/mocha.js',
+        'bower_components/chai/chai.js',
+        'bower_components/chai-jquery/chai-jquery.js',
+        'bower_components/fixtures/fixtures.js',
+        Page.src
+      );
+    </script>
+
     <script>
       mocha.setup('bdd');
       var expect = chai.expect;
@@ -27,11 +35,7 @@
       };
     </script>
 
-    <script src='site/page.js'></script>
-    <script>
-      Page.include(Page.src);
-      Page.include(Page.spec);
-    </script>
+    <script>Page.include(Page.spec)</script>
 
     <script>
       if (window.mochaPhantomJS) {

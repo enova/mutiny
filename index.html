@@ -21,14 +21,18 @@
 
     <article id='main'></article>
 
-    <script src='bower_components/marked/lib/marked.js'></script>
-    <script src='bower_components/rainbow/js/rainbow.js'></script>
-    <script src='bower_components/rainbow/js/language/generic.js'></script>
-    <script src='bower_components/rainbow/js/language/html.js'></script>
-    <script src='bower_components/rainbow/js/language/javascript.js'></script>
-
+    <script src='bower_components/jquery/dist/jquery.js'></script>
     <script src='site/page.js'></script>
-    <script>Page.include(Page.src)</script>
+    <script>
+      Page.include(
+        'bower_components/marked/lib/marked.js',
+        'bower_components/rainbow/js/rainbow.js',
+        'bower_components/rainbow/js/language/generic.js',
+        'bower_components/rainbow/js/language/html.js',
+        'bower_components/rainbow/js/language/javascript.js',
+        Page.src
+      );
+    </script>
 
     <script>
       Mutiny.options.initOnReady = false;
