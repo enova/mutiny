@@ -35,15 +35,12 @@
 
       var currentPage = window.location.search.replace('?', '');
 
-      $.each(Page.widgets, function(i, widget) {
-        var link = $('<a href="index.html?%s">%s</a>'.replace(/%s/g, widget)).appendTo('#examples');
-        if(currentPage === widget) {
-          link.addClass('active');
-        }
-      });
-
+      Page.createLinks('#examples', 'index.html?', Page.widgets);
       if(currentPage) {
-        Page.loadExample(currentPage, 'main');
+        $('#examples a:contains(%s)'.replace('%s', currentPage))
+          .addClass('active');
+
+        Page.loadExample(currentPage, '#main');
       } else {
         $.get('README.md', function(data) {
           $('#main').html(marked(data));

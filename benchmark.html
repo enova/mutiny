@@ -6,14 +6,16 @@
   </head>
   <body>
     <nav>
-      <a href='#format'>format</a>
     </nav>
 
     <div id='results'></div>
 
     <script src='bower_components/benchmark/benchmark.js'></script>
     <script src='bower_components/jquery/dist/jquery.js'></script>
+    <script src='site/page.js'></script>
     <script>
+      Page.createLinks('nav', '#', ['format']);
+
       var $head = $('head');
       var $results = $('#results');
 

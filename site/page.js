@@ -1,5 +1,9 @@
-var Page = function(page) {
-  page.reqs = ['bower_components/jquery/dist/jquery.js', 'bower_components/jquery-ui/jquery-ui.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'];
+var Page = (function(page) {
+  page.reqs = [
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/jquery-ui/jquery-ui.js',
+    'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
+  ];
   page.core = ['core'];
   page.widgets = [
     'jq/toggler',
@@ -50,6 +54,16 @@ var Page = function(page) {
     }
   };
 
+  page.createLinks = function(target, prepend, files){
+    $.each(files, function(i, file) {
+      var url = prepend+file;
+      $('<a/>')
+        .attr('href', prepend + file)
+        .text(file)
+        .appendTo(target);
+    });
+  };
+
   page.loadExample = function(name, target){
     var $target = $(target);
     $target.addClass(Mutiny.util.dasherize(name));
@@ -86,4 +100,4 @@ var Page = function(page) {
   };
 
   return page;
-}({});
+})({});
