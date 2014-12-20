@@ -10,14 +10,14 @@ Usage
 1.  Add the HTML5 data attributes.
 
     ```html
-    <span data-mutiny-toggler='#target'>Toggle</span>
-    <p id='target'>Toggle</p>
+    <span data-mutiny-select=''>Click me to select all</span>
     ```
 
 2.  Load Mutiny
 
     ```html
-    <script src='mutiny.js'></script>
+    <script src='src/core.js'></script>
+    <script src='src/select.js'></script>
     ```
 
 3. There is no step 3!
@@ -26,14 +26,14 @@ Extending
 -----
 Javascript:
 ```javascript
-Mutiny.widgets.optionsToText = {
-  'defaults': {'def': 'opt'},
-  'init': function($instigator, options) {
+Mutiny.widgets.textReplace = {
+  defaults: {'def': 'opt'},
+  init: function(instigator, options) {
     var s = [];
     for(var key in options) {
       s.push('"' + key + '": "' + options[key] + '"');
     }
-    $instigator.text('{' + s.join(', ') + '}');
+    instigator.textContent = '{' + s.join(', ') + '}');
   }
 };
 ```
@@ -47,7 +47,7 @@ HTML5:
 Running Tests/Examples
 -----
 ```console
-$ git clone https://git.cashnetusa.com/ui/mutiny.git
+$ git clone https://github.com/enova/mutiny.git
 $ cd mutiny
 $ ./server.sh
 $ open http://localhost:5100/
