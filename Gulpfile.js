@@ -4,12 +4,11 @@ var mochaPhantom = require('gulp-mocha-phantomjs');
 var connect = require('gulp-connect');
 
 gulp.task('lint', function(){
-  return gulp.src(['./Gulpfile.js', './package.json', './site/**/*.js',
-
-                   './benchmark/**/*.js',
-
-                   './src/**/*.js',
-                   './spec/**/*.js'])
+  return gulp.src(['Gulpfile.js', 'bower.json', 'package.json',
+                   'benchmark/**/*.js',
+                   'site/**/*.js',
+                   'src/**/*.js',
+                   'spec/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
