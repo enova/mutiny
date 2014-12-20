@@ -17,10 +17,12 @@
     <table>
       <tbody id='results'>
       </tbody>
-      <tfoot>
-        <th class='name'></th>
-        <td class='body'></td>
-        <td id='summary' class='result'></td>
+      <tfoot class='summary'>
+        <tr>
+          <th class='name'>SUMMARY</th>
+          <td class='body'></td>
+          <td class='result'></td>
+        </tr>
       </tfoot>
     </table>
 
@@ -32,31 +34,54 @@
 
       var $head = $('head');
       var $results = $('#results');
-      var $summary = $('#summary');
+      var $summaryBody = $('.summary .body');
+      var $summaryResult = $('.summary .result');
 
       function BenchmarkPlus(options){
         var suite = new Benchmark.Suite();
-        $.each(options, function(name, fn){
+        var runner = options.runner;
+        delete options.runner;
+
+        $summaryBody.text(runner.toString());
+        $summaryResult.text('--');
+
+        function toPretty(benchmark){
+          var hz = benchmark.hz;
+          var stats = benchmark.stats;
+          return [
+            Benchmark.formatNumber(hz.toFixed(hz < 100 ? 2 : 0)),
+            ' ±',
+            stats.rme.toFixed(2),
+            '%'
+          ].join('');
+        }
+
+        $.each(options, function(name, srcFn){
+          var iterFn = srcFn.name == 'unroll' ? srcFn() : srcFn;
+          function fn(){
+            return runner(iterFn);
+          }
+
           var $row = $('<tr></tr>')
                        .appendTo($results)
                        .append('<th class="name">' + name + '</th>',
-                               '<td class="body">' + fn + '</td>');
+                               '<td class="body">' + srcFn + '</td>');
           var $result = $('<td class="result">--</td>').appendTo($row);
           suite.add(name, fn, {
             onStart: function(evt){
               $result.text(name + ' starting...');
             },
             onCycle: function(evt){
-              $result.text(evt.target.toString());
+              $result.text(toPretty(evt.target));
             },
             onComplete: function(evt){
-              $result.text(evt.target.toString());
+              $result.text(toPretty(evt.target));
             }
           });
         });
 
         suite.on('complete', function(evt){
-          $summary.text('Fastest is ' + this.filter('fastest').pluck('name'));
+          $summaryResult.text('Fastest is ' + this.filter('fastest').pluck('name'));
         });
 
         suite.run({ async: true });
