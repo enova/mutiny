@@ -1,4 +1,4 @@
-Mutiny.widgets.select = {
+Mutiny.widgets.textSelect = {
   stringArg: 'trigger',
 
   defaults: {

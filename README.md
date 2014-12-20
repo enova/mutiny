@@ -10,14 +10,14 @@ Usage
 1.  Add the HTML5 data attributes.
 
     ```html
-    <span data-mutiny-select=''>Click me to select all</span>
+    <span data-mutiny-text-select=''>Click me to select all</span>
     ```
 
 2.  Load Mutiny
 
     ```html
     <script src='src/core.js'></script>
-    <script src='src/select.js'></script>
+    <script src='src/text-select.js'></script>
     ```
 
 3. There is no step 3!
