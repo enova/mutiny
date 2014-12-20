@@ -2,14 +2,14 @@ var Page = (function(page) {
   page.reqs = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/jquery-ui/jquery-ui.js',
-    'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
+    //'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
   ];
   page.core = ['core'];
   page.widgets = [
     'select',
     'jq/toggler', 'jq/ajax-replace',
     'jqui/accordion', 'jqui/datepicker', 'jqui/slider',
-    'google/map', 'google/street-view'
+    //'google/map', 'google/street-view'
   ];
 
   function formatter(format){
