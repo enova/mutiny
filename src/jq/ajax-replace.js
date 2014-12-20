@@ -18,7 +18,7 @@ Mutiny.widgets.jqAjaxReplace = {
       $instigator.html(xhr.responseText);
     };
 
-    $instigator.addClass(options.loadingClass)
+    $instigator.addClass(options.loadingClass);
     $.ajax(options);
   }
 };

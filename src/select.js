@@ -27,4 +27,4 @@ Mutiny.widgets.select = {
       instigator.addEventListener(triggers[i], selectFunc);
     }
   }
-}
+};
