@@ -6,7 +6,7 @@ var Page = (function(page) {
   ];
   page.core = ['core'];
   page.widgets = [
-    'jq/toggler',
+    'jq/toggler', 'jq/ajax-replace',
     'jqui/accordion', 'jqui/datepicker', 'jqui/slider',
     'google/map', 'google/street-view'
   ];
