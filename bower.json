@@ -1,11 +1,11 @@
 {
   "name": "mutiny",
-  "version": "1.0.0dev",
+  "version": "1.0.0",
   "homepage": "http://mutinyjs.com",
   "authors": [
     "fengb <contact@fengb.info>"
   ],
-  "description": "Reusable, declarative HTML5 widgets",
+  "description": "Declarative HTML5 widgets",
   "moduleType": [
     "globals"
   ],

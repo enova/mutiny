@@ -1,3 +1,20 @@
+[v1.0.0 (2014-12-20)](https://github.com/enova/mutiny/compare/0.3.1...1.0.0)
+======
+* Removed core dependency on jQuery. Many widgets still depend on jQuery (or jQuery-like)
+* Bower support
+* Releases no longer bundle together a single file
+* Removed deprecated behavior
+* Renamed widgets:
+** toggler => jqToggler
+** accordion => jquiAccordion
+** datepicker => jquiDatepicker
+** slider => jquiSlider
+* New widgets:
+** textSelect
+** jqAjaxReplace
+* Replaced Grunt with Gulp
+* Replaced Jasmine with Mocha/Chai
+
 [v0.3.1 (2013-12-09)](https://github.com/enova/mutiny/compare/0.3.0...0.3.1)
 ======
 * Toggler now has separate configurations for `self` and `target`.  By default,
