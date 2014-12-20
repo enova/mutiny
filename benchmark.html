@@ -3,12 +3,26 @@
   <head>
     <meta charset='utf-8' />
     <title>Mutiny Benchmark</title>
+    <style>
+      .body {
+        font-family: monospace;
+        white-space: pre;
+      }
+    </style>
   </head>
   <body>
     <nav>
     </nav>
 
-    <div id='results'></div>
+    <table>
+      <tbody id='results'>
+      </tbody>
+      <tfoot>
+        <th class='name'></th>
+        <td class='body'></td>
+        <td id='summary' class='result'></td>
+      </tfoot>
+    </table>
 
     <script src='bower_components/benchmark/benchmark.js'></script>
     <script src='bower_components/jquery/dist/jquery.js'></script>
@@ -18,30 +32,31 @@
 
       var $head = $('head');
       var $results = $('#results');
+      var $summary = $('#summary');
 
       function BenchmarkPlus(options){
         var suite = new Benchmark.Suite();
         $.each(options, function(name, fn){
-          var $e = $('<div></div')
-                     .text(name)
-                     .appendTo($results);
+          var $row = $('<tr></tr>')
+                       .appendTo($results)
+                       .append('<th class="name">' + name + '</th>',
+                               '<td class="body">' + fn + '</td>');
+          var $result = $('<td class="result">--</td>').appendTo($row);
           suite.add(name, fn, {
             onStart: function(evt){
-              $e.text(name + ' starting...');
+              $result.text(name + ' starting...');
             },
             onCycle: function(evt){
-              $e.text(evt.target.toString());
+              $result.text(evt.target.toString());
             },
             onComplete: function(evt){
-              $e.text(evt.target.toString());
+              $result.text(evt.target.toString());
             }
           });
         });
 
         suite.on('complete', function(evt){
-          $('<div></div>')
-            .text('Fastest is ' + this.filter('fastest').pluck('name'))
-            .appendTo($results);
+          $summary.text('Fastest is ' + this.filter('fastest').pluck('name'));
         });
 
         suite.run({ async: true });

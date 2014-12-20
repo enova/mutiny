@@ -28,7 +28,7 @@ BenchmarkPlus({
     };
   })(),
 
-  'no arguments': (function(){
+  'array argument': (function(){
     function sum(arr){
       var acc = 0;
       for(var i=0; i < arr.length; i++){
