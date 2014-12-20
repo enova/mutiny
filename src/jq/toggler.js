@@ -1,5 +1,11 @@
 Mutiny.widgets.jqToggler = {
-  defaults: {'classes': 'inactive active', 'preventDefault': false},
+  stringArg: 'target',
+
+  defaults: {
+    'classes': 'inactive active',
+    'preventDefault': false
+  },
+
   init: function(instigator, options){
     var $instigator = $(instigator);
     var $target = $(options.target);

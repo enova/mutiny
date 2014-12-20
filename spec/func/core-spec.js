@@ -39,6 +39,54 @@ describe('Mutiny.init()', function() {
     });
   });
 
+  describe('<div data-mutiny-widget="stringArg" />', function() {
+    beforeEach(function() {
+      this.el = $('<div data-mutiny-widget="stringArg" />')[0];
+      Mutiny.widgets.widget.stringArg = 'key';
+    });
+
+    it("invokes with options", function() {
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'key': 'stringArg'});
+    });
+
+    it("invokes with defaults merged with options", function() {
+      Mutiny.widgets.widget.defaults = {'default': 'option'};
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'default': 'option', 'key': 'stringArg'});
+    });
+
+    it("invokes with overridden defaults", function() {
+      Mutiny.widgets.widget.defaults = {'key': 'default'};
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'key': 'stringArg'});
+    });
+  });
+
+  describe('<div data-mutiny-widget="[1, 2, 3]" />', function() {
+    beforeEach(function() {
+      this.el = $('<div data-mutiny-widget="[1, 2, 3]" />')[0];
+      Mutiny.widgets.widget.arrayArg = 'key';
+    });
+
+    it("invokes with options", function() {
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'key': [1, 2, 3]});
+    });
+
+    it("invokes with defaults merged with options", function() {
+      Mutiny.widgets.widget.defaults = {'default': 'option'};
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'default': 'option', 'key': [1, 2, 3]});
+    });
+
+    it("invokes with overridden defaults", function() {
+      Mutiny.widgets.widget.defaults = {'key': 'default'};
+      Mutiny.init(this.el);
+      expect(this.el.lastCalledWith).to.deep.equal({'key': [1, 2, 3]});
+    });
+  });
+
   describe('<div data-mutiny-widget=\'{"key": "value"}\' />', function() {
     beforeEach(function() {
       this.el = $('<div data-mutiny-widget=\'{"key": "value"}\' />')[0];

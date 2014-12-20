@@ -91,17 +91,39 @@ var Mutiny = window.Mutiny = {
       return obj.length !== undefined;
     },
 
-    initWidget: function(instigator, widgetName, instanceOptions) {
+    initWidget: function(instigator, widgetName, rawInstanceOptions) {
       var widget = Mutiny.widgets[widgetName];
-      if(widget === undefined) {
+      if(!widget) {
         throw Mutiny.util.format('"Mutiny.widget.{0}" not found', widgetName);
       }
 
-      try {
-        instanceOptions = instanceOptions ? JSON.parse(instanceOptions) : {};
-      } catch(e) {
-        e.message = Mutiny.util.format('"Mutiny.widget.{0}" cannot parse "{1}"', widgetName, instanceOptions);
-        throw e;
+      var instanceOptions = {};
+
+      if(!rawInstanceOptions || !rawInstanceOptions.length) {
+        // Use empty object
+      } else if(rawInstanceOptions[0] === '{') {
+        try {
+          instanceOptions = JSON.parse(rawInstanceOptions);
+        } catch(e) {
+          e.message = Mutiny.util.format('"Mutiny.widget.{0}" cannot parse "{1}"', widgetName, rawInstanceOptions);
+          throw e;
+        }
+      } else if(rawInstanceOptions[0] === '[') {
+        if(!widget.arrayArg) {
+          throw Mutiny.util.format('"Mutiny.widget.{0}" does not define arrayArg to parse "{1}"', widgetName, rawInstanceOptions);
+        }
+
+        try {
+          instanceOptions[widget.arrayArg] = JSON.parse(rawInstanceOptions);
+        } catch(e) {
+          e.message = Mutiny.util.format('"Mutiny.widget.{0}" cannot parse "{1}"', widgetName, rawInstanceOptions);
+          throw e;
+        }
+      } else {
+        if(!widget.stringArg) {
+          throw Mutiny.util.format('"Mutiny.widget.{0}" does not define stringArg to parse "{1}"', widgetName, rawInstanceOptions);
+        }
+        instanceOptions[widget.stringArg] = rawInstanceOptions;
       }
 
       for(var key in widget.defaults) {

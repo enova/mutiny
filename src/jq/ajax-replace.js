@@ -1,4 +1,6 @@
 Mutiny.widgets.jqAjaxReplace = {
+  stringArg: 'url',
+
   defaults: {
     loadingClass: 'loading',
     errorClass: 'error',

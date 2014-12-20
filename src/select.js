@@ -1,4 +1,6 @@
 Mutiny.widgets.select = {
+  stringArg: 'trigger',
+
   defaults: {
     trigger: 'click'
   },
