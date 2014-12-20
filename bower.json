@@ -6,16 +6,26 @@
     "fengb <contact@fengb.info>"
   ],
   "description": "Reusable, declarative HTML5 widgets",
-  "main": "src/core.js",
   "moduleType": [
     "globals"
   ],
   "license": "MIT",
+  "main": "src/core.js",
   "ignore": [
     "**/.*",
-    "node_modules",
+    "**/*.html",
+
+    "benchmark",
     "bower_components",
-    "spec"
+    "examples",
+    "node_modules",
+    "spec",
+    "site",
+
+    "AUTHORS",
+    "Gulpfile.js",
+    "package.json",
+    "server.sh"
   ],
   "devDependencies": {
     "chai": "~1.9.2",
