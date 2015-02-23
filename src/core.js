@@ -41,18 +41,28 @@ var Mutiny = window.Mutiny = {
 
   util: {
     onReady: function(fn){
+      var onLoad;
+
       if(document.readyState === 'complete'){
         fn();
       } else if(document.addEventListener){
-        document.addEventListener('DOMContentLoaded', function wrapper(){
-          document.removeEventListener('DOMContentLoaded', wrapper);
+        onLoad = function(){
+          document.removeEventListener('DOMContentLoaded', onLoad);
+          window.removeEventListener('load', onLoad);
           fn();
-        });
+        };
+
+        document.addEventListener('DOMContentLoaded', onLoad);
+        window.addEventListener('load', onLoad);
       } else {
-        document.attachEvent('onreadystatechange', function wrapper(){
-          document.detachEvent('onreadystatechange', wrapper);
+        onLoad = function(){
+          document.detachEvent('onreadystatechange', onLoad);
+          window.detachEvent('onload', onLoad);
           fn();
-        });
+        };
+
+        document.attachEvent('onreadystatechange', onLoad);
+        window.attachEvent('onload', onLoad);
       }
     },
 
