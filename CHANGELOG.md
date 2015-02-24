@@ -1,4 +1,8 @@
-[v1.0.0 (2014-12-20)](https://github.com/enova/mutiny/compare/0.3.1...1.0.0)
+[v1.0.1 (2015-02-23)](https://github.com/enova/mutiny/compare/v1.0.0...v1.0.1)
+======
+* Added additional check for window.onload event
+
+[v1.0.0 (2014-12-20)](https://github.com/enova/mutiny/compare/0.3.1...v1.0.0)
 ======
 * Removed core dependency on jQuery. Many widgets still depend on jQuery (or jQuery-like)
 * Bower support
