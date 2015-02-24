@@ -9,13 +9,13 @@
 * Releases no longer bundle together a single file
 * Removed deprecated behavior
 * Renamed widgets:
-** toggler => jqToggler
-** accordion => jquiAccordion
-** datepicker => jquiDatepicker
-** slider => jquiSlider
+    * toggler => jq-toggler
+    * accordion => jqui-accordion
+    * datepicker => jqui-datepicker
+    * slider => jqui-slider
 * New widgets:
-** textSelect
-** jqAjaxReplace
+    * text-select
+    * jq-ajax-replace
 * Replaced Grunt with Gulp
 * Replaced Jasmine with Mocha/Chai
 
