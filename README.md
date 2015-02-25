@@ -26,7 +26,7 @@ Extending
 -----
 Javascript:
 ```javascript
-Mutiny.widgets.textReplace = {
+Mutiny.widgets.optionsToText = {
   defaults: {'def': 'opt'},
   init: function(instigator, options) {
     var s = [];
