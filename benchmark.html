@@ -57,9 +57,8 @@
         }
 
         $.each(options, function(name, srcFn){
-          var iterFn = srcFn.name == 'unroll' ? srcFn() : srcFn;
           function fn(){
-            return runner(iterFn);
+            return runner(srcFn);
           }
 
           var $row = $('<tr></tr>')

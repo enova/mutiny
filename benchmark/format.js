@@ -12,7 +12,7 @@ BenchmarkPlus({
     return str;
   },
 
-  'precached': function unroll(){
+  'precached': (function(){
     var regexes = [];
     for(var i=0; i < 10; i++){
       regexes[i] = new RegExp("\\{" + i + "\\}", "gm");
@@ -24,9 +24,9 @@ BenchmarkPlus({
 
       return str;
     };
-  },
+  })(),
 
-  'cache on demand': function unroll(){
+  'cache on demand': (function(){
     var regexes = [];
     return function(str) {
       for(var i=1; i < arguments.length; i++) {
@@ -40,5 +40,5 @@ BenchmarkPlus({
 
       return str;
     };
-  }
+  })()
 });
