@@ -3,39 +3,46 @@ Mutiny.widgets.jqToggler = {
 
   defaults: {
     'classes': 'inactive active',
-    'preventDefault': false
+    'targetClasses': null,
+    'preventDefault': false,
+    'autoFocusTarget': false
   },
 
   init: function(instigator, options){
     var $instigator = $(instigator);
     var $target = $(options.target);
 
-    var instigatorFunc = this.toggleFunc($instigator, options.style, options.classes);
-    var targetFunc = this.toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
+    var self = this;
+    var toggleFunc = (function() {
+      var instigatorFunc = self.toggleFunc($instigator, options.style, options.classes);
+      var targetFunc = self.toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
+
+      return function(toggleValue) {
+        instigatorFunc(toggleValue);
+        targetFunc(toggleValue);
+        if(options.autoFocusTarget) {
+          $target.trigger(toggleValue ? 'focusin' : 'focusout');
+        }
+      };
+    })();
 
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
-      instigatorFunc($instigator.is(':checked'));
-      targetFunc($instigator.is(':checked'));
+      toggleFunc($instigator.is(':checked'));
       $(Mutiny.util.format('input[name="{0}"]', name)).change(function(event){
-        instigatorFunc($instigator.is(':checked'));
-        targetFunc($instigator.is(':checked'));
+        toggleFunc($instigator.is(':checked'));
       });
     } else if($instigator.is('input[type=checkbox]')) {
-      instigatorFunc($instigator.is(':checked'));
-      targetFunc($instigator.is(':checked'));
+      toggleFunc($instigator.is(':checked'));
       $instigator.change(function(event){
-        instigatorFunc($instigator.is(':checked'));
-        targetFunc($instigator.is(':checked'));
+        toggleFunc($instigator.is(':checked'));
       });
     } else {
       var active = false;
-      instigatorFunc(active);
-      targetFunc(active);
+      toggleFunc(active);
       $instigator.click(function(event) {
         active = !active;
-        instigatorFunc(active);
-        targetFunc(active);
+        toggleFunc(active);
 
         if(options.preventDefault) {
           event.preventDefault();
