@@ -1,4 +1,4 @@
-var gulp = require('gulp-help')(require('gulp'));
+var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mochaPhantom = require('gulp-mocha-phantomjs');
 var connect = require('gulp-connect');
@@ -25,3 +25,5 @@ gulp.task('server', function() {
     port: argv.p || argv.port || 8000
   });
 });
+
+gulp.task('default', ['test']);
