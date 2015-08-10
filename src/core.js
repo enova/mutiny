@@ -1,28 +1,28 @@
-var Mutiny = window.Mutiny = {
-  options: {
+var Mutiny = (function(mutiny, document, window){
+  var mOptions = mutiny.options = {
     initOnReady: true,
     namespace: 'mutiny'
-  },
+  };
 
-  widgets: {},
+  var mWidgets = mutiny.widgets = {};
 
-  init: function(els, namespace) {
-    namespace = namespace || Mutiny.options.namespace;
+  mutiny.init = function(els, namespace) {
+    namespace = namespace || mOptions.namespace;
     var name;
 
     if(!els) {
       var queries = [];
-      for(name in Mutiny.widgets) {
-        if(Mutiny.widgets.hasOwnProperty(name)) {
-          queries.push(Mutiny.util.format('[data-{0}-{1}]', namespace, Mutiny.util.dasherize(name)));
+      for(name in mWidgets) {
+        if(mWidgets.hasOwnProperty(name)) {
+          queries.push(mUtil.format('[data-{0}-{1}]', namespace, mUtil.dasherize(name)));
         }
       }
       els = document.querySelectorAll(queries.join(','));
-    } else if(!Mutiny.util.isArray(els)) {
+    } else if(!mUtil.isArray(els)) {
       els = [els];
     }
 
-    var processed = Mutiny.util.format('data-{0}', namespace);
+    var processed = mUtil.format('data-{0}', namespace);
     for(var i=0; i < els.length; i++) {
       var el = els[i];
       if(el.hasAttribute(processed)){
@@ -31,16 +31,64 @@ var Mutiny = window.Mutiny = {
 
       el.setAttribute(processed, 'processed');
 
-      for(name in Mutiny.widgets) {
-        var attr = Mutiny.util.format('data-{0}-{1}', namespace, Mutiny.util.dasherize(name));
+      for(name in mWidgets) {
+        var attr = mUtil.format('data-{0}-{1}', namespace, mUtil.dasherize(name));
         if(el.hasAttribute(attr)){
-          Mutiny.util.initWidget(el, name, el.getAttribute(attr));
+          initWidget(el, name, el.getAttribute(attr));
         }
       }
     }
-  },
+  };
 
-  util: {
+  function initWidget(element, widgetName, instanceOptions) {
+    function errorMessage() {
+      var description = mUtil.format.apply(null, arguments);
+      return mUtil.format('"Mutiny.widgets.{0}" {1}', widgetName, description);
+    }
+
+    var widget = mWidgets[widgetName];
+    if(!widget) {
+      throw errorMessage('not found');
+    }
+
+    var options = {};
+
+    if(!instanceOptions || !instanceOptions.length) {
+      // Use empty object
+    } else if(instanceOptions[0] === '{') {
+      try {
+        options = JSON.parse(instanceOptions);
+      } catch(e) {
+        e.message = errorMessage('cannot parse "{0}"', instanceOptions);
+        throw e;
+      }
+    } else if(instanceOptions[0] === '[') {
+      if(!widget.arrayArg) {
+        throw errorMessage('does not define arrayArg to parse "{0}"', instanceOptions);
+      }
+
+      try {
+        options[widget.arrayArg] = JSON.parse(instanceOptions);
+      } catch(e) {
+        e.message = errorMessage('cannot parse "{0}"', instanceOptions);
+        throw e;
+      }
+    } else {
+      if(!widget.stringArg) {
+        throw errorMessage('does not define stringArg to parse "{0}"', instanceOptions);
+      }
+      options[widget.stringArg] = instanceOptions;
+    }
+
+    for(var key in widget.defaults) {
+      if(widget.defaults.hasOwnProperty(key) && !options.hasOwnProperty(key)) {
+        options[key] = widget.defaults[key];
+      }
+    }
+    widget.init(element, options);
+  }
+
+  var mUtil = mutiny.util = {
     onReady: function(fn){
       var onLoad;
 
@@ -101,54 +149,13 @@ var Mutiny = window.Mutiny = {
     isArray: function(obj){
       return obj.length !== undefined;
     },
+  };
 
-    initWidget: function(instigator, widgetName, rawInstanceOptions) {
-      var widget = Mutiny.widgets[widgetName];
-      if(!widget) {
-        throw Mutiny.util.format('"Mutiny.widget.{0}" not found', widgetName);
-      }
-
-      var instanceOptions = {};
-
-      if(!rawInstanceOptions || !rawInstanceOptions.length) {
-        // Use empty object
-      } else if(rawInstanceOptions[0] === '{') {
-        try {
-          instanceOptions = JSON.parse(rawInstanceOptions);
-        } catch(e) {
-          e.message = Mutiny.util.format('"Mutiny.widget.{0}" cannot parse "{1}"', widgetName, rawInstanceOptions);
-          throw e;
-        }
-      } else if(rawInstanceOptions[0] === '[') {
-        if(!widget.arrayArg) {
-          throw Mutiny.util.format('"Mutiny.widget.{0}" does not define arrayArg to parse "{1}"', widgetName, rawInstanceOptions);
-        }
-
-        try {
-          instanceOptions[widget.arrayArg] = JSON.parse(rawInstanceOptions);
-        } catch(e) {
-          e.message = Mutiny.util.format('"Mutiny.widget.{0}" cannot parse "{1}"', widgetName, rawInstanceOptions);
-          throw e;
-        }
-      } else {
-        if(!widget.stringArg) {
-          throw Mutiny.util.format('"Mutiny.widget.{0}" does not define stringArg to parse "{1}"', widgetName, rawInstanceOptions);
-        }
-        instanceOptions[widget.stringArg] = rawInstanceOptions;
-      }
-
-      for(var key in widget.defaults) {
-        if(widget.defaults.hasOwnProperty(key) && !instanceOptions.hasOwnProperty(key)) {
-          instanceOptions[key] = widget.defaults[key];
-        }
-      }
-      widget.init(instigator, instanceOptions);
+  mUtil.onReady(function(){
+    if(mOptions.initOnReady) {
+      mutiny.init();
     }
-  }
-};
+  });
 
-Mutiny.util.onReady(function(){
-  if(Mutiny.options.initOnReady) {
-    Mutiny.init();
-  }
-});
+  return mutiny;
+})({}, document, window);
