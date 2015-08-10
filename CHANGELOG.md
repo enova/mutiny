@@ -1,21 +1,29 @@
+[v1.1.0 (2015-08-10)](https://github.com/enova/mutiny/compare/v1.0.1...v1.1.0)
+======
+* Slightly better minification
+* Slightly faster initialization
+* jq-toggler:
+  * support for `autoFocusTarget`
+  * automatical check for id on `target` (e.g. `target: 'top-level'` becomes `target: '#top-level'`)
+
 [v1.0.1 (2015-02-23)](https://github.com/enova/mutiny/compare/v1.0.0...v1.0.1)
 ======
 * Added additional check for window.onload event
 
 [v1.0.0 (2014-12-20)](https://github.com/enova/mutiny/compare/0.3.1...v1.0.0)
 ======
-* Removed core dependency on jQuery. Many widgets still depend on jQuery (or jQuery-like)
+* Removed core dependency on jQuery. Many widgets still depend on jQuery-like library (e.g. jQuery or Zepto)
 * Bower support
 * Releases no longer bundle together a single file
 * Removed deprecated behavior
 * Renamed widgets:
-    * toggler => jq-toggler
-    * accordion => jqui-accordion
-    * datepicker => jqui-datepicker
-    * slider => jqui-slider
+  * toggler => jq-toggler
+  * accordion => jqui-accordion
+  * datepicker => jqui-datepicker
+  * slider => jqui-slider
 * New widgets:
-    * text-select
-    * jq-ajax-replace
+  * text-select
+  * jq-ajax-replace
 * Replaced Grunt with Gulp
 * Replaced Jasmine with Mocha/Chai
 
