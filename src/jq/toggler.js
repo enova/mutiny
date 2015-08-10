@@ -9,22 +9,42 @@ Mutiny.widgets.jqToggler = {
   },
 
   init: function(instigator, options){
+    function idNameOnly(check) {
+      var regex = /^[a-zA-Z0-9_-]+$/;
+      return check && regex.test(check);
+    }
+
     var $instigator = $(instigator);
-    var $target = $(options.target);
+    var $target = idNameOnly(options.target) ? $('#' + options.target) : $(options.target);
 
-    var self = this;
-    var toggleFunc = (function() {
-      var instigatorFunc = self.toggleFunc($instigator, options.style, options.classes);
-      var targetFunc = self.toggleFunc($target, options.targetStyle, options.targetClasses || options.classes);
+    var toggleFuncs = [
+      this.toggleFunc($instigator, options.style, options.classes)
+    ];
+    if($target.length) {
+      toggleFuncs.push(this.toggleFunc($target, options.targetStyle || options.style, options.targetClasses || options.classes));
+    }
+    if(options.autoFocusTarget) {
+      var $focusable = $target.filter(':focusable');
+      if($focusable.length) {
+        toggleFuncs.push(function(isOn) {
+          $focusable.trigger(isOn ? 'focus' : 'blur');
+        });
+      }
 
-      return function(toggleValue) {
-        instigatorFunc(toggleValue);
-        targetFunc(toggleValue);
-        if(options.autoFocusTarget) {
-          $target.trigger(toggleValue ? 'focusin' : 'focusout');
-        }
-      };
-    })();
+      var $unfocusable = $target.filter(':not(:focusable)');
+      if($unfocusable.length) {
+        toggleFuncs.push(function(isOn) {
+          $unfocusable.trigger(isOn ? 'focusin' : 'focusout');
+        });
+      }
+    }
+
+    function toggleFunc(isOn) {
+      for(var i=0; i < toggleFuncs.length; i++) {
+        var func = toggleFuncs[i];
+        func(isOn);
+      }
+    }
 
     if($instigator.is('input[type=radio]')) {
       var name = $instigator.attr("name");
@@ -52,23 +72,21 @@ Mutiny.widgets.jqToggler = {
   },
 
   toggleFunc: function($e, style, classes){
-    if($e.length === 0){
-      return function(){};
-    } else if(style) {
+    if(style) {
       var noStyle = {};
       for(var key in style) {
         if(style.hasOwnProperty(key)){
           noStyle[key] = $e.css(key);
         }
       }
-      return function(on) {
-        $e.css(on ? style : noStyle);
+      return function(isOn) {
+        $e.css(isOn ? style : noStyle);
       };
     } else {
       classes = classes.split(' ');
-      return function(on) {
-        $e.toggleClass(classes[0], !on);
-        $e.toggleClass(classes[1], on);
+      return function(isOn) {
+        $e.toggleClass(classes[0], !isOn)
+          .toggleClass(classes[1], isOn);
       };
     }
   }
