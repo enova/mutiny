@@ -1,12 +1,13 @@
 var Mutiny = window.Mutiny = {
   options: {
-    initOnReady: true
+    initOnReady: true,
+    namespace: 'mutiny'
   },
 
   widgets: {},
 
   init: function(els, namespace) {
-    namespace = namespace || 'mutiny';
+    namespace = namespace || Mutiny.options.namespace;
     var name;
 
     if(!els) {
