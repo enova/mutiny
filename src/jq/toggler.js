@@ -15,7 +15,7 @@ Mutiny.widgets.jqToggler = {
     }
 
     var $instigator = $(instigator);
-    var $target = idNameOnly(options.target) ? $('#' + options.target) : $(options.target);
+    var $target = idNameOnly(options.target) ? $(options.target + ',#' + options.target) : $(options.target);
 
     var toggleFuncs = [
       this.toggleFunc($instigator, options.style, options.classes)
