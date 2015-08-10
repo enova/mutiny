@@ -10,35 +10,40 @@ var Mutiny = (function(mutiny, document, window){
     namespace = namespace || mOptions.namespace;
     var name;
 
-    if(!els) {
-      var queries = [];
-      for(name in mWidgets) {
-        if(mWidgets.hasOwnProperty(name)) {
-          queries.push(mUtil.format('[data-{0}-{1}]', namespace, mUtil.dasherize(name)));
-        }
-      }
-      els = document.querySelectorAll(queries.join(','));
-    } else if(!mUtil.isArray(els)) {
-      els = [els];
-    }
+    for(name in mWidgets) {
+      var attr = mUtil.format('data-{0}-{1}', namespace, mUtil.dasherize(name));
+      var processedAttr = attr + '-processed';
 
-    var processed = mUtil.format('data-{0}', namespace);
-    for(var i=0; i < els.length; i++) {
-      var el = els[i];
-      if(el.hasAttribute(processed)){
-        continue;
-      }
-
-      el.setAttribute(processed, 'processed');
-
-      for(name in mWidgets) {
-        var attr = mUtil.format('data-{0}-{1}', namespace, mUtil.dasherize(name));
-        if(el.hasAttribute(attr)){
+      var widgetEls = findElements(els, attr);
+      for(var i=0; i < widgetEls.length; i++) {
+        var el = widgetEls[i];
+        if(!el.hasAttribute(processedAttr)) {
+          el.setAttribute(processedAttr, 'processed');
           initWidget(el, name, el.getAttribute(attr));
         }
       }
     }
   };
+
+  function findElements(baseEls, attr) {
+    if(!baseEls) {
+      var query = '[' + attr + ']';
+      return document.querySelectorAll(query);
+    }
+
+    if(!mUtil.isArray(baseEls)) {
+      baseEls = [baseEls];
+    }
+
+    var filtered = [];
+    for(var i=0; i < baseEls.length; i++) {
+      var el = baseEls[i];
+      if(el.hasAttribute(attr)) {
+        filtered.push(el);
+      }
+    }
+    return filtered;
+  }
 
   function initWidget(element, widgetName, instanceOptions) {
     function errorMessage() {
@@ -126,7 +131,7 @@ var Mutiny = (function(mutiny, document, window){
       });
     },
 
-    format: function(){
+    format: (function(){
       var regexes = [];
       return function(str){
         for(var i=1; i < arguments.length; i++){
@@ -140,7 +145,7 @@ var Mutiny = (function(mutiny, document, window){
 
         return str;
       };
-    }(),
+    })(),
 
     isString: function(obj){
       return !!obj.substring;
