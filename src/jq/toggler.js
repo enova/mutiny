@@ -9,13 +9,17 @@ Mutiny.widgets.jqToggler = {
   },
 
   init: function(instigator, options){
-    function idNameOnly(check) {
-      var regex = /^[a-zA-Z0-9_-]+$/;
-      return check && regex.test(check);
+    function idEscape(value) {
+      var idOnly = /^[a-zA-Z0-9_-]+$/;
+      if(value && idOnly.test(value)) {
+        return Mutiny.util.format('{0},#{0}', value);
+      } else {
+        return value;
+      }
     }
 
     var $instigator = $(instigator);
-    var $target = idNameOnly(options.target) ? $(options.target + ',#' + options.target) : $(options.target);
+    var $target = $(idEscape(options.target));
 
     var toggleFuncs = [
       this.toggleFunc($instigator, options.style, options.classes)
@@ -69,6 +73,12 @@ Mutiny.widgets.jqToggler = {
         }
       });
     }
+
+    return {
+      $instigator: $instigator,
+      $target: $target,
+      toggleFunc: toggleFunc,
+    };
   },
 
   toggleFunc: function($e, style, classes){
