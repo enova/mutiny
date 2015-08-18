@@ -1,3 +1,7 @@
+[v1.1.1 (2015-08-18)](https://github.com/enova/mutiny/compare/v1.1.0...v1.1.1)
+* jq-toggler:
+  * return useful values when manually invoked
+
 [v1.1.0 (2015-08-10)](https://github.com/enova/mutiny/compare/v1.0.1...v1.1.0)
 ======
 * Slightly better minification
