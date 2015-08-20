@@ -11,8 +11,14 @@
 </section>
 
 <section id='id-target'>
-  <span data-mutiny-jq-toggler='{"target":"uniq-target-12345"}'>Click me</span>
+  <span data-mutiny-jq-toggler='uniq-target-12345'>Click me</span>
   <p id='uniq-target-12345'>Target</p>
+</section>
+
+<section id='multi-target'>
+  <span data-mutiny-jq-toggler='#multi-target .target' style='color: blue'>Click me</span>
+  <span data-mutiny-jq-toggler='#multi-target .target' style='color: red'>or me!</span>
+  <p class='target'>Target</p>
 </section>
 
 <section id='targeted-class'>

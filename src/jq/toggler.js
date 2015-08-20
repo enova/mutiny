@@ -5,7 +5,8 @@ Mutiny.widgets.jqToggler = {
     'classes': 'inactive active',
     'targetClasses': null,
     'preventDefault': false,
-    'autoFocusTarget': false
+    'autoFocusTarget': false,
+    'namespace': 'mutiny-jq-toggler'
   },
 
   init: function(instigator, options){
@@ -21,11 +22,23 @@ Mutiny.widgets.jqToggler = {
     var $instigator = $(instigator);
     var $target = $(idEscape(options.target));
 
-    var toggleFuncs = [
-      this.toggleFunc($instigator, options.style, options.classes)
-    ];
+    var toggleFuncs = [];
+    var toggleInstigator = this.toggleFunc($instigator, options.style, options.classes);
     if($target.length) {
       toggleFuncs.push(this.toggleFunc($target, options.targetStyle || options.style, options.targetClasses || options.classes));
+      toggleFuncs.push(function(isOn){
+        if(isOn === $target.data(options.namespace)) {
+          return;
+        }
+
+        $target.data(options.namespace, isOn);
+        $target.trigger(options.namespace, isOn);
+      });
+      $target.on(options.namespace, function(event, isOn){
+        toggleInstigator(isOn);
+      });
+    } else {
+      toggleFuncs.push(toggleInstigator);
     }
     if(options.autoFocusTarget) {
       var $focusable = $target.filter(':focusable');
@@ -60,6 +73,12 @@ Mutiny.widgets.jqToggler = {
       toggleFunc($instigator.is(':checked'));
       $instigator.change(function(event){
         toggleFunc($instigator.is(':checked'));
+      });
+    } else if($target.length) {
+      toggleFunc(false);
+      $instigator.click(function(event){
+        var isOn = $target.data(options.namespace);
+        toggleFunc(!isOn);
       });
     } else {
       var active = false;
