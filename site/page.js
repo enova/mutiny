@@ -90,7 +90,6 @@ var Page = (function(page) {
         $('<pre data-language="html"/>').text(code).insertAfter($h1);
       });
 
-      Mutiny.init();
       Rainbow.color();
     });
   };

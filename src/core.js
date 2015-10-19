@@ -1,6 +1,7 @@
 var Mutiny = (function(mutiny, document, window){
   var mOptions = mutiny.options = {
     initOnReady: true,
+    initOnInsert: false,
     namespace: 'mutiny'
   };
 
@@ -38,7 +39,7 @@ var Mutiny = (function(mutiny, document, window){
     var filtered = [];
     for(var i=0; i < baseEls.length; i++) {
       var el = baseEls[i];
-      if(el.hasAttribute(attr)) {
+      if(el.nodeType === 1 && el.hasAttribute(attr)) {
         filtered.push(el);
       }
     }
@@ -120,6 +121,21 @@ var Mutiny = (function(mutiny, document, window){
       }
     },
 
+    onInsert: function(fn){
+      if(typeof MutationObserver === 'function') {
+        var observer = new MutationObserver(function(mutations) {
+          for(var i = 0; i < mutations.length; i++) {
+            fn(mutations[i].addedNodes);
+          }
+        });
+        observer.observe(document, { childList: true, subtree: true });
+      } else {
+        document.addEventListener('DOMNodeInserted', function(event) {
+          fn(event.target);
+        });
+      }
+    },
+
     dasherize: function(string){
       string = string.replace(/[^a-z]+/ig, '-');
       return string.replace(/(.?)([A-Z])/g, function(match, prev, cap){
@@ -152,13 +168,17 @@ var Mutiny = (function(mutiny, document, window){
     },
 
     isArray: function(obj){
-      return obj.length !== undefined;
+      return !!obj.splice
     },
   };
 
   mUtil.onReady(function(){
     if(mOptions.initOnReady) {
       mutiny.init();
+    }
+
+    if(mOptions.initOnInsert) {
+      mUtil.onInsert(mutiny.init);
     }
   });
 
