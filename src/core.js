@@ -7,46 +7,46 @@ var Mutiny = (function(mutiny, document, window){
 
   var mWidgets = mutiny.widgets = {};
 
-  mutiny.init = function(els, namespace) {
+  var mInit = mutiny.init = function(els, namespace) {
     namespace = namespace || mOptions.namespace;
-    var name;
 
-    for(name in mWidgets) {
+    for(var name in mWidgets) {
       var attr = mUtil.format('data-{0}-{1}', namespace, mUtil.dasherize(name));
-      var processedAttr = attr + '-processed';
 
-      var widgetEls = findElements(els, attr);
-      for(var i=0; i < widgetEls.length; i++) {
-        var el = widgetEls[i];
-        if(!el.hasAttribute(processedAttr)) {
-          el.setAttribute(processedAttr, 'processed');
-          initWidget(el, name, el.getAttribute(attr));
-        }
+      if(!els) {
+        els = document.querySelectorAll('[' + attr + ']');
+      } else if(!mUtil.isNodeList(els)) {
+        els = [els]
+      }
+
+      for(var i=0; i < els.length; i++) {
+        initWidget(els[i], name, attr);
       }
     }
   };
 
-  function findElements(baseEls, attr) {
-    if(!baseEls) {
-      var query = '[' + attr + ']';
-      return document.querySelectorAll(query);
+  function initWidget(element, widgetName, attr) {
+    var processedAttr = attr + '-processed';
+
+    if(element.nodeType != 1 || !element.hasAttribute(attr) || element.hasAttribute(processedAttr)) {
+      return;
     }
 
-    if(!mUtil.isArray(baseEls)) {
-      baseEls = [baseEls];
-    }
+    var widget = mWidgets[widgetName];
 
-    var filtered = [];
-    for(var i=0; i < baseEls.length; i++) {
-      var el = baseEls[i];
-      if(el.nodeType === 1 && el.hasAttribute(attr)) {
-        filtered.push(el);
+    var rawOptions = element.getAttribute(attr);
+    var options = parseOptions(widgetName, rawOptions);
+
+    for(var key in widget.defaults) {
+      if(widget.defaults.hasOwnProperty(key) && !options.hasOwnProperty(key)) {
+        options[key] = widget.defaults[key];
       }
     }
-    return filtered;
+    element.setAttribute(processedAttr, true);
+    widget.init(element, options);
   }
 
-  function initWidget(element, widgetName, instanceOptions) {
+  function parseOptions(widgetName, rawOptions) {
     function errorMessage() {
       var description = mUtil.format.apply(null, arguments);
       return mUtil.format('"Mutiny.widgets.{0}" {1}', widgetName, description);
@@ -59,39 +59,34 @@ var Mutiny = (function(mutiny, document, window){
 
     var options = {};
 
-    if(!instanceOptions || !instanceOptions.length) {
-      // Use empty object
-    } else if(instanceOptions[0] === '{') {
+    if(!rawOptions || !rawOptions.length) {
+      return {};
+    } else if(rawOptions[0] === '{') {
       try {
-        options = JSON.parse(instanceOptions);
+        return JSON.parse(rawOptions);
       } catch(e) {
-        e.message = errorMessage('cannot parse "{0}"', instanceOptions);
+        e.message = errorMessage('cannot parse "{0}"', rawOptions);
         throw e;
       }
-    } else if(instanceOptions[0] === '[') {
+    } else if(rawOptions[0] === '[') {
       if(!widget.arrayArg) {
-        throw errorMessage('does not define arrayArg to parse "{0}"', instanceOptions);
+        throw errorMessage('does not define arrayArg to parse "{0}"', rawOptions);
       }
 
       try {
-        options[widget.arrayArg] = JSON.parse(instanceOptions);
+        options[widget.arrayArg] = JSON.parse(rawOptions);
+        return options;
       } catch(e) {
-        e.message = errorMessage('cannot parse "{0}"', instanceOptions);
+        e.message = errorMessage('cannot parse "{0}"', rawOptions);
         throw e;
       }
     } else {
       if(!widget.stringArg) {
-        throw errorMessage('does not define stringArg to parse "{0}"', instanceOptions);
+        throw errorMessage('does not define stringArg to parse "{0}"', rawOptions);
       }
-      options[widget.stringArg] = instanceOptions;
+      options[widget.stringArg] = rawOptions;
+      return options;
     }
-
-    for(var key in widget.defaults) {
-      if(widget.defaults.hasOwnProperty(key) && !options.hasOwnProperty(key)) {
-        options[key] = widget.defaults[key];
-      }
-    }
-    widget.init(element, options);
   }
 
   var mUtil = mutiny.util = {
@@ -167,18 +162,18 @@ var Mutiny = (function(mutiny, document, window){
       return !!obj.substring;
     },
 
-    isArray: function(obj){
-      return !!obj.splice
+    isNodeList: function(obj){
+      return (obj instanceof NodeList) || !!obj.splice
     },
   };
 
   mUtil.onReady(function(){
     if(mOptions.initOnReady) {
-      mutiny.init();
+      mInit();
     }
 
     if(mOptions.initOnInsert) {
-      mUtil.onInsert(mutiny.init);
+      mUtil.onInsert(mInit);
     }
   });
 
