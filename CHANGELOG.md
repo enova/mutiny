@@ -4,6 +4,10 @@
 * Removed IE8 "support"
 * Removed `Mutiny.util.isArray` and `Mutiny.util.isString` helper methods
 
+#### [v1.3.0 (2015-10-20)](https://github.com/enova/mutiny/compare/v1.2.0...v1.3.0)
+
+* Added `initOnInsert` to automatically run `Mutiny.init()` when new elements are added to the DOM
+
 #### [v1.2.0 (2015-08-20)](https://github.com/enova/mutiny/compare/v1.1.1...v1.2.0)
 
 * jq-toggler:
