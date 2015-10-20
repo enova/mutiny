@@ -116,18 +116,36 @@ var Mutiny = (function(mutiny, document, window){
       }
     },
 
-    onInsert: function(fn){
-      if(window.MutationObserver) {
-        var observer = new MutationObserver(function(mutations) {
-          fn();
-        });
-        observer.observe(document, { childList: true, subtree: true });
-      } else {
-        document.addEventListener('DOMNodeInserted', function(event) {
-          fn();
-        });
+    onInsert: (function(){
+      var callbacks;
+      var lastTimeout;
+
+      function debouncedCallback() {
+        clearTimeout(lastTimeout);
+        lastTimeout = setTimeout(onCallback, 30);
       }
-    },
+
+      function onCallback() {
+        for(var i=0; i < callbacks.length; i++) {
+          callbacks[i]();
+        }
+      }
+
+      return function(fn) {
+        if(!callbacks) {
+          callbacks = [];
+
+          if(window.MutationObserver) {
+            var observer = new MutationObserver(debouncedCallback);
+            observer.observe(document, { childList: true, subtree: true });
+          } else {
+            document.addEventListener('DOMNodeInserted', debouncedCallback);
+          }
+        }
+
+        callbacks.push(fn);
+      }
+    })(),
 
     dasherize: function(string){
       string = string.replace(/[^a-z]+/ig, '-');
