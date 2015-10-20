@@ -144,7 +144,7 @@ var Mutiny = (function(mutiny, document, window){
         }
 
         callbacks.push(fn);
-      }
+      };
     })(),
 
     dasherize: function(string){
@@ -178,8 +178,12 @@ var Mutiny = (function(mutiny, document, window){
       return !!obj.substring;
     },
 
+    isArray: function(obj){
+      return !!obj.length;
+    },
+
     isNodeList: function(obj){
-      return (obj instanceof NodeList) || !!obj.splice
+      return (obj instanceof NodeList) || !!obj.splice;
     },
   };
 
