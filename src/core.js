@@ -7,17 +7,17 @@ var Mutiny = (function(mutiny, document, window){
 
   var mWidgets = mutiny.widgets = {};
 
-  var mInit = mutiny.init = function(els, namespace) {
+  var mInit = mutiny.init = function(baseEls, namespace) {
     namespace = namespace || mOptions.namespace;
+
+    if (baseEls && !mUtil.isNodeList(baseEls)) {
+      baseEls = [baseEls];
+    }
 
     for(var name in mWidgets) {
       var attr = mUtil.format('data-{0}-{1}', namespace, mUtil.dasherize(name));
 
-      if(!els) {
-        els = document.querySelectorAll('[' + attr + ']');
-      } else if(!mUtil.isNodeList(els)) {
-        els = [els]
-      }
+      var els = baseEls || document.querySelectorAll('[' + attr + ']');
 
       for(var i=0; i < els.length; i++) {
         initWidget(els[i], name, attr);
@@ -117,16 +117,14 @@ var Mutiny = (function(mutiny, document, window){
     },
 
     onInsert: function(fn){
-      if(typeof MutationObserver === 'function') {
+      if(window.MutationObserver) {
         var observer = new MutationObserver(function(mutations) {
-          for(var i = 0; i < mutations.length; i++) {
-            fn(mutations[i].addedNodes);
-          }
+          fn();
         });
         observer.observe(document, { childList: true, subtree: true });
       } else {
         document.addEventListener('DOMNodeInserted', function(event) {
-          fn(event.target);
+          fn();
         });
       }
     },
